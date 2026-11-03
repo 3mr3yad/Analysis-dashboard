@@ -16,7 +16,7 @@ sends it as a Bearer token; a `401` signs out, and the profile menu calls `POST 
 ## Owner dashboard (default)
 
 `src/owner/` is the real dashboard, built on the Owner Dashboard API (read-only apart from marking alerts read and editing SLA policies)
-(`https://wafii.sa/wafiservices/api/v1`, proxied as `/api` in development; set `VITE_API_BASE` for production —
+(`https://wafii.sa/wafiservices/api/v1`, proxied as `/api` in development; production builds call it directly unless `VITE_API_BASE` overrides it —
 the API sends `Access-Control-Allow-Origin: *`).
 
 | Page | Endpoint |

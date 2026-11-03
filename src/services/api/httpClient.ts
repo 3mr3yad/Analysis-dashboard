@@ -16,7 +16,8 @@ export class ApiError extends Error {
   }
 }
 
-const BASE = import.meta.env.VITE_API_BASE ?? "/api";
+// Dev goes through the Vite proxy (/api); production builds call the API directly (it allows any origin).
+const BASE = import.meta.env.VITE_API_BASE ?? (import.meta.env.DEV ? "/api" : "https://wafii.sa/wafiservices/api/v1");
 
 let token: string | null = null;
 let onUnauthorized: (() => void) | null = null;
