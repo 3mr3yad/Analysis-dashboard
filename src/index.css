@@ -1,0 +1,252 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap");
+@import "tailwindcss";
+
+/* ── Design tokens ─────────────────────────────────────────────────────────
+   Midnight surfaces, one cool accent, status colours reserved for state.
+   Chart series follow the validated categorical order (blue, orange, aqua, yellow). */
+@theme {
+  --font-sans: "IBM Plex Sans Arabic", system-ui, "Segoe UI", sans-serif;
+
+  /* Brand (public/images/wafiworldLogo.svg) */
+  --color-brand: #025099;
+  --color-brand-dot: #01b9f5;
+
+  --color-canvas: #07090d;
+  --color-surface: #0d1016;
+  --color-surface-2: #11141b;
+  --color-raised: #161a23;
+  --color-hover: #1b202b;
+  --color-line: rgb(255 255 255 / 0.06);
+  --color-line-strong: rgb(255 255 255 / 0.11);
+
+  --color-ink: #eef0f4;
+  --color-ink-2: #a9b0bd;
+  --color-ink-3: #6e7686;
+
+  --color-accent: #8fb3ff;
+  --color-accent-strong: #6f97f0;
+  --color-accent-soft: rgb(143 179 255 / 0.12);
+
+  --color-good: #3ccf6e;
+  --color-warning: #fab219;
+  --color-serious: #ec835a;
+  --color-critical: #e5534b;
+
+  --color-series-1: #3987e5;
+  --color-series-2: #d95926;
+  --color-series-3: #199e70;
+  --color-series-4: #c98500;
+
+  --color-grid: #1f2430;
+  --color-axis: #343a47;
+
+  --radius-card: 14px;
+  --shadow-card: 0 1px 0 0 rgb(255 255 255 / 0.04) inset, 0 12px 32px -12px rgb(0 0 0 / 0.6);
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  /* Brand-tinted light for the glass surfaces to refract — without colour behind them, blur reads as flat grey. */
+  background:
+    radial-gradient(900px 620px at 92% -8%, rgb(2 80 153 / 0.55) 0%, transparent 62%),
+    radial-gradient(720px 520px at 8% 28%, rgb(1 185 245 / 0.13) 0%, transparent 60%),
+    radial-gradient(820px 620px at 55% 112%, rgb(98 76 210 / 0.2) 0%, transparent 60%),
+    radial-gradient(600px 420px at 30% 70%, rgb(2 80 153 / 0.14) 0%, transparent 65%),
+    var(--color-canvas);
+  background-attachment: fixed;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  min-height: 100dvh;
+}
+
+::selection {
+  background: rgb(143 179 255 / 0.3);
+}
+
+/* Numbers are Latin; keep them crisp and aligned where needed. */
+.num {
+  font-feature-settings: "tnum" 1, "lnum" 1;
+  font-variant-numeric: tabular-nums;
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+/* Frosted glass: translucent fill + blur, a lit top edge, and a soft sheen fading down. */
+.card {
+  position: relative;
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 0.065) 0%, rgb(255 255 255 / 0.015) 45%, rgb(255 255 255 / 0) 100%),
+    rgb(12 15 22 / 0.42);
+  backdrop-filter: blur(22px) saturate(165%);
+  -webkit-backdrop-filter: blur(22px) saturate(165%);
+  border: 1px solid rgb(255 255 255 / 0.085);
+  border-radius: var(--radius-card);
+  box-shadow:
+    inset 0 1px 0 0 rgb(255 255 255 / 0.1),
+    inset 0 -1px 0 0 rgb(255 255 255 / 0.02),
+    0 24px 48px -24px rgb(0 0 0 / 0.75);
+}
+
+.glass {
+  background: linear-gradient(180deg, rgb(255 255 255 / 0.05), rgb(255 255 255 / 0.01)), rgb(10 13 19 / 0.55);
+  backdrop-filter: blur(24px) saturate(170%);
+  -webkit-backdrop-filter: blur(24px) saturate(170%);
+}
+
+/* Popovers sit over busy content and inside the blurred header (nested backdrop-filters can't blur), so they stay opaque. */
+.glass-pop {
+  background: linear-gradient(180deg, rgb(255 255 255 / 0.06), rgb(255 255 255 / 0.015)), rgb(14 17 24);
+  backdrop-filter: blur(28px) saturate(170%);
+  -webkit-backdrop-filter: blur(28px) saturate(170%);
+  box-shadow: inset 0 1px 0 0 rgb(255 255 255 / 0.1), 0 24px 60px -16px rgb(0 0 0 / 0.85);
+}
+
+/* No backdrop-filter support: fall back to solid surfaces so text never sits on raw background. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .card { background: var(--color-surface); }
+  .glass, .glass-pop { background: var(--color-surface-2); }
+}
+
+.hairline {
+  border-color: var(--color-line);
+}
+
+/* Focus ring that reads on dark surfaces */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Thin, quiet scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #262c38 transparent;
+}
+
+/* Page enter: content settles in (CSS only — no animation libraries). */
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.page-enter {
+  animation: page-in 420ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@keyframes live-ping {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+.live-ping::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: currentColor;
+  animation: live-ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes flash-row {
+  from {
+    background-color: rgb(143 179 255 / 0.12);
+  }
+  to {
+    background-color: transparent;
+  }
+}
+.flash {
+  animation: flash-row 2.4s ease-out;
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -100% 0;
+  }
+}
+.skeleton {
+  background: linear-gradient(90deg, rgb(255 255 255 / 0.03) 0%, rgb(255 255 255 / 0.07) 50%, rgb(255 255 255 / 0.03) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s linear infinite;
+  border-radius: 8px;
+}
+
+@keyframes drawer-in {
+  from {
+    transform: translateX(-24px);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+.drawer-in {
+  animation: drawer-in 320ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+.fade-in {
+  animation: fade-in 240ms ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+  }
+}
+
+/* A number on this element just changed (useChanged): soft accent outline that fades out on removal. */
+.changed {
+  border-color: rgb(143 179 255 / 0.45) !important;
+  box-shadow:
+    0 0 0 1px rgb(143 179 255 / 0.28),
+    0 0 22px -8px rgb(143 179 255 / 0.55);
+  transition:
+    border-color 0.25s ease-out,
+    box-shadow 0.25s ease-out;
+}
+.change-fade {
+  transition:
+    border-color 1.2s ease-out,
+    box-shadow 1.2s ease-out,
+    transform 0.2s ease-out,
+    background-color 0.15s ease-out,
+    color 0.15s ease-out;
+}
+
+/* Selects are translucent now; their native option lists need a solid background to stay legible. */
+select option {
+  background: var(--color-surface-2);
+  color: var(--color-ink);
+}
