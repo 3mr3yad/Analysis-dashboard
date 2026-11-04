@@ -25,7 +25,7 @@ export function TeamAvatars({ people, presence, max = 6, size = 28 }: { people: 
               <Avatar name={e.name} id={e.id} size={size} />
               <AvatarGroupTooltip>
                 <p className="font-medium">{e.name}</p>
-                <p className="text-[10.5px] text-ink-3">
+                <p className="text-[12px] text-ink-3">
                   {e.title}
                   {p ? ` · ${PRESENCE[p.status].label}` : ""}
                 </p>
@@ -37,7 +37,7 @@ export function TeamAvatars({ people, presence, max = 6, size = 28 }: { people: 
           ? [
               <span
                 key="rest"
-                className="num flex items-center justify-center rounded-full bg-[#232a38] text-[10.5px] font-medium text-ink-2 ring-2 ring-surface"
+                className="num flex items-center justify-center rounded-full bg-[#232a38] text-[12px] font-medium text-ink-2 ring-2 ring-surface"
                 style={{ width: size, height: size }}
               >
                 +{rest}

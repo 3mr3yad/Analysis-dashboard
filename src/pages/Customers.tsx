@@ -75,7 +75,7 @@ export default function Customers() {
           <Avatar name={r.c.name} id={r.c.id} size={28} />
           <span>
             <span className="block text-ink">{r.c.name}</span>
-            <span className="num text-[11px] text-ink-3">{r.c.code}</span>
+            <span className="num text-[12.5px] text-ink-3">{r.c.code}</span>
           </span>
         </span>
       ),
@@ -91,15 +91,15 @@ export default function Customers() {
       render: (r) => (
         <span className="num text-ink-2">
           {r.active}
-          {r.overdue > 0 && <span className="mr-1.5 text-[11px] text-critical">({r.overdue} متأخر)</span>}
+          {r.overdue > 0 && <span className="mr-1.5 text-[12.5px] text-critical">({r.overdue} متأخر)</span>}
         </span>
       ),
       sortValue: (r) => r.active * 100 + r.overdue,
     },
     { key: "orders", header: "المشتريات", render: (r) => <span className="num text-ink-2">{r.orders}</span>, sortValue: (r) => r.orders, hideBelow: "lg" },
     { key: "ltv", header: "القيمة الدائمة", render: (r) => <span className="num text-ink">{fmtMoney(r.ltv)}</span>, sortValue: (r) => r.ltv },
-    { key: "manager", header: "مدير الحساب", render: (r) => <span className="text-[12px] text-ink-3">{ix.employee.get(r.c.accountManagerId)?.name}</span>, hideBelow: "xl" },
-    { key: "last", header: "آخر تفاعل", render: (r) => <span className="text-[12px] text-ink-3">{fmtRelative(r.last, now)}</span>, sortValue: (r) => r.last },
+    { key: "manager", header: "مدير الحساب", render: (r) => <span className="text-[13.5px] text-ink-3">{ix.employee.get(r.c.accountManagerId)?.name}</span>, hideBelow: "xl" },
+    { key: "last", header: "آخر تفاعل", render: (r) => <span className="text-[13.5px] text-ink-3">{fmtRelative(r.last, now)}</span>, sortValue: (r) => r.last },
   ];
 
   return (
@@ -141,10 +141,10 @@ export default function Customers() {
               <Avatar name={r.c.name} id={r.c.id} size={34} />
               <div className="min-w-0 flex-1">
                 <div className="flex items-center justify-between gap-2">
-                  <span className="truncate text-[13px] font-medium text-ink">{r.c.name}</span>
+                  <span className="truncate text-[14.5px] font-medium text-ink">{r.c.name}</span>
                   <Badge tone={CUSTOMER_STATUS[r.c.status].tone}>{CUSTOMER_STATUS[r.c.status].label}</Badge>
                 </div>
-                <p className="mt-1 text-[11.5px] text-ink-3">
+                <p className="mt-1 text-[13px] text-ink-3">
                   {fmtInt(r.requests)} طلب · {r.active} نشط · {fmtMoney(r.ltv, true)}
                 </p>
               </div>

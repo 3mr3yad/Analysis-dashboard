@@ -22,16 +22,16 @@ function Big({ label, value, hint, icon }: { label: string; value: number; hint?
     <Changed value={value}>
       {(cls) => (
         <div className={cx("card p-5", cls)}>
-          <p className="flex items-center gap-2 text-[12px] text-ink-3">
+          <p className="flex items-center gap-2 text-[13.5px] text-ink-3">
             <span className="flex size-6 items-center justify-center rounded-md border border-line bg-white/[0.02]">
               <Icon name={icon} size={13} />
             </span>
             {label}
           </p>
-          <p className="num holo-num mt-3 text-[32px] leading-none font-semibold tracking-tight" style={{ textAlign: "right" }}>
+          <p className="num holo-num mt-3 text-[33px] leading-none font-semibold tracking-tight" style={{ textAlign: "right" }}>
             <CountUp value={value} />
           </p>
-          {hint && <p className="mt-2 text-[11.5px] leading-relaxed text-ink-3">{hint}</p>}
+          {hint && <p className="mt-2 text-[13px] leading-relaxed text-ink-3">{hint}</p>}
         </div>
       )}
     </Changed>
@@ -45,14 +45,14 @@ function ServiceCard({ k, s }: { k: keyof typeof SERVICE; s: Summary["services"]
       {(cls) => (
         <a href={hrefTo("tickets", { service: k })} className={cx("card group flex flex-col justify-between p-4 transition-colors hover:border-line-strong", cls)}>
           <div className="flex items-start justify-between gap-2">
-            <span className="flex min-w-0 items-center gap-2 text-[12.5px] text-ink-2">
+            <span className="flex min-w-0 items-center gap-2 text-[14px] text-ink-2">
               <span className="flex size-7 shrink-0 items-center justify-center rounded-md border border-line bg-white/[0.02] text-ink-3 group-hover:text-accent">
                 <Icon name={meta.icon} size={14} />
               </span>
-              <span className="truncate">{serviceLabel(k, s?.label)}</span>
+              <span className="line-clamp-2 leading-snug">{serviceLabel(k, s?.label)}</span>
             </span>
             <span
-              className={cx("shrink-0 rounded px-1.5 py-0.5 text-[10px]", meta.trail ? "bg-good/10 text-good" : "bg-white/[0.04] text-ink-3")}
+              className={cx("shrink-0 rounded px-1.5 py-0.5 text-[11.5px]", meta.trail ? "bg-good/10 text-good" : "bg-white/[0.04] text-ink-3")}
               title={meta.trail ? "تسجّل هذه الخدمة من قام بكل إجراء ومتى" : "هذه الخدمة تحفظ الحالة الحالية فقط، دون سجل لمن غيّرها"}
             >
               {meta.trail ? "سجل نشاط" : "بدون سجل"}
@@ -61,18 +61,18 @@ function ServiceCard({ k, s }: { k: keyof typeof SERVICE; s: Summary["services"]
           {s ? (
             <div className="mt-4 flex items-end justify-between gap-2">
               <div>
-                <p className="num holo-num text-[24px] leading-none font-semibold" style={{ textAlign: "right" }}>
+                <p className="num holo-num text-[25px] leading-none font-semibold" style={{ textAlign: "right" }}>
                   <CountUp value={s.total} />
                 </p>
-                <p className="mt-1.5 text-[11px] text-ink-3">إجمالي</p>
+                <p className="mt-1.5 text-[12.5px] text-ink-3">إجمالي</p>
               </div>
               <div className="text-left">
-                <p className={cx("num text-[16px] leading-none font-semibold", s.today > 0 ? "text-accent" : "text-ink-3")}>{s.today > 0 ? `+${fmtInt(s.today)}` : "0"}</p>
-                <p className="mt-1.5 text-[11px] text-ink-3">اليوم</p>
+                <p className={cx("num text-[17.5px] leading-none font-semibold", s.today > 0 ? "text-accent" : "text-ink-3")}>{s.today > 0 ? `+${fmtInt(s.today)}` : "0"}</p>
+                <p className="mt-1.5 text-[12.5px] text-ink-3">اليوم</p>
               </div>
             </div>
           ) : (
-            <p className="mt-4 text-[11.5px] text-ink-3">غير موجودة في استجابة الخادم</p>
+            <p className="mt-4 text-[13px] text-ink-3">غير موجودة في استجابة الخادم</p>
           )}
         </a>
       )}
@@ -91,8 +91,8 @@ function Revenue30() {
     <Changed value={net}>
       {(cls) => (
         <a href={hrefTo("analytics")} className={cx("mt-2 flex items-center justify-between rounded-xl border border-line px-4 py-3 hover:border-line-strong", cls)}>
-          <span className="text-[11.5px] text-ink-3">صافي الإيرادات · آخر 30 يومًا</span>
-          <CountUp value={net} format={fmtMoney} className="num text-[15px] font-semibold text-good" />
+          <span className="text-[13px] text-ink-3">صافي الإيرادات · آخر 30 يومًا</span>
+          <CountUp value={net} format={fmtMoney} className="num text-[16.5px] font-semibold text-good" />
         </a>
       )}
     </Changed>
@@ -109,7 +109,7 @@ function RecentActivity() {
         title="آخر الإجراءات المسجّلة"
         subtitle="من قام بماذا ومتى — من الخدمات التي تسجّل ذلك فقط"
         action={
-          <a href={hrefTo("activity")} className="text-[11.5px] text-ink-3 hover:text-accent">
+          <a href={hrefTo("activity")} className="text-[13px] text-ink-3 hover:text-accent">
             السجل الكامل
           </a>
         }
@@ -124,15 +124,15 @@ function RecentActivity() {
             ))}
           </div>
         ) : items.length === 0 ? (
-          <p className="py-8 text-center text-[12.5px] text-ink-3">لا توجد إجراءات مسجّلة بعد.</p>
+          <p className="py-8 text-center text-[14px] text-ink-3">لا توجد إجراءات مسجّلة بعد.</p>
         ) : (
           <ul className="space-y-3.5">
             {items.map((a, i) => (
               <li key={`${a.service}-${a.subject_id}-${a.at}-${i}`} className="flex gap-3">
                 <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-accent/70" />
                 <div className="min-w-0 flex-1">
-                  <p dir="auto" className="text-start text-[12.5px] leading-relaxed text-ink">{a.description}</p>
-                  <p className="mt-1 flex flex-wrap items-center gap-2 text-[11px] text-ink-3">
+                  <p dir="auto" className="text-start text-[14px] leading-relaxed text-ink">{a.description}</p>
+                  <p className="mt-1 flex flex-wrap items-center gap-2 text-[12.5px] text-ink-3">
                     <ServiceTag service={a.service} />
                     <When iso={a.at} />
                   </p>
@@ -181,8 +181,8 @@ export default function Overview() {
             <Big icon="sparkle" label="طلبات اليوم" value={internalToday} hint="الطلبات المنشأة اليوم في الخدمات الثماني." />
           </div>
 
-          <h2 className="mt-8 mb-3 flex items-center gap-2 text-[14px] font-semibold text-ink">
-            الخدمات الداخلية <span className="text-[12px] font-normal text-ink-3">· طلبات العملاء على موقع وافي</span>
+          <h2 className="mt-8 mb-3 flex items-center gap-2 text-[15.5px] font-semibold text-ink">
+            الخدمات الداخلية <span className="text-[13.5px] font-normal text-ink-3">· طلبات العملاء على موقع وافي</span>
           </h2>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
             {internal.map(({ meta, data }) => (
@@ -200,24 +200,24 @@ export default function Overview() {
                       <a href={hrefTo("tickets", { service: "payments" })} className={cx("block rounded-xl border border-line bg-white/[0.015] p-4 hover:border-line-strong", cls)}>
                         <div className="flex items-end justify-between">
                           <div>
-                            <p className="num holo-num text-[28px] leading-none font-semibold">
+                            <p className="num holo-num text-[29px] leading-none font-semibold">
                             <CountUp value={payments.total} />
                           </p>
-                            <p className="mt-1.5 text-[11px] text-ink-3">عملية دفع مسجّلة</p>
+                            <p className="mt-1.5 text-[12.5px] text-ink-3">عملية دفع مسجّلة</p>
                           </div>
                           <div className="text-left">
-                            <p className={cx("num text-[16px] font-semibold", payments.today ? "text-accent" : "text-ink-3")}>{payments.today ? `+${fmtInt(payments.today)}` : "0"}</p>
-                            <p className="mt-1 text-[11px] text-ink-3">اليوم</p>
+                            <p className={cx("num text-[17.5px] font-semibold", payments.today ? "text-accent" : "text-ink-3")}>{payments.today ? `+${fmtInt(payments.today)}` : "0"}</p>
+                            <p className="mt-1 text-[12.5px] text-ink-3">اليوم</p>
                           </div>
                         </div>
                       </a>
                     )}
                   </Changed>
                 ) : (
-                  <p className="rounded-xl border border-dashed border-line p-4 text-[12px] text-ink-3">لا تظهر المدفوعات في استجابة الخادم الحالية.</p>
+                  <p className="rounded-xl border border-dashed border-line p-4 text-[13.5px] text-ink-3">لا تظهر المدفوعات في استجابة الخادم الحالية.</p>
                 )}
                 <Revenue30 />
-                <ul className="mt-4 space-y-2 text-[11.5px] leading-relaxed text-ink-3">
+                <ul className="mt-4 space-y-2 text-[13px] leading-relaxed text-ink-3">
                   <li>• سجل مدفوعات المتجر المنفصل، وليس طلبات خدمة على موقع وافي.</li>
                   <li>• لا شاشة إدارة ولا موظف مسؤول؛ تغييرات الحالة تُسجَّل تلقائيًا من Moyasar.</li>
                   <li>• الدفعة لا تُنسب لعميل إلا إذا مرّر المتجر اسمه ورقمه.</li>

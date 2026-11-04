@@ -81,7 +81,7 @@ export default function LineChart({ labels, series, format, height = 240, area =
     <div>
       <div className="mb-2 flex flex-wrap items-center justify-between gap-2 px-1">
         {series.length > 1 ? (
-          <ul className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[11.5px] text-ink-2">
+          <ul className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[13px] text-ink-2">
             {series.map((s) => (
               <li key={s.key} className="flex items-center gap-1.5">
                 <span className="h-[2px] w-3.5 rounded-full" style={{ background: s.color }} />
@@ -92,7 +92,7 @@ export default function LineChart({ labels, series, format, height = 240, area =
         ) : (
           <span />
         )}
-        <button onClick={() => setTable((t) => !t)} className="rounded-md px-2 py-0.5 text-[11px] text-ink-3 transition-colors hover:bg-hover hover:text-ink-2" aria-pressed={table}>
+        <button onClick={() => setTable((t) => !t)} className="rounded-md px-2 py-0.5 text-[12.5px] text-ink-3 transition-colors hover:bg-hover hover:text-ink-2" aria-pressed={table}>
           {table ? "عرض الرسم" : "عرض كجدول"}
         </button>
       </div>
@@ -114,13 +114,13 @@ export default function LineChart({ labels, series, format, height = 240, area =
               {ticks.map((t) => (
                 <g key={t}>
                   <line x1={PAD.left} x2={width - PAD.right} y1={y(t)} y2={y(t)} stroke={t === 0 ? "var(--color-axis)" : "var(--color-grid)"} strokeWidth={1} />
-                  <text x={PAD.left - 8} y={y(t)} dy="0.32em" textAnchor="end" className="num fill-ink-3 text-[10.5px]">
+                  <text x={PAD.left - 8} y={y(t)} dy="0.32em" textAnchor="end" className="num fill-ink-3 text-[12px]">
                     {format(t)}
                   </text>
                 </g>
               ))}
               {shown.map((i) => (
-                <text key={i} x={x(i)} y={height - 6} textAnchor="middle" className="fill-ink-3 text-[10.5px]">
+                <text key={i} x={x(i)} y={height - 6} textAnchor="middle" className="fill-ink-3 text-[12px]">
                   {labels[i]}
                 </text>
               ))}
@@ -141,7 +141,7 @@ export default function LineChart({ labels, series, format, height = 240, area =
                   return (
                     <g key={`e-${s.key}`}>
                       <circle cx={x(last)} cy={y(v)} r={4} fill={s.color} stroke="var(--color-surface)" strokeWidth={2} />
-                      <text x={x(last) + 8} y={y(v)} dy="0.32em" className="num fill-ink-2 text-[10.5px] font-medium">
+                      <text x={x(last) + 8} y={y(v)} dy="0.32em" className="num fill-ink-2 text-[12px] font-medium">
                         {format(v)}
                       </text>
                     </g>
@@ -164,9 +164,9 @@ export default function LineChart({ labels, series, format, height = 240, area =
               style={tipFlip ? { right: width - tipLeft + 12 } : { left: tipLeft + 12 }}
               dir="rtl"
             >
-              <p className="mb-1 text-[11px] text-ink-3">{labels[hover]}</p>
+              <p className="mb-1 text-[12.5px] text-ink-3">{labels[hover]}</p>
               {series.map((s) => (
-                <p key={s.key} className="flex items-center justify-between gap-4 text-[12px]">
+                <p key={s.key} className="flex items-center justify-between gap-4 text-[13.5px]">
                   <span className="flex items-center gap-1.5 text-ink-3">
                     <span className="h-[2px] w-3 rounded-full" style={{ background: s.color }} />
                     {s.label}
@@ -185,7 +185,7 @@ export default function LineChart({ labels, series, format, height = 240, area =
 export function SeriesTable({ labels, series, format, label }: { labels: string[]; series: { key: string; label: string; values: number[] }[]; format: (n: number) => string; label: string }) {
   return (
     <div className="max-h-64 overflow-auto rounded-lg border border-line">
-      <table className="w-full text-[12px]" aria-label={label}>
+      <table className="w-full text-[13.5px]" aria-label={label}>
         <thead className="sticky top-0 bg-surface-2">
           <tr>
             <th className="px-3 py-2 text-right font-medium text-ink-3">الفترة</th>

@@ -15,6 +15,7 @@ const PAGES: Record<OwnerPage, React.ComponentType> = {
   orders: lazy(() => import("./pages/Orders")),
   alerts: lazy(() => import("./pages/Alerts")),
   customers: lazy(() => import("./pages/Customers")),
+  iphone18: lazy(() => import("./pages/Iphone18")),
   activity: lazy(() => import("./pages/Activity")),
   staff: lazy(() => import("./pages/Staff")),
   settings: lazy(() => import("./pages/Settings")),

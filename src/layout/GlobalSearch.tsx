@@ -105,26 +105,26 @@ export default function GlobalSearch({ onClose }: { onClose: () => void }) {
               setActive(0);
             }}
             placeholder="ابحث عن عميل، رقم طلب، طلب شرائي، أو موظف…"
-            className="h-14 flex-1 bg-transparent text-[14px] text-ink placeholder:text-ink-3 focus:outline-none"
+            className="h-14 flex-1 bg-transparent text-[15.5px] text-ink placeholder:text-ink-3 focus:outline-none"
             aria-label="البحث"
           />
-          <kbd className="rounded border border-line px-1.5 py-0.5 text-[10px] text-ink-3">Esc</kbd>
+          <kbd className="rounded border border-line px-1.5 py-0.5 text-[11.5px] text-ink-3">Esc</kbd>
         </div>
         <ul className="max-h-[52vh] overflow-y-auto p-2" role="listbox">
-          {hits.length === 0 && <li className="px-4 py-10 text-center text-[13px] text-ink-3">لا توجد نتائج مطابقة لـ «{q}»</li>}
+          {hits.length === 0 && <li className="px-4 py-10 text-center text-[14.5px] text-ink-3">لا توجد نتائج مطابقة لـ «{q}»</li>}
           {hits.map((h, i) => {
             const header = i === 0 || hits[i - 1].group !== h.group ? h.group : null;
             return (
               <li key={h.key} role="option" aria-selected={i === active}>
-                {header && <p className="px-3 pt-3 pb-1 text-[10.5px] font-medium text-ink-3">{header}</p>}
+                {header && <p className="px-3 pt-3 pb-1 text-[12px] font-medium text-ink-3">{header}</p>}
                 <button
                   onMouseEnter={() => setActive(i)}
                   onClick={h.go}
                   className={cx("flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-right", i === active ? "bg-white/[0.06]" : "")}
                 >
                   <Icon name={h.icon} size={16} className="text-ink-3" />
-                  <span className="flex-1 truncate text-[13px] text-ink">{h.title}</span>
-                  <span className="truncate text-[11.5px] text-ink-3">{h.sub}</span>
+                  <span className="flex-1 truncate text-[14.5px] text-ink">{h.title}</span>
+                  <span className="truncate text-[13px] text-ink-3">{h.sub}</span>
                 </button>
               </li>
             );

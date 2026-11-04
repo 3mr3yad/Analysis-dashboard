@@ -12,7 +12,7 @@ import type { PageMeta, Sla } from "./types";
 /** A field this service never records — stated plainly, so a null never looks like a broken cell. */
 export function NotTracked({ children = "غير متتبَّع", title }: { children?: ReactNode; title?: string }) {
   return (
-    <span className="text-[11.5px] text-ink-3/70" title={title ?? "هذه الخدمة لا تسجّل هذا الحقل"}>
+    <span className="text-[13px] text-ink-3/70" title={title ?? "هذه الخدمة لا تسجّل هذا الحقل"}>
       {children}
     </span>
   );
@@ -21,7 +21,7 @@ export function NotTracked({ children = "غير متتبَّع", title }: { chil
 export function ServiceTag({ service, label, className }: { service: string; label?: string | null; className?: string }) {
   const meta = isServiceKey(service) ? SERVICE[service] : null;
   return (
-    <span className={cx("inline-flex max-w-full items-center gap-1.5 whitespace-nowrap rounded-md border border-line bg-white/[0.03] px-2 py-0.5 text-[11.5px] text-ink-2", className)}>
+    <span className={cx("inline-flex max-w-full items-center gap-1.5 whitespace-nowrap rounded-md border border-line bg-white/[0.03] px-2 py-0.5 text-[13px] text-ink-2", className)}>
       <Icon name={meta?.icon ?? "layers"} size={12} className="shrink-0 text-ink-3" animateOnHover={false} />
       <span className="truncate">{serviceLabel(service, label)}</span>
     </span>
@@ -32,7 +32,7 @@ export function ServiceTag({ service, label, className }: { service: string; lab
 export function Phone({ value, link = true }: { value: string | null; link?: boolean }) {
   if (!value) return <NotTracked title="لم يُسجَّل رقم جوال لهذا السجل">بدون رقم</NotTracked>;
   const text = (
-    <span dir="ltr" className="num text-[12px]">
+    <span dir="ltr" className="num text-[13.5px]">
       {value}
     </span>
   );
@@ -65,7 +65,7 @@ export function AdminLink({ url, compact }: { url: string | null; compact?: bool
       target="_blank"
       rel="noopener noreferrer"
       onClick={(e) => e.stopPropagation()}
-      className="inline-flex items-center gap-1 whitespace-nowrap rounded-md px-1.5 py-1 text-[12px] text-accent hover:bg-accent-soft"
+      className="inline-flex items-center gap-1 whitespace-nowrap rounded-md px-1.5 py-1 text-[13.5px] text-accent hover:bg-accent-soft"
       title="فتح السجل في لوحة الإدارة (نافذة جديدة)"
     >
       <Icon name="external" size={13} />
@@ -78,7 +78,7 @@ export function Note({ children, icon = "alert", tone = "info" }: { children: Re
   return (
     <div
       className={cx(
-        "flex items-start gap-2.5 rounded-xl border px-3.5 py-2.5 text-[12px] leading-relaxed",
+        "flex items-start gap-2.5 rounded-xl border px-3.5 py-2.5 text-[13.5px] leading-relaxed",
         tone === "warning" ? "border-warning/25 bg-warning/[0.06] text-ink-2" : "border-line bg-white/[0.02] text-ink-2",
       )}
     >
@@ -93,7 +93,7 @@ export function Pager({ meta, onPage, busy }: { meta: PageMeta; onPage: (page: n
   const from = total ? (page - 1) * per + 1 : 0;
   const to = Math.min(total, page * per);
   return (
-    <div className="flex flex-wrap items-center justify-between gap-3 border-t border-line px-4 py-3 text-[12px] text-ink-3">
+    <div className="flex flex-wrap items-center justify-between gap-3 border-t border-line px-4 py-3 text-[13.5px] text-ink-3">
       <span>
         <span className="num text-ink-2">
           {fmtInt(from)}–{fmtInt(to)}
@@ -133,7 +133,7 @@ export function QueryError({ error, onRetry, what }: { error: Error; onRetry: ()
 export function Freshness({ at, onRefresh, loading }: { at?: number; onRefresh: () => void; loading?: boolean }) {
   const now = useNow();
   return (
-    <span className="inline-flex items-center gap-2 text-[11.5px] text-ink-3">
+    <span className="inline-flex items-center gap-2 text-[13px] text-ink-3">
       {at ? <>آخر تحديث {fmtRelative(Math.min(at, now), now)}</> : "جارٍ التحميل…"}
       <button onClick={onRefresh} disabled={loading} className="rounded-md p-1 text-ink-3 hover:bg-hover hover:text-ink disabled:opacity-40" title="تحديث الآن" aria-label="تحديث الآن">
         <Icon name="refresh" size={13} className={loading ? "animate-spin" : undefined} />
@@ -174,7 +174,7 @@ export function StatusPill({ status, label, empty = "بدون حالة" }: { sta
   if (!status && !label) return <NotTracked title="هذه الخدمة لا تحتوي على حالة">{empty}</NotTracked>;
   const kind = STATUS_KIND[statusKind(status, label)];
   return (
-    <span title={kind.label} className={cx("inline-flex items-center gap-1.5 whitespace-nowrap rounded-md border px-2 py-0.5 text-[11.5px] text-ink", PILL[kind.tone])}>
+    <span title={kind.label} className={cx("inline-flex items-center gap-1.5 whitespace-nowrap rounded-md border px-2 py-0.5 text-[13px] text-ink", PILL[kind.tone])}>
       <Dot tone={kind.tone} />
       {label ?? status}
     </span>
@@ -184,7 +184,7 @@ export function StatusPill({ status, label, empty = "بدون حالة" }: { sta
 /** Key for the status colours, shown once near lists that use them. */
 export function StatusLegend() {
   return (
-    <span className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-ink-3">
+    <span className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[12.5px] text-ink-3">
       {Object.entries(STATUS_KIND)
         .filter(([k]) => k !== "unknown")
         .map(([k, v]) => (

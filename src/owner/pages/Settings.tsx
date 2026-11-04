@@ -18,7 +18,7 @@ export default function Settings() {
       <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
         <Card>
           <CardHeader icon="users" title="الحساب" />
-          <div className="space-y-3 px-5 pb-5 text-[12.5px]">
+          <div className="space-y-3 px-5 pb-5 text-[14px]">
             <p className="text-ink">{user?.name}</p>
             <p dir="ltr" className="text-right text-ink-3">
               {user?.email}
@@ -39,14 +39,14 @@ export default function Settings() {
 
         <Card>
           <CardHeader icon="database" title="مصدر البيانات" subtitle="واجهة لوحة المالك" />
-          <div className="space-y-3 px-5 pb-5 text-[12.5px] leading-relaxed text-ink-2">
-            <p dir="ltr" className="num text-right text-[11.5px] break-all text-ink-3">
+          <div className="space-y-3 px-5 pb-5 text-[14px] leading-relaxed text-ink-2">
+            <p dir="ltr" className="num text-right text-[13px] break-all text-ink-3">
               {API_BASE}
             </p>
             <p>اللوحة تقرأ فقط، عدا تعليم التنبيهات كمقروءة وتعديل مهل الطلبات. تتحدّث النظرة العامة وسجل النشاط كل دقيقة، والمتصلون كل 20 ثانية، أثناء فتح الصفحة والطلبات عند تغيير الفلاتر. تبقى اللوحة تحت 100 طلب في الدقيقة (حدّ الخادم 120).</p>
             <div>
-              <p className="mb-2 text-[11.5px] font-medium text-ink-3">ما تسجّله كل خدمة</p>
-              <ul className="divide-y divide-line rounded-lg border border-line text-[11.5px]">
+              <p className="mb-2 text-[13px] font-medium text-ink-3">ما تسجّله كل خدمة</p>
+              <ul className="divide-y divide-line rounded-lg border border-line text-[13px]">
                 {SERVICES.map((s) => (
                   <li key={s.key} className="flex items-center justify-between gap-3 px-3 py-2">
                     <span className="text-ink">{s.label}</span>

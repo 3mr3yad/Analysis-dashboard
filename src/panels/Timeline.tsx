@@ -34,7 +34,7 @@ export default function Timeline({ events, ix, showSubject, pageSize = 12, newes
   const ordered = newestFirst ? [...events].sort((a, b) => b.at - a.at) : [...events].sort((a, b) => a.at - b.at);
   const shown = ordered.slice(0, limit);
 
-  if (!events.length) return <p className="py-6 text-center text-[12.5px] text-ink-3">لا يوجد نشاط مسجّل</p>;
+  if (!events.length) return <p className="py-6 text-center text-[14px] text-ink-3">لا يوجد نشاط مسجّل</p>;
 
   return (
     <div>
@@ -48,7 +48,7 @@ export default function Timeline({ events, ix, showSubject, pageSize = 12, newes
           const isLast = i === shown.length - 1;
           return (
             <li key={e.id}>
-              {showDay && <p className="num mb-2 pr-9 text-[10.5px] font-medium tracking-wide text-ink-3">{day}</p>}
+              {showDay && <p className="num mb-2 pr-9 text-[12px] font-medium tracking-wide text-ink-3">{day}</p>}
               <div className="relative flex gap-3 pb-4">
                 {!isLast && <span className="absolute top-7 right-[13px] bottom-0 w-px bg-line-strong" aria-hidden />}
                 <span
@@ -61,15 +61,15 @@ export default function Timeline({ events, ix, showSubject, pageSize = 12, newes
                 </span>
                 <div className="min-w-0 flex-1 pt-0.5">
                   <div className="flex items-baseline justify-between gap-3">
-                    <p className="text-[12.5px] leading-relaxed text-ink">{e.description}</p>
-                    <time className="num shrink-0 text-[11px] text-ink-3">{fmtTime(e.at)}</time>
+                    <p className="text-[14px] leading-relaxed text-ink">{e.description}</p>
+                    <time className="num shrink-0 text-[12.5px] text-ink-3">{fmtTime(e.at)}</time>
                   </div>
-                  <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11.5px] text-ink-3">
+                  <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-[13px] text-ink-3">
                     <span>
                       {e.actor.type === "customer" ? "العميل" : e.actor.type === "system" ? "آلي" : "الموظف"}: <span className="text-ink-2">{actor ?? "—"}</span>
                     </span>
                     {showSubject && subjectCode && (
-                      <button onClick={() => openPanel(e.subject)} className="num rounded border border-line px-1.5 text-[10.5px] text-ink-2 hover:border-accent/40 hover:text-accent">
+                      <button onClick={() => openPanel(e.subject)} className="num rounded border border-line px-1.5 text-[12px] text-ink-2 hover:border-accent/40 hover:text-accent">
                         {subjectCode}
                       </button>
                     )}
@@ -80,7 +80,7 @@ export default function Timeline({ events, ix, showSubject, pageSize = 12, newes
                     )}
                   </div>
                   {e.nextAction && i === 0 && newestFirst && (
-                    <p className="mt-2 inline-flex items-center gap-1.5 rounded-md bg-accent-soft px-2 py-1 text-[11.5px] text-accent">
+                    <p className="mt-2 inline-flex items-center gap-1.5 rounded-md bg-accent-soft px-2 py-1 text-[13px] text-accent">
                       <Icon name="target" size={12} /> التالي: {e.nextAction}
                     </p>
                   )}
@@ -91,7 +91,7 @@ export default function Timeline({ events, ix, showSubject, pageSize = 12, newes
         })}
       </ol>
       {ordered.length > limit && (
-        <button onClick={() => setLimit((l) => l + pageSize * 2)} className="mt-1 w-full rounded-lg border border-line py-2 text-[12px] text-ink-2 hover:bg-hover">
+        <button onClick={() => setLimit((l) => l + pageSize * 2)} className="mt-1 w-full rounded-lg border border-line py-2 text-[13.5px] text-ink-2 hover:bg-hover">
           عرض المزيد ({ordered.length - limit})
         </button>
       )}

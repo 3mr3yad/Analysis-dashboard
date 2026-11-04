@@ -15,7 +15,7 @@ export function CardHeader({ title, subtitle, action, icon }: { title: ReactNode
   return (
     <header className="flex items-start justify-between gap-3 px-5 pt-4 pb-3">
       <div className="min-w-0">
-        <h3 className="flex items-center gap-2 text-[13.5px] font-semibold text-ink">
+        <h3 className="flex items-center gap-2 text-[15px] font-semibold text-ink">
           {icon && <Icon name={icon} size={15} className="text-ink-3" />}
           {title}
         </h3>
@@ -36,7 +36,7 @@ export function Badge({ tone = "neutral", children, dot = true, className }: { t
   return (
     <span
       className={cx(
-        "inline-flex items-center gap-1.5 whitespace-nowrap rounded-md border border-line bg-white/[0.03] px-2 py-0.5 text-[11.5px] font-medium text-ink-2",
+        "inline-flex items-center gap-1.5 whitespace-nowrap rounded-md border border-line bg-white/[0.03] px-2 py-0.5 text-[13px] font-medium text-ink-2",
         className,
       )}
     >
@@ -58,7 +58,7 @@ export function Avatar({ name, id, size = 32, status }: { name: string; id: stri
   return (
     <span className="relative inline-flex shrink-0" style={{ width: size, height: size }}>
       <span
-        className="flex size-full items-center justify-center rounded-full text-[11px] font-semibold"
+        className="flex size-full items-center justify-center rounded-full text-[12.5px] font-semibold"
         style={{
           background: `linear-gradient(140deg, hsl(${hue} 45% 32%), hsl(${hue} 40% 20%))`,
           color: `hsl(${hue} 70% 88%)`,
@@ -103,7 +103,7 @@ export function Button({
         title={title}
         aria-label={!children ? title : undefined}
         className={cx(
-          "inline-flex items-center justify-center gap-1.5 rounded-lg px-3 py-1.5 text-[12.5px] font-medium transition-colors duration-150 disabled:opacity-40",
+          "inline-flex items-center justify-center gap-1.5 rounded-lg px-3 py-1.5 text-[14px] font-medium transition-colors duration-150 disabled:opacity-40",
           variant === "solid" && "bg-accent text-[#0b1020] hover:bg-accent-strong",
           variant === "outline" && "border border-line-strong text-ink-2 hover:bg-hover hover:text-ink",
           variant === "ghost" && "text-ink-2 hover:bg-hover hover:text-ink",
@@ -142,12 +142,12 @@ export function Segmented<T extends string>({
             onClick={() => onChange(o.value)}
             className={cx(
               "flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-md font-medium transition-colors duration-150",
-              size === "sm" ? "px-2.5 py-1 text-[11.5px]" : "px-3 py-1.5 text-[12.5px]",
+              size === "sm" ? "px-2.5 py-1 text-[13px]" : "px-3 py-1.5 text-[14px]",
               active ? "bg-raised text-ink shadow-[inset_0_0_0_1px_rgb(255_255_255/0.07)]" : "text-ink-3 hover:text-ink-2",
             )}
           >
             {o.label}
-            {o.count !== undefined && <span className={cx("num text-[10.5px]", active ? "text-ink-2" : "text-ink-3")}>{o.count}</span>}
+            {o.count !== undefined && <span className={cx("num text-[12px]", active ? "text-ink-2" : "text-ink-3")}>{o.count}</span>}
           </button>
         );
       })}
@@ -194,11 +194,11 @@ export function Stat({ label, value, format, sub, tone, resetKey }: { label: str
   const changed = useChanged(value, resetKey);
   return (
     <div className={cx("-m-2 min-w-0 rounded-lg border border-transparent p-2", changeClass(changed))}>
-      <p className="text-[11.5px] text-ink-3">{label}</p>
+      <p className="text-[13px] text-ink-3">{label}</p>
       <p className={cx("num mt-1 text-lg font-semibold", tone ? TONE_TEXT[tone] : "text-ink")} style={{ textAlign: "right" }}>
         {typeof value === "number" ? <CountUp value={value} format={format} /> : value}
       </p>
-      {sub && <p className="mt-0.5 text-[11px] text-ink-3">{sub}</p>}
+      {sub && <p className="mt-0.5 text-[12.5px] text-ink-3">{sub}</p>}
     </div>
   );
 }
@@ -211,7 +211,7 @@ export function SearchInput({ value, onChange, placeholder, className }: { value
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full rounded-lg border border-line bg-white/[0.02] py-2 pr-9 pl-3 text-[13px] text-ink placeholder:text-ink-3 focus:border-accent/40 focus:bg-white/[0.04] focus:outline-none"
+        className="w-full rounded-lg border border-line bg-white/[0.02] py-2 pr-9 pl-3 text-[14.5px] text-ink placeholder:text-ink-3 focus:border-accent/40 focus:bg-white/[0.04] focus:outline-none"
       />
     </label>
   );
@@ -224,7 +224,7 @@ export function Select<T extends string>({ value, onChange, options, label }: { 
       <select
         value={value}
         onChange={(e) => onChange(e.target.value as T)}
-        className="appearance-none rounded-lg border border-white/[0.08] bg-white/[0.04] py-2 pr-3 pl-8 text-[12.5px] text-ink-2 hover:text-ink focus:border-accent/40 focus:outline-none"
+        className="appearance-none rounded-lg border border-white/[0.08] bg-white/[0.04] py-2 pr-3 pl-8 text-[14px] text-ink-2 hover:text-ink focus:border-accent/40 focus:outline-none"
       >
         {options.map((o) => (
           <option key={o.value} value={o.value}>
@@ -240,7 +240,7 @@ export function Select<T extends string>({ value, onChange, options, label }: { 
 /** Small tag that marks simulated data so it can never be mistaken for real activity. */
 export function DemoTag({ children = "بيانات تجريبية" }: { children?: ReactNode }) {
   return (
-    <span className="inline-flex items-center gap-1 rounded-md border border-warning/25 bg-warning/[0.07] px-1.5 py-0.5 text-[10.5px] font-medium text-warning">
+    <span className="inline-flex items-center gap-1 rounded-md border border-warning/25 bg-warning/[0.07] px-1.5 py-0.5 text-[12px] font-medium text-warning">
       <Icon name="database" size={11} />
       {children}
     </span>

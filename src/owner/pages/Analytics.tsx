@@ -149,7 +149,7 @@ function Revenue({ from, to, bucket }: { from: string; to: string; bucket: Bucke
       </div>
       <div className="px-5 pb-5">
         <ColumnChart label="صافي الإيرادات (ر.س)" seriesLabel="الصافي (ر.س)" labels={res.data.map((b) => bucketLabel(b.bucket))} values={res.data.map((b) => b.net_sar)} format={fmtCompact} color="var(--color-series-3)" />
-        <p className="mt-3 text-[11.5px] leading-relaxed text-ink-3">من سجل Moyasar فقط — لا يدخل فيه أي من الخدمات الثماني. تُحسب الدفعة في يوم اكتمالها، لا يوم بدء محاولة الدفع.</p>
+        <p className="mt-3 text-[13px] leading-relaxed text-ink-3">من سجل Moyasar فقط — لا يدخل فيه أي من الخدمات الثماني. تُحسب الدفعة في يوم اكتمالها، لا يوم بدء محاولة الدفع.</p>
       </div>
     </Card>
   );
@@ -182,13 +182,13 @@ export default function Analytics() {
               ...(preset ? [] : [{ value: "custom", label: "مخصص" }]),
             ]}
           />
-          <label className="flex items-center gap-1.5 text-[12px] text-ink-3">
+          <label className="flex items-center gap-1.5 text-[13.5px] text-ink-3">
             من
-            <input type="date" dir="ltr" value={from} max={to} onChange={(e) => e.target.value && updateParams({ from: e.target.value })} className="rounded-lg border border-line bg-white/[0.02] px-2.5 py-1.5 text-[12.5px] text-ink [color-scheme:dark] focus:border-accent/40 focus:outline-none" />
+            <input type="date" dir="ltr" value={from} max={to} onChange={(e) => e.target.value && updateParams({ from: e.target.value })} className="rounded-lg border border-line bg-white/[0.02] px-2.5 py-1.5 text-[14px] text-ink [color-scheme:dark] focus:border-accent/40 focus:outline-none" />
           </label>
-          <label className="flex items-center gap-1.5 text-[12px] text-ink-3">
+          <label className="flex items-center gap-1.5 text-[13.5px] text-ink-3">
             إلى
-            <input type="date" dir="ltr" value={to} min={from} max={today} onChange={(e) => updateParams({ to: e.target.value === today ? null : e.target.value || null })} className="rounded-lg border border-line bg-white/[0.02] px-2.5 py-1.5 text-[12.5px] text-ink [color-scheme:dark] focus:border-accent/40 focus:outline-none" />
+            <input type="date" dir="ltr" value={to} min={from} max={today} onChange={(e) => updateParams({ to: e.target.value === today ? null : e.target.value || null })} className="rounded-lg border border-line bg-white/[0.02] px-2.5 py-1.5 text-[14px] text-ink [color-scheme:dark] focus:border-accent/40 focus:outline-none" />
           </label>
           <Segmented size="sm" label="التجميع" value={bucket} onChange={(v) => updateParams({ bucket: v === "day" ? null : v })} options={BUCKETS} />
           <Select label="الخدمة" value={service ?? "all"} onChange={(v) => updateParams({ service: v === "all" ? null : v })} options={[{ value: "all", label: "كل الخدمات" }, ...SERVICES.map((s) => ({ value: s.key, label: s.label }))]} />

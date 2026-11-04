@@ -12,7 +12,7 @@ import { useQuery } from "./useQuery";
 
 function Row({ label, children }: { label: string; children: ReactNode }) {
   return (
-    <div className="grid grid-cols-[120px_1fr] gap-3 py-2.5 text-[12.5px]">
+    <div className="grid grid-cols-[120px_1fr] gap-3 py-2.5 text-[14px]">
       <dt className="text-ink-3">{label}</dt>
       <dd className="min-w-0 text-ink">{children}</dd>
     </div>
@@ -24,7 +24,7 @@ function ExtraValue({ v }: { v: unknown }) {
   if (typeof v === "boolean") return <>{v ? "نعم" : "لا"}</>;
   if (typeof v === "number" || typeof v === "string") return <span className="break-words">{String(v)}</span>;
   return (
-    <code dir="ltr" className="block overflow-x-auto rounded bg-white/[0.03] p-2 text-[11px] text-ink-2">
+    <code dir="ltr" className="block overflow-x-auto rounded bg-white/[0.03] p-2 text-[12.5px] text-ink-2">
       {JSON.stringify(v, null, 1)}
     </code>
   );
@@ -52,10 +52,10 @@ function History({ entries, hasTrail, system }: { entries: HistoryEntry[] | unde
             {i < entries.length - 1 && <span className="absolute top-4 bottom-[-6px] w-px bg-line" />}
           </span>
           <div className="min-w-0 flex-1">
-            <p dir="auto" className="text-start text-[12.5px] leading-relaxed text-ink">
+            <p dir="auto" className="text-start text-[14px] leading-relaxed text-ink">
               {h.status_label ?? h.status ?? "—"}
             </p>
-            <p className="mt-0.5 text-[11px] text-ink-3">
+            <p className="mt-0.5 text-[12.5px] text-ink-3">
               {h.by ?? (system ? "Moyasar (تلقائي)" : <NotTracked>غير مسجّل</NotTracked>)} · <When iso={h.at} />
             </p>
           </div>
@@ -89,16 +89,16 @@ export default function TicketDrawer({ ticket, onClose }: { ticket: TicketRef | 
         <div className="p-5 sm:p-6">
           <div className="min-w-0 pl-10">
             <ServiceTag service={t.service} label={t.service_label} />
-            <h2 className="mt-3 text-[18px] font-semibold text-ink">
+            <h2 className="mt-3 text-[19.5px] font-semibold text-ink">
               طلب <span className="num">#{t.request_number ?? t.id}</span>
             </h2>
-            <p className="mt-1 text-[12.5px] text-ink-2">{t.customer_name ?? <NotTracked>بدون اسم عميل</NotTracked>}</p>
+            <p className="mt-1 text-[14px] text-ink-2">{t.customer_name ?? <NotTracked>بدون اسم عميل</NotTracked>}</p>
           </div>
 
           <div className="mt-4 flex flex-wrap gap-2">
             <AdminLink url={t.admin_url} />
             {t.customer_phone && (
-              <a href={hrefTo("customers", { phone: t.customer_phone })} onClick={onClose} className="inline-flex items-center gap-1 rounded-md px-1.5 py-1 text-[12px] text-ink-2 hover:bg-hover hover:text-ink">
+              <a href={hrefTo("customers", { phone: t.customer_phone })} onClick={onClose} className="inline-flex items-center gap-1 rounded-md px-1.5 py-1 text-[13.5px] text-ink-2 hover:bg-hover hover:text-ink">
                 <Icon name="customers" size={13} /> كل طلبات هذا العميل
               </a>
             )}
@@ -113,7 +113,7 @@ export default function TicketDrawer({ ticket, onClose }: { ticket: TicketRef | 
                 {t.sla ? (
                   <div>
                     <SlaBadge sla={t.sla} />
-                    <p className="mt-1.5 text-[11.5px] leading-relaxed text-ink-3">
+                    <p className="mt-1.5 text-[13px] leading-relaxed text-ink-3">
                       {t.sla.policy_label ?? "المهلة"} · <span className="num">{t.sla.policy_hours}</span> ساعة من آخر إجراء مسجّل (<When iso={t.sla.since} />)
                     </p>
                   </div>
@@ -135,7 +135,7 @@ export default function TicketDrawer({ ticket, onClose }: { ticket: TicketRef | 
                   <p dir="auto" className="text-start leading-relaxed">
                     {t.last_activity.description}
                   </p>
-                  <p className="mt-1 text-[11.5px] text-ink-3">
+                  <p className="mt-1 text-[13px] text-ink-3">
                     {t.last_activity.by ?? "—"} · <When iso={t.last_activity.at} />
                   </p>
                 </div>
@@ -153,9 +153,9 @@ export default function TicketDrawer({ ticket, onClose }: { ticket: TicketRef | 
           </dl>
 
           <section className="mt-6">
-            <h3 className="mb-3 text-[12.5px] font-semibold text-ink">سجل التغييرات</h3>
+            <h3 className="mb-3 text-[14px] font-semibold text-ink">سجل التغييرات</h3>
             {detail.error && !detail.data ? (
-              <p className="text-[12px] text-ink-3">
+              <p className="text-[13.5px] text-ink-3">
                 تعذّر تحميل السجل.{" "}
                 <button onClick={detail.reload} className="text-accent hover:underline">
                   إعادة المحاولة
@@ -164,17 +164,17 @@ export default function TicketDrawer({ ticket, onClose }: { ticket: TicketRef | 
             ) : (
               <>
                 <History entries={detail.data?.history} hasTrail={detail.data?.has_activity_trail ?? t.has_activity_trail} system={t.service === "payments"} />
-                {detail.data?.has_activity_trail && <p className="mt-3 text-[11px] text-ink-3/80">السجل يبدأ من تاريخ تفعيل التسجيل لهذه الخدمة؛ ما قبله لم يُسجَّل.</p>}
+                {detail.data?.has_activity_trail && <p className="mt-3 text-[12.5px] text-ink-3/80">السجل يبدأ من تاريخ تفعيل التسجيل لهذه الخدمة؛ ما قبله لم يُسجَّل.</p>}
               </>
             )}
           </section>
 
           {extra.length > 0 && (
             <section className="mt-6">
-              <h3 className="mb-2 text-[12.5px] font-semibold text-ink">تفاصيل خاصة بالخدمة</h3>
+              <h3 className="mb-2 text-[14px] font-semibold text-ink">تفاصيل خاصة بالخدمة</h3>
               <dl className="divide-y divide-line rounded-xl border border-line px-3">
                 {extra.map(([k, v]) => (
-                  <div key={k} className="grid grid-cols-[120px_1fr] gap-3 py-2 text-[12px]">
+                  <div key={k} className="grid grid-cols-[120px_1fr] gap-3 py-2 text-[13.5px]">
                     <dt dir="ltr" className="num truncate text-right text-ink-3" title={k}>
                       {k}
                     </dt>

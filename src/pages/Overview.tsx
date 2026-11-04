@@ -73,7 +73,7 @@ export default function Overview() {
     <div>
       <PageHeader
         eyebrow={
-          <div className="flex items-center gap-2 text-[12px] text-ink-3">
+          <div className="flex items-center gap-2 text-[13.5px] text-ink-3">
             <span>{fmtLongDate(now)}</span>
             {origin === "mock" && <DemoTag />}
           </div>
@@ -111,7 +111,7 @@ export default function Overview() {
             title="يحتاج انتباهك الآن"
             subtitle={attention.length ? `${attention.length} عنصر · ${critical} حرج` : "مستخرج من السجلات الحالية"}
             action={
-              <a href={hrefFor("requests", { status: "overdue" })} className="text-[11.5px] text-ink-3 hover:text-accent">
+              <a href={hrefFor("requests", { status: "overdue" })} className="text-[13px] text-ink-3 hover:text-accent">
                 كل المتأخرات
               </a>
             }
@@ -127,10 +127,10 @@ export default function Overview() {
                       <Icon name={a.target.kind === "order" ? "checkCircle" : "clock"} size={12} />
                     </span>
                     <span className="min-w-0 flex-1">
-                      <span className="block truncate text-[12.5px] text-ink">{a.title}</span>
-                      <span className="block truncate text-[11.5px] text-ink-3">{a.detail}</span>
+                      <span className="block truncate text-[14px] text-ink">{a.title}</span>
+                      <span className="block truncate text-[13px] text-ink-3">{a.detail}</span>
                     </span>
-                    <span className={cx("shrink-0 text-[10.5px] font-medium", TONE_TEXT[ALERT_PRIORITY[a.severity].tone])}>{ALERT_PRIORITY[a.severity].label}</span>
+                    <span className={cx("shrink-0 text-[12px] font-medium", TONE_TEXT[ALERT_PRIORITY[a.severity].tone])}>{ALERT_PRIORITY[a.severity].label}</span>
                   </button>
                 </li>
               ))}
@@ -168,14 +168,14 @@ export default function Overview() {
               </span>
             }
             action={
-              <a href={hrefFor("live")} className="text-[11.5px] text-ink-3 hover:text-accent">
+              <a href={hrefFor("live")} className="text-[13px] text-ink-3 hover:text-accent">
                 العمليات المباشرة
               </a>
             }
           />
           {online.length > 0 && (
             <div className="mx-5 mb-2 flex items-center justify-between gap-3 rounded-lg border border-line bg-white/[0.015] px-3 py-2">
-              <span className="text-[11.5px] text-ink-3">المتصلون الآن</span>
+              <span className="text-[13px] text-ink-3">المتصلون الآن</span>
               <TeamAvatars people={online.flatMap((p) => ix.employee.get(p.employeeId) ?? [])} presence={ix.presence} max={8} size={26} />
             </div>
           )}
@@ -192,20 +192,20 @@ export default function Overview() {
                     <button onClick={() => openPanel({ kind: "employee", id: e.id })} className="flex w-[34%] min-w-0 shrink-0 items-center gap-2.5 text-right">
                       <Avatar name={e.name} id={e.id} size={30} status={PRESENCE[p.status].tone} />
                       <span className="min-w-0">
-                        <span className="block truncate text-[12.5px] text-ink hover:text-accent">{e.name}</span>
-                        <span className="block truncate text-[11px] text-ink-3">{e.title}</span>
+                        <span className="block truncate text-[14px] text-ink hover:text-accent">{e.name}</span>
+                        <span className="block truncate text-[12.5px] text-ink-3">{e.title}</span>
                       </span>
                     </button>
                     <Icon name="chevron" size={13} className="shrink-0 text-ink-3" />
                     <button onClick={() => r && openPanel({ kind: "request", id: r.id })} className="min-w-0 flex-1 text-right">
                       <span className="flex items-center gap-2">
-                        <span className="truncate text-[12.5px] text-ink">{c?.name}</span>
-                        <span className="num text-[10.5px] text-ink-3">{r?.code}</span>
+                        <span className="truncate text-[14px] text-ink">{c?.name}</span>
+                        <span className="num text-[12px] text-ink-3">{r?.code}</span>
                       </span>
-                      <span className="block truncate text-[11.5px] text-ink-3">{p.current!.action}</span>
+                      <span className="block truncate text-[13px] text-ink-3">{p.current!.action}</span>
                     </button>
                     <span className="hidden shrink-0 flex-col items-end gap-0.5 sm:flex">
-                      <span className="num text-[11.5px] text-ink-2">{fmtDuration(now - p.current!.startedAt)}</span>
+                      <span className="num text-[13px] text-ink-2">{fmtDuration(now - p.current!.startedAt)}</span>
                       {r && <PriorityTag priority={r.priority} />}
                     </span>
                   </li>
@@ -227,24 +227,24 @@ export default function Overview() {
                     href={hrefFor("requests", { status: s.status })}
                     className={cx("block rounded-lg px-2.5 py-2 transition-colors hover:bg-white/[0.03]", s.bottleneck && "bg-warning/[0.05] ring-1 ring-warning/25")}
                   >
-                    <div className="flex items-center justify-between gap-2 text-[12.5px]">
+                    <div className="flex items-center justify-between gap-2 text-[14px]">
                       <span className="flex items-center gap-2 text-ink-2">
                         {REQUEST_STATUS[s.status].label}
                         {s.bottleneck && (
-                          <span className="inline-flex items-center gap-1 text-[10.5px] font-medium text-warning">
+                          <span className="inline-flex items-center gap-1 text-[12px] font-medium text-warning">
                             <Icon name="alert" size={11} /> اختناق
                           </span>
                         )}
                       </span>
                       <span className="flex items-center gap-3">
-                        <span className="text-[11px] text-ink-3">{s.count ? `≈ ${fmtDuration(s.avgDwell)}` : "—"}</span>
+                        <span className="text-[12.5px] text-ink-3">{s.count ? `≈ ${fmtDuration(s.avgDwell)}` : "—"}</span>
                         <span className="num w-8 text-left font-semibold text-ink">{s.count}</span>
                       </span>
                     </div>
                     <div className="mt-1.5 flex h-1.5 overflow-hidden rounded-full bg-white/[0.04]">
                       <div className="h-full rounded-full transition-[width] duration-700" style={{ width: `${(s.count / max) * 100}%`, background: s.bottleneck ? "var(--color-warning)" : "var(--color-series-1)" }} />
                     </div>
-                    {s.overdue > 0 && <p className="mt-1 text-[10.5px] text-critical">{s.overdue} متأخر في هذه المرحلة</p>}
+                    {s.overdue > 0 && <p className="mt-1 text-[12px] text-critical">{s.overdue} متأخر في هذه المرحلة</p>}
                   </a>
                 </li>
               );
@@ -277,10 +277,10 @@ export default function Overview() {
           <CardHeader icon="clock" title="سرعة الخدمة" subtitle={w.label} />
           <div className="flex items-center gap-5 px-5 pb-5">
             <Ring value={stats.onTimeRate} color="var(--color-good)">
-              <span className="num text-[18px] font-semibold">{Number.isFinite(stats.onTimeRate) ? fmtPct(stats.onTimeRate) : "—"}</span>
-              <span className="text-[10px] text-ink-3">في الموعد</span>
+              <span className="num text-[19.5px] font-semibold">{Number.isFinite(stats.onTimeRate) ? fmtPct(stats.onTimeRate) : "—"}</span>
+              <span className="text-[11.5px] text-ink-3">في الموعد</span>
             </Ring>
-            <dl className="grid flex-1 grid-cols-1 gap-3 text-[12px]">
+            <dl className="grid flex-1 grid-cols-1 gap-3 text-[13.5px]">
               <div className="flex items-baseline justify-between">
                 <dt className="text-ink-3">متوسط أول استجابة</dt>
                 <dd className="num font-semibold text-ink">{fmtHours(stats.avgResponse)}</dd>
@@ -303,7 +303,7 @@ export default function Overview() {
             title="الأعلى إنجازًا"
             subtitle={overloaded.length ? `${overloaded.length} موظف بعبء عمل مرتفع` : w.label}
             action={
-              <a href={hrefFor("employees")} className="text-[11.5px] text-ink-3 hover:text-accent">
+              <a href={hrefFor("employees")} className="text-[13px] text-ink-3 hover:text-accent">
                 أداء الفريق
               </a>
             }
@@ -314,12 +314,12 @@ export default function Overview() {
               return (
                 <li key={t.employee.id}>
                   <button onClick={() => openPanel({ kind: "employee", id: t.employee.id })} className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-right hover:bg-white/[0.03]">
-                    <span className="num w-4 text-[11px] text-ink-3">{i + 1}</span>
+                    <span className="num w-4 text-[12.5px] text-ink-3">{i + 1}</span>
                     <Avatar name={t.employee.name} id={t.employee.id} size={26} status={p ? PRESENCE[p.status].tone : undefined} />
-                    <span className="min-w-0 flex-1 truncate text-[12.5px] text-ink">{t.employee.name}</span>
-                    <span className="num text-[12.5px] font-semibold text-ink">{t.completed}</span>
+                    <span className="min-w-0 flex-1 truncate text-[14px] text-ink">{t.employee.name}</span>
+                    <span className="num text-[14px] font-semibold text-ink">{t.completed}</span>
                     {t.overdue > 0 && (
-                      <span className="flex items-center gap-1 text-[10.5px] text-critical">
+                      <span className="flex items-center gap-1 text-[12px] text-critical">
                         <Dot tone="critical" /> {t.overdue}
                       </span>
                     )}
@@ -349,11 +349,11 @@ function RecentFeed() {
           const who = e.actor.type === "employee" ? ix.employee.get(e.actor.id!)?.name : e.actor.type === "customer" ? ix.customer.get(e.customerId)?.name : "النظام";
           return (
             <li key={e.id} className={cx("flex items-center gap-3 border-b border-line/60 py-2.5", recent.has(e.subject.id) && "flash")}>
-              <span className="num w-14 shrink-0 text-[11px] text-ink-3">{fmtRelative(e.at, now)}</span>
-              <button onClick={() => openPanel(e.subject)} className="min-w-0 flex-1 truncate text-right text-[12.5px] text-ink-2 hover:text-ink">
+              <span className="num w-14 shrink-0 text-[12.5px] text-ink-3">{fmtRelative(e.at, now)}</span>
+              <button onClick={() => openPanel(e.subject)} className="min-w-0 flex-1 truncate text-right text-[14px] text-ink-2 hover:text-ink">
                 {e.description}
               </button>
-              <span className="hidden shrink-0 text-[11px] text-ink-3 sm:block">{who}</span>
+              <span className="hidden shrink-0 text-[12.5px] text-ink-3 sm:block">{who}</span>
             </li>
           );
         })}

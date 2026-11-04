@@ -28,7 +28,7 @@ const columns: Column<StaffMember>[] = [
         <span className="min-w-0">
           <span className="block truncate text-ink">{s.name}</span>
           {s.email && (
-            <span dir="ltr" className="block truncate text-right text-[11px] text-ink-3">
+            <span dir="ltr" className="block truncate text-right text-[12.5px] text-ink-3">
               {s.email}
             </span>
           )}
@@ -44,7 +44,7 @@ const columns: Column<StaffMember>[] = [
       s.roles.length ? (
         <span className="flex flex-wrap gap-1">
           {s.roles.map((r) => (
-            <span key={r} dir="ltr" className="num rounded bg-white/[0.04] px-1.5 py-0.5 text-[10.5px] text-ink-2">
+            <span key={r} dir="ltr" className="num rounded bg-white/[0.04] px-1.5 py-0.5 text-[12px] text-ink-2">
               {r}
             </span>
           ))}
@@ -64,8 +64,8 @@ const secs = (s: number | null | undefined) => (s === null || s === undefined ? 
 function Metric({ label, value, why }: { label: string; value: ReactNode | null; why: string }) {
   return (
     <div className="rounded-xl border border-line bg-white/[0.015] p-3">
-      <p className="text-[11.5px] text-ink-3">{label}</p>
-      <p className="num mt-1.5 text-[18px] leading-none font-semibold text-ink" style={{ textAlign: "right" }}>
+      <p className="text-[13px] text-ink-3">{label}</p>
+      <p className="num mt-1.5 text-[19.5px] leading-none font-semibold text-ink" style={{ textAlign: "right" }}>
         {value ?? <NotTracked title={why}>غير متتبَّع</NotTracked>}
       </p>
     </div>
@@ -84,9 +84,9 @@ function StaffDrawer({ member, onClose }: { member: StaffMember | null; onClose:
           <div className="flex items-center gap-3 pl-10">
             <Avatar name={member.name} id={String(member.id)} size={44} />
             <div className="min-w-0">
-              <h2 className="truncate text-[18px] font-semibold text-ink">{member.name}</h2>
+              <h2 className="truncate text-[19.5px] font-semibold text-ink">{member.name}</h2>
               {member.email && (
-                <p dir="ltr" className="truncate text-right text-[12px] text-ink-3">
+                <p dir="ltr" className="truncate text-right text-[13.5px] text-ink-3">
                   {member.email}
                 </p>
               )}
@@ -104,7 +104,7 @@ function StaffDrawer({ member, onClose }: { member: StaffMember | null; onClose:
             </div>
           ) : (
             <>
-              <h3 className="mt-6 mb-2 text-[12.5px] font-semibold text-ink">خدمة العملاء</h3>
+              <h3 className="mt-6 mb-2 text-[14px] font-semibold text-ink">خدمة العملاء</h3>
               {cs ? (
                 <div className="grid grid-cols-2 gap-2">
                   <Metric label="تذاكر حلّها" value={cs.completed_count === null ? null : fmtInt(cs.completed_count)} why="غير مسجّل" />
@@ -116,7 +116,7 @@ function StaffDrawer({ member, onClose }: { member: StaffMember | null; onClose:
                 <NotTracked>لا يعمل على خدمة العملاء</NotTracked>
               )}
 
-              <h3 className="mt-6 mb-2 text-[12.5px] font-semibold text-ink">خدمة الاستبدال</h3>
+              <h3 className="mt-6 mb-2 text-[14px] font-semibold text-ink">خدمة الاستبدال</h3>
               {s.resale ? (
                 <div className="grid grid-cols-2 gap-2">
                   <Metric label="تسويات حسابات نفّذها" value={s.resale.completed_count === null ? null : fmtInt(s.resale.completed_count)} why="غير مسجّل" />
@@ -126,11 +126,11 @@ function StaffDrawer({ member, onClose }: { member: StaffMember | null; onClose:
                 <NotTracked>لا بيانات</NotTracked>
               )}
 
-              <h3 className="mt-6 mb-2 text-[12.5px] font-semibold text-ink">ما أنشأه منذ البداية</h3>
+              <h3 className="mt-6 mb-2 text-[14px] font-semibold text-ink">ما أنشأه منذ البداية</h3>
               {created.length ? (
                 <ul className="divide-y divide-line rounded-xl border border-line px-3">
                   {created.map(([k, n]) => (
-                    <li key={k} className="flex items-center justify-between py-2 text-[12.5px]">
+                    <li key={k} className="flex items-center justify-between py-2 text-[14px]">
                       <span className="text-ink-2">{serviceLabel(k)}</span>
                       <span className="num text-ink">{fmtInt(n!)}</span>
                     </li>
@@ -140,7 +140,7 @@ function StaffDrawer({ member, onClose }: { member: StaffMember | null; onClose:
                 <NotTracked>لا شيء</NotTracked>
               )}
 
-              <p className="mt-6 text-[11.5px] leading-relaxed text-ink-3">
+              <p className="mt-6 text-[13px] leading-relaxed text-ink-3">
                 أرقام مسجّلة فعليًا فقط، منفصلة لكل خدمة لأن كل خدمة تتتبّع أشياء مختلفة. في الاستبدال يُنسب الطلب لأول موظف يتخذ إجراءً عليه، و«تسويات الحسابات» إجراءات نفّذها بنفسه.
               </p>
             </>
@@ -197,7 +197,7 @@ function OnlineNow() {
         ) : !q.data ? (
           <Skeleton className="h-16" />
         ) : rows.length === 0 ? (
-          <p className="py-6 text-center text-[12.5px] text-ink-3">لا أحد يفتح لوحة الإدارة الآن.</p>
+          <p className="py-6 text-center text-[14px] text-ink-3">لا أحد يفتح لوحة الإدارة الآن.</p>
         ) : (
           <ul className="grid grid-cols-1 gap-2 md:grid-cols-2 2xl:grid-cols-3">
             {rows.map((o) => (
@@ -205,18 +205,18 @@ function OnlineNow() {
                 <Avatar name={o.user.name} id={String(o.user.id)} size={34} status="good" />
                 <div className="min-w-0 flex-1">
                   <p className="flex items-center justify-between gap-2">
-                    <span className="truncate text-[13px] font-medium text-ink">{o.user.name}</span>
-                    <When iso={o.last_seen_at} className="text-[11px] text-ink-3" />
+                    <span className="truncate text-[14.5px] font-medium text-ink">{o.user.name}</span>
+                    <When iso={o.last_seen_at} className="text-[12.5px] text-ink-3" />
                   </p>
                   {o.viewing ? (
-                    <button onClick={() => setTicket(o.viewing!)} className="mt-1.5 flex w-full flex-wrap items-center gap-1.5 rounded-md text-right text-[11.5px] text-ink-2 hover:text-accent">
+                    <button onClick={() => setTicket(o.viewing!)} className="mt-1.5 flex w-full flex-wrap items-center gap-1.5 rounded-md text-right text-[13px] text-ink-2 hover:text-accent">
                       <span className="text-ink-3">يعمل على</span>
                       <ServiceTag service={o.viewing.service} label={o.viewing.service_label} />
                       <span className="num">#{o.viewing.request_number ?? o.viewing.id}</span>
                       {o.viewing.sla && <SlaBadge sla={o.viewing.sla} />}
                     </button>
                   ) : (
-                    <p className="mt-1.5 text-[11.5px] text-ink-3" title={o.route_name ?? undefined}>
+                    <p className="mt-1.5 text-[13px] text-ink-3" title={o.route_name ?? undefined}>
                       في صفحة عامة (ليست طلبًا محددًا)
                     </p>
                   )}
@@ -282,8 +282,8 @@ export default function Staff() {
                 <div className="flex items-center gap-3">
                   <Avatar name={s.name} id={String(s.id)} size={32} />
                   <div className="min-w-0 flex-1">
-                    <p className="truncate text-[13px] font-medium text-ink">{s.name}</p>
-                    <p className="text-[11.5px] text-ink-3">
+                    <p className="truncate text-[14.5px] font-medium text-ink">{s.name}</p>
+                    <p className="text-[13px] text-ink-3">
                       مفتوحة: {s.customer_support ? fmtInt(s.customer_support.assigned_open) : "—"} · مبيعات: {s.sales_created_total ?? "—"} · Over Stage: {s.over_stage_created_total ?? "—"}
                     </p>
                   </div>
@@ -297,7 +297,7 @@ export default function Staff() {
               {open.length ? (
                 <HBarList items={open.map((s) => ({ key: String(s.id), label: s.name, value: s.customer_support!.assigned_open, display: fmtInt(s.customer_support!.assigned_open) }))} />
               ) : (
-                <p className="py-6 text-center text-[12.5px] text-ink-3">لا توجد طلبات خدمة عملاء مفتوحة مسندة حاليًا.</p>
+                <p className="py-6 text-center text-[14px] text-ink-3">لا توجد طلبات خدمة عملاء مفتوحة مسندة حاليًا.</p>
               )}
             </div>
           </Card>

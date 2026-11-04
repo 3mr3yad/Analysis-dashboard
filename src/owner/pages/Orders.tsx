@@ -39,7 +39,7 @@ export default function Orders() {
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
         <Segmented label="حالة التحقق" value={st} onChange={(v) => updateParams({ status: v === "all" ? null : v, page: null })} options={[...STATUSES]} />
         {res && (
-          <p className="text-[12px] text-ink-3">
+          <p className="text-[13.5px] text-ink-3">
             <span className="num text-ink-2">{fmtInt(res.meta.total)}</span> طلب · قيمة هذه الصفحة <span className="num text-ink-2">{fmtMoney(pageValue)}</span>
           </p>
         )}
@@ -65,10 +65,10 @@ export default function Orders() {
         ) : (
           <div className={cx("transition-opacity", q.loading && "opacity-50")} aria-busy={q.loading}>
             <div className="hidden overflow-x-auto md:block">
-              <table className="w-full text-right text-[12.5px]">
+              <table className="w-full text-right text-[14px]">
                 <caption className="sr-only">طلبات الشراء</caption>
                 <thead>
-                  <tr className="border-b border-line text-[11.5px] text-ink-3">
+                  <tr className="border-b border-line text-[13px] text-ink-3">
                     <th className="px-4 py-2.5 font-medium">الرقم</th>
                     <th className="px-3 py-2.5 font-medium">الشركة / العميل</th>
                     <th className="px-3 py-2.5 font-medium">القيمة</th>
@@ -86,7 +86,7 @@ export default function Orders() {
                       <td className="num px-4 py-3 text-ink-3">#{o.id}</td>
                       <td className="px-3 py-3">
                         <span className="block max-w-[220px] truncate text-ink">{o.customer.company_name ?? o.customer.name ?? <NotTracked>بدون اسم</NotTracked>}</span>
-                        {o.customer.company_name && o.customer.name && <span className="block max-w-[220px] truncate text-[11.5px] text-ink-3">{o.customer.name}</span>}
+                        {o.customer.company_name && o.customer.name && <span className="block max-w-[220px] truncate text-[13px] text-ink-3">{o.customer.name}</span>}
                         <span onClick={(e) => e.stopPropagation()}>
                           <Phone value={o.customer.phone} />
                         </span>
@@ -94,7 +94,7 @@ export default function Orders() {
                       <td className="px-3 py-3">{value(o)}</td>
                       <td className="px-3 py-3">{status(o)}</td>
                       <td className="hidden px-3 py-3 lg:table-cell">{o.created_by?.name ?? <NotTracked>غير مسجّل</NotTracked>}</td>
-                      <td className="px-3 py-3 text-[12px] text-ink-3" title={fmtDateTime(Date.parse(o.created_at))}>
+                      <td className="px-3 py-3 text-[13.5px] text-ink-3" title={fmtDateTime(Date.parse(o.created_at))}>
                         <When iso={o.created_at} />
                       </td>
                       <td className="px-4 py-3 text-left">
@@ -110,10 +110,10 @@ export default function Orders() {
                 <li key={o.id}>
                   <button onClick={() => setOpen({ service: "over_stage", id: o.id })} className="block w-full px-4 py-3 text-right">
                     <span className="flex items-center justify-between gap-2">
-                      <span className="truncate text-[13px] text-ink">{o.customer.company_name ?? o.customer.name ?? "بدون اسم"}</span>
+                      <span className="truncate text-[14.5px] text-ink">{o.customer.company_name ?? o.customer.name ?? "بدون اسم"}</span>
                       {value(o)}
                     </span>
-                    <span className="mt-1 flex items-center justify-between text-[11.5px] text-ink-3">
+                    <span className="mt-1 flex items-center justify-between text-[13px] text-ink-3">
                       {status(o)}
                       <When iso={o.created_at} />
                     </span>

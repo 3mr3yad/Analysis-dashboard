@@ -32,7 +32,7 @@ function Owner({ t }: { t: Ticket }) {
   if (t.created_by)
     return (
       <span className="text-ink-2">
-        <span className="text-[11px] text-ink-3">أنشأه </span>
+        <span className="text-[12.5px] text-ink-3">أنشأه </span>
         {t.created_by.name}
       </span>
     );
@@ -44,10 +44,10 @@ function Activity({ t }: { t: Ticket }) {
   if (!t.last_activity) return <NotTracked title={t.has_activity_trail ? "لا إجراءات مسجّلة على هذا الطلب بعد" : "هذه الخدمة لا تسجّل من قام بالإجراءات"}>{t.has_activity_trail ? "لا إجراءات بعد" : "بدون سجل"}</NotTracked>;
   return (
     <span className="block min-w-0">
-      <span dir="auto" className="block max-w-[260px] truncate text-start text-[12px] text-ink-2" title={t.last_activity.description}>
+      <span dir="auto" className="block max-w-[200px] truncate text-start text-[13.5px] text-ink-2" title={t.last_activity.description}>
         {t.last_activity.description}
       </span>
-      <span className="text-[11px] text-ink-3">
+      <span className="text-[12.5px] text-ink-3">
         {t.last_activity.by ? `${t.last_activity.by} · ` : ""}
         <When iso={t.last_activity.at} />
       </span>
@@ -112,7 +112,7 @@ export default function Tickets() {
             options={[{ value: "all", label: "كل الخدمات" }, ...SERVICES.map((s) => ({ value: s.key, label: s.label }))]}
           />
           {meta && meta.statuses === null ? (
-            <span className="rounded-lg border border-dashed border-line px-3 py-2 text-[12px] text-ink-3">لا توجد حالة لهذه الخدمة</span>
+            <span className="rounded-lg border border-dashed border-line px-3 py-2 text-[13.5px] text-ink-3">لا توجد حالة لهذه الخدمة</span>
           ) : (
             <Select
               label="الحالة"
@@ -121,13 +121,13 @@ export default function Tickets() {
               options={[{ value: "all", label: service ? "كل الحالات" : "الحالة (اختر خدمة أولًا)" }, ...statusOptions]}
             />
           )}
-          <label className="flex items-center gap-1.5 text-[12px] text-ink-3">
+          <label className="flex items-center gap-1.5 text-[13.5px] text-ink-3">
             من
-            <input type="date" dir="ltr" value={from} max={to || undefined} onChange={(e) => set({ from: e.target.value || null })} className="rounded-lg border border-line bg-white/[0.02] px-2.5 py-1.5 text-[12.5px] text-ink [color-scheme:dark] focus:border-accent/40 focus:outline-none" />
+            <input type="date" dir="ltr" value={from} max={to || undefined} onChange={(e) => set({ from: e.target.value || null })} className="rounded-lg border border-line bg-white/[0.02] px-2.5 py-1.5 text-[14px] text-ink [color-scheme:dark] focus:border-accent/40 focus:outline-none" />
           </label>
-          <label className="flex items-center gap-1.5 text-[12px] text-ink-3">
+          <label className="flex items-center gap-1.5 text-[13.5px] text-ink-3">
             إلى
-            <input type="date" dir="ltr" value={to} min={from || undefined} onChange={(e) => set({ to: e.target.value || null })} className="rounded-lg border border-line bg-white/[0.02] px-2.5 py-1.5 text-[12.5px] text-ink [color-scheme:dark] focus:border-accent/40 focus:outline-none" />
+            <input type="date" dir="ltr" value={to} min={from || undefined} onChange={(e) => set({ to: e.target.value || null })} className="rounded-lg border border-line bg-white/[0.02] px-2.5 py-1.5 text-[14px] text-ink [color-scheme:dark] focus:border-accent/40 focus:outline-none" />
           </label>
           <Select label="عدد الصفوف" value={String(per)} onChange={(v) => set({ per: v === "25" ? null : v })} options={PER_PAGE.map((v) => ({ value: v, label: `${v} صفًا` }))} />
           {filtered && (
@@ -139,7 +139,7 @@ export default function Tickets() {
         <div className="mt-3 border-t border-line pt-2.5">
           <StatusLegend />
         </div>
-        {meta?.statuses === "dynamic" && statusOptions.length === 0 && <p className="mt-2 text-[11.5px] text-ink-3">حالات هذه الخدمة يحددها مسؤول النظام؛ ستظهر هنا بعد تحميل أول صفحة من نتائجها.</p>}
+        {meta?.statuses === "dynamic" && statusOptions.length === 0 && <p className="mt-2 text-[13px] text-ink-3">حالات هذه الخدمة يحددها مسؤول النظام؛ ستظهر هنا بعد تحميل أول صفحة من نتائجها.</p>}
       </Card>
 
       <div className="mb-4 space-y-2">
@@ -147,7 +147,7 @@ export default function Tickets() {
         {!service && (
           <Note>
             بدون اختيار خدمة، تعرض القائمة <b className="text-ink">أحدث 50 طلبًا من كل خدمة</b> مدموجة ومرتبة — وليست كل السجل التاريخي. للرجوع لأشهر سابقة اختر خدمة محددة.
-            {res?.meta.note && <span className="mt-1 block text-[11.5px] text-ink-3">ملاحظة الخادم: <span dir="auto">{res.meta.note}</span></span>}
+            {res?.meta.note && <span className="mt-1 block text-[13px] text-ink-3">ملاحظة الخادم: <span dir="auto">{res.meta.note}</span></span>}
           </Note>
         )}
         {service === "payments" && <Note>مدفوعات المتجر الإلكتروني المنفصل (Moyasar): لا شاشة إدارة ولا موظف مسؤول، وتغييرات حالتها تُسجَّل تلقائيًا. الدفعة لا تُنسب لعميل إلا إذا مرّر المتجر بياناته.</Note>}
@@ -166,13 +166,13 @@ export default function Tickets() {
           <EmptyState icon="filter" title="لا توجد طلبات تطابق هذه الفلاتر" hint={filtered ? "جرّب توسيع نطاق التاريخ أو اختيار خدمة أخرى." : undefined} />
         ) : (
           <div className={cx("transition-opacity", q.loading && "opacity-50")} aria-busy={q.loading}>
-            {q.error && <p className="border-b border-line px-4 py-2 text-[12px] text-critical">تعذّر التحديث: {q.error.message}</p>}
+            {q.error && <p className="border-b border-line px-4 py-2 text-[13.5px] text-critical">تعذّر التحديث: {q.error.message}</p>}
             {/* Desktop table */}
             <div className="hidden overflow-x-auto md:block">
-              <table className="w-full text-right text-[12.5px]">
+              <table className="w-full text-right text-[14px]">
                 <caption className="sr-only">سجل الطلبات</caption>
                 <thead>
-                  <tr className="border-b border-line text-[11.5px] text-ink-3">
+                  <tr className="border-b border-line text-[13px] text-ink-3">
                     <th className="px-4 py-2.5 font-medium">الخدمة / الرقم</th>
                     <th className="px-3 py-2.5 font-medium">العميل</th>
                     <th className="px-3 py-2.5 font-medium">الحالة</th>
@@ -190,7 +190,7 @@ export default function Tickets() {
                     <tr key={`${t.service}-${t.id}`} onClick={() => setOpen(t)} className="cursor-pointer border-b border-line/60 transition-colors last:border-0 hover:bg-white/[0.025]">
                       <td className="px-4 py-3">
                         <ServiceTag service={t.service} label={t.service_label} />
-                        <span className="num mt-1 block text-[11px] text-ink-3">#{t.request_number ?? t.id}</span>
+                        <span className="num mt-1 block text-[12.5px] text-ink-3">#{t.request_number ?? t.id}</span>
                       </td>
                       <td className="px-3 py-3">
                         <span className="block max-w-[180px] truncate text-ink">{t.customer_name ?? <NotTracked>بدون اسم</NotTracked>}</span>
@@ -212,7 +212,7 @@ export default function Tickets() {
                       <td className="hidden px-3 py-3 lg:table-cell">
                         <Activity t={t} />
                       </td>
-                      <td className="px-3 py-3 text-[12px] text-ink-3" title={fmtDateTime(Date.parse(t.created_at))}>
+                      <td className="px-3 py-3 text-[13.5px] text-ink-3" title={fmtDateTime(Date.parse(t.created_at))}>
                         <When iso={t.created_at} />
                       </td>
                       <td className="px-4 py-3 text-left">
@@ -232,8 +232,8 @@ export default function Tickets() {
                       <ServiceTag service={t.service} label={t.service_label} />
                       <Status t={t} />
                     </span>
-                    <span className="mt-2 block truncate text-[13px] text-ink">{t.customer_name ?? "بدون اسم"}</span>
-                    <span className="mt-0.5 flex items-center justify-between text-[11.5px] text-ink-3">
+                    <span className="mt-2 block truncate text-[14.5px] text-ink">{t.customer_name ?? "بدون اسم"}</span>
+                    <span className="mt-0.5 flex items-center justify-between text-[13px] text-ink-3">
                       <span className="num">#{t.request_number ?? t.id}</span>
                       {t.sla ? <SlaBadge sla={t.sla} /> : <When iso={t.created_at} />}
                     </span>

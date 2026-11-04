@@ -24,8 +24,8 @@ export default function EffectsCard() {
               onClick={() => setMotionPref(v)}
               className={cx("rounded-xl border p-3 text-right transition-colors", effects === v ? "border-accent/40 bg-accent-soft" : "border-line hover:border-line-strong")}
             >
-              <span className="block text-[12.5px] font-medium text-ink">{label}</span>
-              <span className="mt-0.5 block text-[11px] text-ink-3">{hint}</span>
+              <span className="block text-[14px] font-medium text-ink">{label}</span>
+              <span className="mt-0.5 block text-[12.5px] text-ink-3">{hint}</span>
             </button>
           ))}
         </div>

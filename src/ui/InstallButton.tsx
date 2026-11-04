@@ -75,11 +75,11 @@ function Steps({ platform }: { platform: InstallPlatform }) {
   const s = STEPS[platform];
   return (
     <div>
-      <p className="mb-2 text-[12.5px] font-semibold text-ink">{s.title}</p>
+      <p className="mb-2 text-[14px] font-semibold text-ink">{s.title}</p>
       <ol className="space-y-2">
         {s.steps.map((step, i) => (
-          <li key={i} className="flex gap-2.5 text-[12.5px] leading-relaxed text-ink-2">
-            <span className="num mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-accent/15 text-[11px] font-semibold text-accent">{i + 1}</span>
+          <li key={i} className="flex gap-2.5 text-[14px] leading-relaxed text-ink-2">
+            <span className="num mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-accent/15 text-[12.5px] font-semibold text-accent">{i + 1}</span>
             <span>{step}</span>
           </li>
         ))}
@@ -96,7 +96,7 @@ export function InstallGuide() {
     <div className="space-y-4">
       <Steps platform={mine} />
       <details className="group rounded-xl border border-line bg-white/[0.02] px-3.5 py-2.5">
-        <summary className="cursor-pointer list-none text-[12px] text-ink-3 select-none hover:text-ink-2">
+        <summary className="cursor-pointer list-none text-[13.5px] text-ink-3 select-none hover:text-ink-2">
           <span className="inline-flex items-center gap-1.5">
             <Icon name="chevronDown" size={13} className="transition-transform group-open:rotate-180" animateOnHover={false} />
             على أجهزة أخرى
@@ -129,12 +129,12 @@ function GuideDialog({ onClose }: { onClose: () => void }) {
         <div className="mb-5 flex items-center gap-3 pl-8">
           <img src="/icons/icon-192.png" alt="" className="size-12 rounded-xl shadow-[0_0_24px_-6px_rgb(1_185_245/0.6)]" />
           <div>
-            <h2 className="text-[16px] font-semibold text-ink">ثبّت وافي كتطبيق</h2>
-            <p className="mt-0.5 text-[12px] text-ink-3">نافذة مستقلة وأيقونة على جهازك، بدون شريط المتصفح.</p>
+            <h2 className="text-[17.5px] font-semibold text-ink">ثبّت وافي كتطبيق</h2>
+            <p className="mt-0.5 text-[13.5px] text-ink-3">نافذة مستقلة وأيقونة على جهازك، بدون شريط المتصفح.</p>
           </div>
         </div>
         <InstallGuide />
-        <p className="mt-4 text-[11.5px] text-ink-3">البيانات تبقى حيّة من الخادم دائمًا؛ التطبيق لا يحفظ بيانات العملاء على الجهاز.</p>
+        <p className="mt-4 text-[13px] text-ink-3">البيانات تبقى حيّة من الخادم دائمًا؛ التطبيق لا يحفظ بيانات العملاء على الجهاز.</p>
       </div>
     </div>,
     document.body,
@@ -154,7 +154,7 @@ export default function InstallButton({ className }: { className?: string }) {
             if (state !== "available") return setGuide(true);
             void promptInstall().then((r) => r === "failed" && setGuide(true));
           }}
-          className={cx("install-btn relative inline-flex shrink-0 items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-[12.5px] font-medium text-ink", className)}
+          className={cx("install-btn relative inline-flex shrink-0 items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-[14px] font-medium text-ink", className)}
           title="تثبيت لوحة وافي كتطبيق على جهازك"
         >
           <Icon name="download" size={15} className="text-accent" />

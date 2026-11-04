@@ -59,7 +59,7 @@ export default function Orders() {
   const total = rows.reduce((s, o) => s + o.value, 0);
 
   const columns: Column<Order>[] = [
-    { key: "code", header: "رقم الطلب", render: (o) => <span className="num text-[12px] text-ink-2">{o.code}</span>, sortValue: (o) => o.code },
+    { key: "code", header: "رقم الطلب", render: (o) => <span className="num text-[13.5px] text-ink-2">{o.code}</span>, sortValue: (o) => o.code },
     {
       key: "customer",
       header: "العميل",
@@ -82,23 +82,23 @@ export default function Orders() {
       render: (o) => (
         <span className="flex items-center gap-1.5">
           <OrderStatusBadge status={o.status} />
-          {isOrderDelayed(o, now) && <span className="text-[11px] text-critical">متأخر</span>}
+          {isOrderDelayed(o, now) && <span className="text-[12.5px] text-critical">متأخر</span>}
         </span>
       ),
       sortValue: (o) => o.status,
     },
-    { key: "created", header: "الإنشاء", render: (o) => <span className="num text-[12px] text-ink-3">{fmtDateTime(o.createdAt)}</span>, sortValue: (o) => o.createdAt, hideBelow: "xl" },
+    { key: "created", header: "الإنشاء", render: (o) => <span className="num text-[13.5px] text-ink-3">{fmtDateTime(o.createdAt)}</span>, sortValue: (o) => o.createdAt, hideBelow: "xl" },
     {
       key: "expected",
       header: "التسليم المتوقع",
       render: (o) => (
-        <span className={cx("text-[12px]", isOrderDelayed(o, now) ? "text-critical" : "text-ink-3")}>
+        <span className={cx("text-[13.5px]", isOrderDelayed(o, now) ? "text-critical" : "text-ink-3")}>
           {o.status === "completed" ? `سُلّم ${fmtRelative(o.completedAt!, now)}` : o.status === "cancelled" ? "—" : isOrderDelayed(o, now) ? `متأخر ${fmtDuration(now - o.expectedAt)}` : fmtRelative(o.expectedAt, now)}
         </span>
       ),
       sortValue: (o) => o.expectedAt,
     },
-    { key: "updated", header: "آخر تحديث", render: (o) => <span className="text-[12px] text-ink-3">{fmtRelative(o.updatedAt, now)}</span>, sortValue: (o) => o.updatedAt, hideBelow: "lg" },
+    { key: "updated", header: "آخر تحديث", render: (o) => <span className="text-[13.5px] text-ink-3">{fmtRelative(o.updatedAt, now)}</span>, sortValue: (o) => o.updatedAt, hideBelow: "lg" },
   ];
 
   return (
@@ -116,10 +116,10 @@ export default function Orders() {
               aria-pressed={active}
               className={cx("card p-3.5 text-right transition-colors", active ? "border-accent/40 bg-accent-soft" : "hover:border-line-strong", changeCls)}
             >
-              <span className="flex items-center gap-1.5 text-[11.5px] text-ink-3">
+              <span className="flex items-center gap-1.5 text-[13px] text-ink-3">
                 <Icon name={t.icon} size={13} className={t.tone} /> {t.label}
               </span>
-              <span className="num mt-1.5 block text-[22px] font-semibold text-ink" style={{ textAlign: "right" }}>
+              <span className="num mt-1.5 block text-[23px] font-semibold text-ink" style={{ textAlign: "right" }}>
                 {fmtInt(count(t.v))}
               </span>
             </button>
@@ -131,7 +131,7 @@ export default function Orders() {
 
       <Card>
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line p-4">
-          <p className="text-[12.5px] text-ink-3">
+          <p className="text-[14px] text-ink-3">
             <span className="num text-ink">{fmtInt(rows.length)}</span> طلب · إجمالي القيمة <span className="num text-ink">{fmtMoney(total)}</span>
           </p>
           <SearchInput value={q} onChange={(v) => setParams({ q: v || null })} placeholder="رقم الطلب، العميل، الموظف…" className="w-full sm:w-72" />
@@ -148,10 +148,10 @@ export default function Orders() {
           renderMobile={(o) => (
             <div>
               <div className="flex items-center justify-between gap-2">
-                <span className="truncate text-[13px] font-medium text-ink">{ix.customer.get(o.customerId)?.name}</span>
-                <span className="num text-[13px] font-semibold text-ink">{fmtMoney(o.value)}</span>
+                <span className="truncate text-[14.5px] font-medium text-ink">{ix.customer.get(o.customerId)?.name}</span>
+                <span className="num text-[14.5px] font-semibold text-ink">{fmtMoney(o.value)}</span>
               </div>
-              <div className="mt-1.5 flex items-center gap-3 text-[11px] text-ink-3">
+              <div className="mt-1.5 flex items-center gap-3 text-[12.5px] text-ink-3">
                 <span className="num">{o.code}</span>
                 <OrderStatusBadge status={o.status} />
                 {isOrderDelayed(o, now) && <span className="text-critical">متأخر</span>}

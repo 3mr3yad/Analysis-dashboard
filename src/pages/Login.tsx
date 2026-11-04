@@ -53,7 +53,7 @@ export default function Login() {
   }
 
   const field =
-    "w-full rounded-lg border border-line bg-white/[0.03] px-3.5 py-2.5 text-[13.5px] text-ink placeholder:text-ink-3 transition-colors focus:border-accent/50 focus:bg-white/[0.05] focus:outline-none";
+    "w-full rounded-lg border border-line bg-white/[0.03] px-3.5 py-2.5 text-[15px] text-ink placeholder:text-ink-3 transition-colors focus:border-accent/50 focus:bg-white/[0.05] focus:outline-none";
 
   return (
     <div className="relative min-h-dvh overflow-hidden bg-black">
@@ -63,16 +63,16 @@ export default function Login() {
         <div className="w-full max-w-[400px]">
           <div className="mb-7 flex flex-col items-center gap-2 text-center">
             <Logo height={34} className="text-ink" />
-            <p className="text-[12px] tracking-wide text-ink-3">مركز القيادة التنفيذي</p>
+            <p className="text-[13.5px] tracking-wide text-ink-3">مركز القيادة التنفيذي</p>
           </div>
 
           <form onSubmit={submit} noValidate className="glass rounded-2xl border border-line-strong p-6 shadow-2xl sm:p-7">
-            <h1 className="text-[19px] font-semibold text-ink">تسجيل الدخول</h1>
-            <p className="mt-1 text-[12.5px] text-ink-3">ادخل بحساب لوحة المالك للوصول إلى البيانات.</p>
+            <h1 className="text-[20px] font-semibold text-ink">تسجيل الدخول</h1>
+            <p className="mt-1 text-[14px] text-ink-3">ادخل بحساب لوحة المالك للوصول إلى البيانات.</p>
 
             <div className="mt-6 space-y-4">
               <label className="block">
-                <span className="mb-1.5 block text-[12px] text-ink-2">البريد الإلكتروني</span>
+                <span className="mb-1.5 block text-[13.5px] text-ink-2">البريد الإلكتروني</span>
                 <input
                   type="email"
                   autoComplete="username"
@@ -87,7 +87,7 @@ export default function Login() {
               </label>
 
               <label className="block">
-                <span className="mb-1.5 block text-[12px] text-ink-2">كلمة المرور</span>
+                <span className="mb-1.5 block text-[13.5px] text-ink-2">كلمة المرور</span>
                 <span className="relative block">
                   <input
                     type={showPassword ? "text" : "password"}
@@ -101,7 +101,7 @@ export default function Login() {
                   <button
                     type="button"
                     onClick={() => setShowPassword((s) => !s)}
-                    className="absolute inset-y-0 left-0 flex w-10 items-center justify-center text-[11px] text-ink-3 hover:text-ink"
+                    className="absolute inset-y-0 left-0 flex w-10 items-center justify-center text-[12.5px] text-ink-3 hover:text-ink"
                     aria-label={showPassword ? "إخفاء كلمة المرور" : "إظهار كلمة المرور"}
                   >
                     {showPassword ? "إخفاء" : "إظهار"}
@@ -109,14 +109,14 @@ export default function Login() {
                 </span>
               </label>
 
-              <label className="flex cursor-pointer items-center gap-2 text-[12.5px] text-ink-2 select-none">
+              <label className="flex cursor-pointer items-center gap-2 text-[14px] text-ink-2 select-none">
                 <input type="checkbox" checked={remember} onChange={(e) => setRemember(e.target.checked)} className="size-4 accent-[var(--color-accent)]" />
                 تذكرني على هذا الجهاز
               </label>
             </div>
 
             {error && (
-              <p role="alert" className="mt-4 flex items-start gap-2 rounded-lg border border-critical/30 bg-critical/10 px-3 py-2.5 text-[12.5px] text-critical">
+              <p role="alert" className="mt-4 flex items-start gap-2 rounded-lg border border-critical/30 bg-critical/10 px-3 py-2.5 text-[14px] text-critical">
                 <Icon name="alert" size={15} className="mt-px shrink-0" />
                 {error}
               </p>
@@ -125,14 +125,14 @@ export default function Login() {
             <button
               type="submit"
               disabled={busy || cooldown > 0}
-              className="mt-6 flex w-full items-center justify-center gap-2 rounded-lg bg-accent py-2.5 text-[13.5px] font-semibold text-[#0b1020] transition-colors hover:bg-accent-strong disabled:opacity-60"
+              className="mt-6 flex w-full items-center justify-center gap-2 rounded-lg bg-accent py-2.5 text-[15px] font-semibold text-[#0b1020] transition-colors hover:bg-accent-strong disabled:opacity-60"
             >
               {busy && <span className="size-4 animate-spin rounded-full border-2 border-[#0b1020]/30 border-t-[#0b1020]" aria-hidden />}
               {busy ? "جارٍ التحقق…" : cooldown > 0 ? `حاول بعد ${cooldown} ث` : "دخول"}
             </button>
           </form>
 
-          <p className="mt-5 text-center text-[11px] text-ink-3">الوصول للاطلاع والمتابعة فقط · عالم وافي</p>
+          <p className="mt-5 text-center text-[12.5px] text-ink-3">الوصول للاطلاع والمتابعة فقط · عالم وافي</p>
         </div>
       </main>
     </div>

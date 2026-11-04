@@ -43,7 +43,7 @@ export default function CustomerPanel({ id }: { id: string }) {
           <>
             <Badge tone={st.tone}>{st.label}</Badge>
             <Badge dot={false}>{SEGMENT[c.segment].label}</Badge>
-            <span className="text-[11.5px] text-ink-3">آخر تفاعل {last ? fmtRelative(last.at, now) : "—"}</span>
+            <span className="text-[13px] text-ink-3">آخر تفاعل {last ? fmtRelative(last.at, now) : "—"}</span>
           </>
         }
       />
@@ -57,7 +57,7 @@ export default function CustomerPanel({ id }: { id: string }) {
         </div>
         {team.length > 0 && (
           <div className="mt-4 flex items-center justify-between gap-3 border-t border-line pt-3">
-            <span className="text-[11.5px] text-ink-3">الفريق الذي خدم العميل ({team.length})</span>
+            <span className="text-[13px] text-ink-3">الفريق الذي خدم العميل ({team.length})</span>
             <TeamAvatars people={team} presence={ix.presence} size={26} />
           </div>
         )}
@@ -81,12 +81,12 @@ export default function CustomerPanel({ id }: { id: string }) {
               <li key={r.id}>
                 <button onClick={() => openPanel({ kind: "request", id: r.id })} className="w-full rounded-lg px-2 py-2.5 text-right hover:bg-white/[0.03]">
                   <div className="flex items-center gap-3">
-                    <span className="num text-[11.5px] text-ink-3">{r.code}</span>
-                    <span className="flex-1 truncate text-[12.5px] text-ink">{SERVICE[r.type].label}</span>
+                    <span className="num text-[13px] text-ink-3">{r.code}</span>
+                    <span className="flex-1 truncate text-[14px] text-ink">{SERVICE[r.type].label}</span>
                     {isOverdue(r, now) && <OverdueTag />}
                     <RequestStatusBadge status={r.status} />
                   </div>
-                  <p className="mt-1 text-[11.5px] text-ink-3">
+                  <p className="mt-1 text-[13px] text-ink-3">
                     {r.currentAction} · {r.assigneeId ? ix.employee.get(r.assigneeId)?.name : "غير مسند"}
                   </p>
                 </button>
@@ -102,9 +102,9 @@ export default function CustomerPanel({ id }: { id: string }) {
             {orders.slice(0, 6).map((o) => (
               <li key={o.id}>
                 <button onClick={() => openPanel({ kind: "order", id: o.id })} className="flex w-full items-center gap-3 rounded-lg px-2 py-2 text-right hover:bg-white/[0.03]">
-                  <span className="num text-[11.5px] text-ink-3">{o.code}</span>
-                  <span className="num flex-1 text-[12.5px] text-ink">{fmtMoney(o.value)}</span>
-                  <span className="text-[11px] text-ink-3">{fmtDate(o.createdAt)}</span>
+                  <span className="num text-[13px] text-ink-3">{o.code}</span>
+                  <span className="num flex-1 text-[14px] text-ink">{fmtMoney(o.value)}</span>
+                  <span className="text-[12.5px] text-ink-3">{fmtDate(o.createdAt)}</span>
                   <OrderStatusBadge status={o.status} />
                 </button>
               </li>

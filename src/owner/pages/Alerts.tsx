@@ -83,17 +83,17 @@ export default function Alerts() {
                     </span>
                     <button onClick={() => n.target && setOpen(n.target)} disabled={!n.target} className="min-w-0 flex-1 text-right disabled:cursor-default">
                       <span className="flex flex-wrap items-center gap-2">
-                        <span className="text-[13px] font-medium text-ink">{n.title}</span>
+                        <span className="text-[14.5px] font-medium text-ink">{n.title}</span>
                         <Badge tone={PRIORITY[n.priority].tone}>{PRIORITY[n.priority].label}</Badge>
                         {n.target && <ServiceTag service={n.target.service} />}
                       </span>
-                      <span className="mt-1 block text-[12px] leading-relaxed text-ink-2">{n.detail}</span>
-                      <span className="mt-1 block text-[11px] text-ink-3">
+                      <span className="mt-1 block text-[13.5px] leading-relaxed text-ink-2">{n.detail}</span>
+                      <span className="mt-1 block text-[12.5px] text-ink-3">
                         <When iso={n.at} />
                       </span>
                     </button>
                     {!n.read && (
-                      <button onClick={() => void markRead([n.id])} className="shrink-0 rounded-md px-2 py-1 text-[11.5px] text-ink-3 hover:bg-hover hover:text-ink" title="تعليم كمقروء">
+                      <button onClick={() => void markRead([n.id])} className="shrink-0 rounded-md px-2 py-1 text-[13px] text-ink-3 hover:bg-hover hover:text-ink" title="تعليم كمقروء">
                         <Icon name="check" size={14} />
                       </button>
                     )}
@@ -106,7 +106,7 @@ export default function Alerts() {
           <div className="mt-4">
             <Note>
               القواعد الخمس (الحدود قابلة للتعديل من الخادم): تذكرة خدمة عملاء بلا موظف مسؤول · طلب مفتوح تجاوز مهلته (من سياسات المهلة في الإعدادات) · طلب استبدال متوقف عدة أيام · دفعة فاشلة · تذكرة بلا أي رد مسجّل.
-              <span className="mt-1 block text-[11.5px] text-ink-3">
+              <span className="mt-1 block text-[13px] text-ink-3">
                 «بلا رد مسجّل» تقدير تقريبي: النظام لا يحفظ المحادثة، فقط ملاحظة الإجراء المتخذ — لا يعرف إن كان العميل راسل بعد آخر رد.
               </span>
             </Note>

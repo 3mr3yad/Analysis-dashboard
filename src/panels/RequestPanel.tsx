@@ -44,7 +44,7 @@ export default function RequestPanel({ id }: { id: string }) {
 
       <PanelSection title="مسار الطلب" icon="layers">
         <Stepper steps={WORKFLOW} currentIndex={wfIndex >= 0 ? wfIndex : reached} labels={labels} tone={wfIndex >= 0 ? "accent" : "muted"} />
-        {wfIndex < 0 && <p className="mt-3 text-[11.5px] text-ink-3">الحالة الحالية خارج المسار الرئيسي: <span className="text-ink-2">{REQUEST_STATUS[r.status].label}</span></p>}
+        {wfIndex < 0 && <p className="mt-3 text-[13px] text-ink-3">الحالة الحالية خارج المسار الرئيسي: <span className="text-ink-2">{REQUEST_STATUS[r.status].label}</span></p>}
       </PanelSection>
 
       <PanelSection title="الوضع الحالي" icon="target">
@@ -66,7 +66,7 @@ export default function RequestPanel({ id }: { id: string }) {
       <PanelSection title="الأطراف" icon="users">
         <div className="grid grid-cols-2 gap-4">
           {customer && <PersonLink kind="customer" id={customer.id} name={customer.name} sub={`العميل · ${customer.code}`} />}
-          {assignee ? <PersonLink kind="employee" id={assignee.id} name={assignee.name} sub={`المسؤول · ${DEPARTMENT[assignee.department].label}`} /> : <span className="text-[12px] text-ink-3">لم يُسند بعد</span>}
+          {assignee ? <PersonLink kind="employee" id={assignee.id} name={assignee.name} sub={`المسؤول · ${DEPARTMENT[assignee.department].label}`} /> : <span className="text-[13.5px] text-ink-3">لم يُسند بعد</span>}
         </div>
       </PanelSection>
 
@@ -84,7 +84,7 @@ export default function RequestPanel({ id }: { id: string }) {
           ]}
         />
         {order && (
-          <button onClick={() => openPanel({ kind: "order", id: order.id })} className="mt-4 flex w-full items-center justify-between rounded-lg border border-line px-3 py-2.5 text-[12.5px] hover:border-accent/40">
+          <button onClick={() => openPanel({ kind: "order", id: order.id })} className="mt-4 flex w-full items-center justify-between rounded-lg border border-line px-3 py-2.5 text-[14px] hover:border-accent/40">
             <span className="text-ink-3">الطلب الشرائي المرتبط</span>
             <span className="num text-ink">{order.code}</span>
           </button>

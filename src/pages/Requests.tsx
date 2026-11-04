@@ -84,7 +84,7 @@ export default function Requests() {
   const filtersOn = type !== "all" || priority !== "all" || dept !== "all" || dir !== "all" || !!created || !!q;
 
   const columns: Column<ServiceRequest>[] = [
-    { key: "code", header: "رقم الطلب", render: (r) => <span className="num text-[12px] text-ink-2">{r.code}</span>, sortValue: (r) => r.code },
+    { key: "code", header: "رقم الطلب", render: (r) => <span className="num text-[13.5px] text-ink-2">{r.code}</span>, sortValue: (r) => r.code },
     {
       key: "customer",
       header: "العميل",
@@ -95,7 +95,7 @@ export default function Requests() {
             <Avatar name={c?.name ?? "?"} id={r.customerId} size={26} />
             <span className="min-w-0">
               <span className="block max-w-[160px] truncate text-ink">{c?.name}</span>
-              <span className="flex items-center gap-1 text-[11px] text-ink-3">
+              <span className="flex items-center gap-1 text-[12.5px] text-ink-3">
                 <Icon name={r.direction === "incoming" ? "incoming" : "outgoing"} size={11} /> {DIRECTION[r.direction].label}
               </span>
             </span>
@@ -113,7 +113,7 @@ export default function Requests() {
         return e ? (
           <span>
             <span className="block text-ink-2">{e.name}</span>
-            <span className="text-[11px] text-ink-3">{DEPARTMENT[r.department].label}</span>
+            <span className="text-[12.5px] text-ink-3">{DEPARTMENT[r.department].label}</span>
           </span>
         ) : (
           <span className="text-ink-3">غير مسند</span>
@@ -133,13 +133,13 @@ export default function Requests() {
       ),
       sortValue: (r) => [...WORKFLOW, ...SIDE_STATUSES].indexOf(r.status),
     },
-    { key: "action", header: "الإجراء الحالي", render: (r) => <span className="block max-w-[220px] truncate text-[12px] text-ink-3">{r.currentAction}</span>, hideBelow: "xl" },
-    { key: "created", header: "الإنشاء", render: (r) => <span className="num text-[12px] text-ink-3">{fmtDateTime(r.createdAt)}</span>, sortValue: (r) => r.createdAt, hideBelow: "xl" },
-    { key: "updated", header: "آخر تحديث", render: (r) => <span className="text-[12px] text-ink-3">{fmtRelative(r.updatedAt, now)}</span>, sortValue: (r) => r.updatedAt },
+    { key: "action", header: "الإجراء الحالي", render: (r) => <span className="block max-w-[220px] truncate text-[13.5px] text-ink-3">{r.currentAction}</span>, hideBelow: "xl" },
+    { key: "created", header: "الإنشاء", render: (r) => <span className="num text-[13.5px] text-ink-3">{fmtDateTime(r.createdAt)}</span>, sortValue: (r) => r.createdAt, hideBelow: "xl" },
+    { key: "updated", header: "آخر تحديث", render: (r) => <span className="text-[13.5px] text-ink-3">{fmtRelative(r.updatedAt, now)}</span>, sortValue: (r) => r.updatedAt },
     {
       key: "due",
       header: "الإنجاز المتوقع",
-      render: (r) => <span className={cx("text-[12px]", isOverdue(r, now) ? "text-critical" : "text-ink-3")}>{TERMINAL.has(r.status) ? "—" : fmtRelative(r.dueAt, now)}</span>,
+      render: (r) => <span className={cx("text-[13.5px]", isOverdue(r, now) ? "text-critical" : "text-ink-3")}>{TERMINAL.has(r.status) ? "—" : fmtRelative(r.dueAt, now)}</span>,
       sortValue: (r) => r.dueAt,
       hideBelow: "lg",
     },
@@ -164,8 +164,8 @@ export default function Requests() {
                 onClick={() => setParams({ status: exactStatus === s ? null : s })}
                 className={cx("flex-1 rounded-lg border border-transparent px-3 py-2.5 text-right transition-colors", exactStatus === s ? "bg-accent-soft ring-1 ring-accent/30" : "hover:bg-white/[0.03]", changeCls)}
               >
-                <span className="block text-[11px] text-ink-3">{REQUEST_STATUS[s].label}</span>
-                <span className="num block text-[18px] font-semibold text-ink" style={{ textAlign: "right" }}>
+                <span className="block text-[12.5px] text-ink-3">{REQUEST_STATUS[s].label}</span>
+                <span className="num block text-[19.5px] font-semibold text-ink" style={{ textAlign: "right" }}>
                   {stageCounts[s]}
                 </span>
               </button>
@@ -183,8 +183,8 @@ export default function Requests() {
                 onClick={() => setParams({ status: exactStatus === s ? null : s })}
                 className={cx("h-full w-full rounded-lg border border-transparent px-3 py-2.5 text-right transition-colors", exactStatus === s ? "bg-white/[0.06] ring-1 ring-line-strong" : "hover:bg-white/[0.03]", changeCls)}
               >
-                <span className="block text-[11px] text-ink-3">{REQUEST_STATUS[s].label}</span>
-                <span className="num block text-[15px] font-medium text-ink-2" style={{ textAlign: "right" }}>
+                <span className="block text-[12.5px] text-ink-3">{REQUEST_STATUS[s].label}</span>
+                <span className="num block text-[16.5px] font-medium text-ink-2" style={{ textAlign: "right" }}>
                   {stageCounts[s]}
                 </span>
               </button>
@@ -213,7 +213,7 @@ export default function Requests() {
             <Select label="القسم" value={dept} onChange={(v) => setParams({ dept: v === "all" ? null : v })} options={[{ value: "all", label: "كل الأقسام" }, ...(Object.keys(DEPARTMENT) as Department[]).map((k) => ({ value: k, label: DEPARTMENT[k].label }))]} />
             <Select label="الاتجاه" value={dir} onChange={(v) => setParams({ dir: v === "all" ? null : v })} options={[{ value: "all", label: "واردة وصادرة" }, { value: "incoming", label: "واردة" }, { value: "outgoing", label: "صادرة" }]} />
             {created && (
-              <span className="inline-flex items-center gap-1.5 rounded-lg border border-accent/25 bg-accent-soft px-2.5 py-1.5 text-[12px] text-accent">
+              <span className="inline-flex items-center gap-1.5 rounded-lg border border-accent/25 bg-accent-soft px-2.5 py-1.5 text-[13.5px] text-accent">
                 {created === "today" ? "أُنشئت اليوم" : `أُنشئت خلال: ${w.label}`}
                 <button onClick={() => setParams({ created: null })} aria-label="إزالة فلتر التاريخ">
                   <Icon name="close" size={12} />
@@ -221,7 +221,7 @@ export default function Requests() {
               </span>
             )}
             {filtersOn && (
-              <Button onClick={() => setParams({ type: null, priority: null, dept: null, dir: null, created: null, q: null })} className="text-[12px]">
+              <Button onClick={() => setParams({ type: null, priority: null, dept: null, dir: null, created: null, q: null })} className="text-[13.5px]">
                 مسح الفلاتر
               </Button>
             )}
@@ -243,11 +243,11 @@ export default function Requests() {
             return (
               <div>
                 <div className="flex items-center justify-between gap-2">
-                  <span className="truncate text-[13px] font-medium text-ink">{c?.name}</span>
+                  <span className="truncate text-[14.5px] font-medium text-ink">{c?.name}</span>
                   <RequestStatusBadge status={r.status} />
                 </div>
-                <p className="mt-1 truncate text-[12px] text-ink-3">{r.currentAction}</p>
-                <div className="mt-1.5 flex items-center gap-3 text-[11px] text-ink-3">
+                <p className="mt-1 truncate text-[13.5px] text-ink-3">{r.currentAction}</p>
+                <div className="mt-1.5 flex items-center gap-3 text-[12.5px] text-ink-3">
                   <span className="num">{r.code}</span>
                   <span>{e?.name ?? "غير مسند"}</span>
                   <PriorityTag priority={r.priority} />

@@ -37,7 +37,7 @@ export default function Employees() {
   const ranked = [...rows].sort((a, b) => b.completed - a.completed);
 
   const columns: Column<EmployeeStats>[] = [
-    { key: "rank", header: "#", render: (r) => <span className="num text-[11.5px] text-ink-3">{ranked.indexOf(r) + 1}</span>, sortValue: (r) => -ranked.indexOf(r), className: "w-10" },
+    { key: "rank", header: "#", render: (r) => <span className="num text-[13px] text-ink-3">{ranked.indexOf(r) + 1}</span>, sortValue: (r) => -ranked.indexOf(r), className: "w-10" },
     {
       key: "name",
       header: "الموظف",
@@ -48,7 +48,7 @@ export default function Employees() {
             <Avatar name={r.employee.name} id={r.employee.id} size={28} status={p ? PRESENCE[p.status].tone : undefined} />
             <span>
               <span className="block text-ink">{r.employee.name}</span>
-              <span className="text-[11px] text-ink-3">{DEPARTMENT[r.employee.department].label}</span>
+              <span className="text-[12.5px] text-ink-3">{DEPARTMENT[r.employee.department].label}</span>
             </span>
           </span>
         );
@@ -100,7 +100,7 @@ export default function Employees() {
             {depts.map((d) => (
               <div key={d.department} className="rounded-xl border border-line bg-white/[0.015] p-4">
                 <div className="flex items-center justify-between">
-                  <p className="text-[13px] font-medium text-ink">{DEPARTMENT[d.department].label}</p>
+                  <p className="text-[14.5px] font-medium text-ink">{DEPARTMENT[d.department].label}</p>
                   <TeamAvatars people={rows.filter((r) => r.employee.department === d.department).map((r) => r.employee)} presence={ix.presence} max={5} size={26} />
                 </div>
                 <div className="mt-3 grid grid-cols-3 gap-3">
@@ -145,12 +145,12 @@ export default function Employees() {
             <div className="flex items-center gap-3">
               <Avatar name={r.employee.name} id={r.employee.id} size={32} />
               <div className="min-w-0 flex-1">
-                <p className="truncate text-[13px] font-medium text-ink">{r.employee.name}</p>
-                <p className="text-[11.5px] text-ink-3">
+                <p className="truncate text-[14.5px] font-medium text-ink">{r.employee.name}</p>
+                <p className="text-[13px] text-ink-3">
                   {r.completed} مكتملة · {r.open} مفتوحة {r.overdue ? `· ${r.overdue} متأخرة` : ""}
                 </p>
               </div>
-              <span className="num text-[12px] text-ink-2">{r.csat === null ? "—" : fmtPct(r.csat)}</span>
+              <span className="num text-[13.5px] text-ink-2">{r.csat === null ? "—" : fmtPct(r.csat)}</span>
             </div>
           )}
         />

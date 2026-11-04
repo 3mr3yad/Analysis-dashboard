@@ -16,7 +16,7 @@ const keyOf = (p: { service: string; status: string }) => `${p.service}|${p.stat
 const validHours = (h: string) => /^\d+$/.test(h) && +h >= 1 && +h <= 8760;
 const statusName = (s: string) => (s === "" ? "أي حالة (افتراضي الخدمة)" : (STATUS_NAME[s] ?? s));
 
-const inputCls = "rounded-lg border border-line bg-white/[0.02] px-2.5 py-1.5 text-[12.5px] text-ink focus:border-accent/40 focus:outline-none";
+const inputCls = "rounded-lg border border-line bg-white/[0.02] px-2.5 py-1.5 text-[14px] text-ink focus:border-accent/40 focus:outline-none";
 
 export default function SlaPolicies() {
   const q = useQuery("sla-policies", (force) => api.slaPolicies(force));
@@ -61,10 +61,10 @@ export default function SlaPolicies() {
     return (
       <li key={k} className="flex flex-wrap items-center justify-between gap-2 px-3 py-2">
         <span className="min-w-0">
-          <span className="block text-[12.5px] text-ink">{statusName(p.status)}</span>
-          {p.label && <span className="block text-[11px] text-ink-3">{p.label}</span>}
+          <span className="block text-[14px] text-ink">{statusName(p.status)}</span>
+          {p.label && <span className="block text-[12.5px] text-ink-3">{p.label}</span>}
         </span>
-        <label className="flex items-center gap-1.5 text-[11.5px] text-ink-3">
+        <label className="flex items-center gap-1.5 text-[13px] text-ink-3">
           <input
             type="number"
             min={1}
@@ -96,7 +96,7 @@ export default function SlaPolicies() {
             <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
               {grouped.map(({ meta, rows }) => (
                 <div key={meta.key}>
-                  <p className="mb-1.5 text-[11.5px] font-medium text-ink-3">{meta.label}</p>
+                  <p className="mb-1.5 text-[13px] font-medium text-ink-3">{meta.label}</p>
                   <ul className="divide-y divide-line rounded-lg border border-line">{rows.map(row)}</ul>
                 </div>
               ))}
@@ -105,14 +105,14 @@ export default function SlaPolicies() {
             {added.length > 0 && (
               <ul className="divide-y divide-line rounded-lg border border-dashed border-accent/40">
                 {added.map((a, i) => (
-                  <li key={keyOf(a)} className="flex items-center justify-between gap-2 px-3 py-2 text-[12.5px]">
+                  <li key={keyOf(a)} className="flex items-center justify-between gap-2 px-3 py-2 text-[14px]">
                     <span>
                       <span className="text-ink">{SERVICE[a.service].label}</span> · <span className="text-ink-2">{statusName(a.status)}</span>
                       {a.label && <span className="text-ink-3"> · {a.label}</span>}
                     </span>
                     <span className="flex items-center gap-2">
                       <span className="num text-ink">{fmtInt(+a.hours)} ساعة</span>
-                      <button onClick={() => setAdded((xs) => xs.filter((_, j) => j !== i))} className="text-[11.5px] text-ink-3 hover:text-critical">
+                      <button onClick={() => setAdded((xs) => xs.filter((_, j) => j !== i))} className="text-[13px] text-ink-3 hover:text-critical">
                         إزالة
                       </button>
                     </span>
@@ -122,7 +122,7 @@ export default function SlaPolicies() {
             )}
 
             <div className="rounded-lg border border-line p-3">
-              <p className="mb-2 text-[11.5px] font-medium text-ink-3">إضافة مهلة</p>
+              <p className="mb-2 text-[13px] font-medium text-ink-3">إضافة مهلة</p>
               <div className="flex flex-wrap items-end gap-2">
                 <Select label="الخدمة" value={draft.service} onChange={(v) => setDraft({ ...draft, service: v, status: "" })} options={SERVICES.filter((s) => s.statuses !== null).map((s) => ({ value: s.key, label: s.label }))} />
                 {Array.isArray(draftStatuses) ? (
@@ -143,7 +143,7 @@ export default function SlaPolicies() {
                   إضافة
                 </Button>
               </div>
-              {draftTaken && draft.hours && <p className="mt-2 text-[11.5px] text-ink-3">توجد مهلة لهذه الخدمة والحالة — عدّل ساعاتها من القائمة أعلاه.</p>}
+              {draftTaken && draft.hours && <p className="mt-2 text-[13px] text-ink-3">توجد مهلة لهذه الخدمة والحالة — عدّل ساعاتها من القائمة أعلاه.</p>}
             </div>
 
             <div className="flex flex-wrap items-center gap-3">
@@ -161,8 +161,8 @@ export default function SlaPolicies() {
                   تراجع
                 </Button>
               )}
-              {invalid && <span className="text-[11.5px] text-critical">الساعات بين 1 و 8760.</span>}
-              {result && <span className={cx("text-[12px]", result.ok ? "text-good" : "text-critical")}>{result.text}</span>}
+              {invalid && <span className="text-[13px] text-critical">الساعات بين 1 و 8760.</span>}
+              {result && <span className={cx("text-[13.5px]", result.ok ? "text-good" : "text-critical")}>{result.text}</span>}
             </div>
 
             <Note>

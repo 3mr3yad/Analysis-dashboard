@@ -26,7 +26,7 @@ type AvatarGroupTooltipProps = Omit<AvatarGroupTooltipPropsPrimitive, "asChild">
 function AvatarGroupTooltip({ className, children, layout = "preserve-aspect", ...props }: AvatarGroupTooltipProps) {
   return (
     <AvatarGroupTooltipPrimitive
-      className={cn("z-50 w-fit rounded-md border border-line-strong bg-raised px-2.5 py-1.5 text-[11.5px] text-ink shadow-xl text-balance", className)}
+      className={cn("z-50 w-fit rounded-md border border-line-strong bg-raised px-2.5 py-1.5 text-[13px] text-ink shadow-xl text-balance", className)}
       {...props}
     >
       <motion.div layout={layout} className="overflow-hidden">

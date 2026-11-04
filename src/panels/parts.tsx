@@ -8,8 +8,8 @@ import { cx } from "../ui/tone";
 export function PanelHeader({ eyebrow, title, meta, children }: { eyebrow: ReactNode; title: ReactNode; meta?: ReactNode; children?: ReactNode }) {
   return (
     <div className="border-b border-line px-6 pt-6 pb-5">
-      <p className="mb-1.5 text-[11.5px] text-ink-3">{eyebrow}</p>
-      <h2 className="pl-10 text-[20px] leading-tight font-semibold text-ink">{title}</h2>
+      <p className="mb-1.5 text-[13px] text-ink-3">{eyebrow}</p>
+      <h2 className="pl-10 text-[21px] leading-tight font-semibold text-ink">{title}</h2>
       {meta && <div className="mt-3 flex flex-wrap items-center gap-2">{meta}</div>}
       {children}
     </div>
@@ -20,7 +20,7 @@ export function PanelSection({ title, children, icon, action }: { title: string;
   return (
     <section className="border-b border-line px-6 py-5 last:border-0">
       <div className="mb-3.5 flex items-center justify-between">
-        <h3 className="flex items-center gap-2 text-[12.5px] font-semibold text-ink-2">
+        <h3 className="flex items-center gap-2 text-[14px] font-semibold text-ink-2">
           {icon && <Icon name={icon} size={14} className="text-ink-3" />}
           {title}
         </h3>
@@ -36,8 +36,8 @@ export function Facts({ items }: { items: [string, ReactNode][] }) {
     <dl className="grid grid-cols-2 gap-x-6 gap-y-3.5">
       {items.map(([k, v]) => (
         <div key={k} className="min-w-0">
-          <dt className="text-[11px] text-ink-3">{k}</dt>
-          <dd className="mt-0.5 truncate text-[12.5px] text-ink">{v}</dd>
+          <dt className="text-[12.5px] text-ink-3">{k}</dt>
+          <dd className="mt-0.5 truncate text-[14px] text-ink">{v}</dd>
         </div>
       ))}
     </dl>
@@ -49,8 +49,8 @@ export function PersonLink({ name, id, kind, sub, size = 28 }: { name: string; i
     <button onClick={() => openPanel({ kind, id })} className="group flex min-w-0 items-center gap-2.5 text-right">
       <Avatar name={name} id={id} size={size} />
       <span className="min-w-0">
-        <span className="block truncate text-[12.5px] text-ink group-hover:text-accent">{name}</span>
-        {sub && <span className="block truncate text-[11px] text-ink-3">{sub}</span>}
+        <span className="block truncate text-[14px] text-ink group-hover:text-accent">{name}</span>
+        {sub && <span className="block truncate text-[12.5px] text-ink-3">{sub}</span>}
       </span>
     </button>
   );
@@ -60,7 +60,7 @@ export function Callout({ icon = "target", children, tone = "accent" }: { icon?:
   return (
     <div
       className={cx(
-        "flex items-start gap-2.5 rounded-lg border px-3 py-2.5 text-[12.5px] leading-relaxed",
+        "flex items-start gap-2.5 rounded-lg border px-3 py-2.5 text-[14px] leading-relaxed",
         tone === "accent" && "border-accent/20 bg-accent-soft text-ink",
         tone === "critical" && "border-critical/25 bg-critical/[0.07] text-ink",
         tone === "warning" && "border-warning/25 bg-warning/[0.06] text-ink",
@@ -85,7 +85,7 @@ export function Stepper({ steps, currentIndex, labels, tone = "accent" }: { step
               <span className={cx("h-px flex-1", i === 0 ? "opacity-0" : done || current ? "bg-accent/60" : "bg-line-strong")} />
               <span
                 className={cx(
-                  "flex size-5 shrink-0 items-center justify-center rounded-full border text-[10px]",
+                  "flex size-5 shrink-0 items-center justify-center rounded-full border text-[11.5px]",
                   done && "border-accent/50 bg-accent/20 text-accent",
                   current && (tone === "accent" ? "border-accent bg-accent text-[#0b1020] shadow-[0_0_0_4px_rgb(143_179_255/0.15)]" : "border-ink-3 bg-ink-3 text-surface"),
                   !done && !current && "border-line-strong text-ink-3",
@@ -95,7 +95,7 @@ export function Stepper({ steps, currentIndex, labels, tone = "accent" }: { step
               </span>
               <span className={cx("h-px flex-1", i === steps.length - 1 ? "opacity-0" : done ? "bg-accent/60" : "bg-line-strong")} />
             </div>
-            <span className={cx("text-[10.5px] leading-tight", current ? "font-semibold text-ink" : done ? "text-ink-2" : "text-ink-3")}>{labels[s]}</span>
+            <span className={cx("text-[12px] leading-tight", current ? "font-semibold text-ink" : done ? "text-ink-2" : "text-ink-3")}>{labels[s]}</span>
           </li>
         );
       })}

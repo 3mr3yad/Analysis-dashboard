@@ -1,11 +1,11 @@
-@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap");
 @import "tailwindcss";
 
 /* ── Design tokens ─────────────────────────────────────────────────────────
    Midnight surfaces, one cool accent, status colours reserved for state.
    Chart series follow the validated categorical order (blue, orange, aqua, yellow). */
 @theme {
-  --font-sans: "IBM Plex Sans Arabic", system-ui, "Segoe UI", sans-serif;
+  /* Readex Pro: built for screen UI, large open letterforms in Arabic and Latin, clear numerals. Loaded in index.html. */
+  --font-sans: "Readex Pro", system-ui, "Segoe UI", sans-serif;
 
   /* Brand (public/images/wafiworldLogo.svg) */
   --color-brand: #025099;
@@ -20,8 +20,8 @@
   --color-line-strong: rgb(255 255 255 / 0.11);
 
   --color-ink: #eef0f4;
-  --color-ink-2: #a9b0bd;
-  --color-ink-3: #6e7686;
+  --color-ink-2: #c0c6d1;
+  --color-ink-3: #8d96a8;
 
   --color-accent: #8fb3ff;
   --color-accent-strong: #6f97f0;

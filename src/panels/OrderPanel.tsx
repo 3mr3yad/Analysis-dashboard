@@ -33,14 +33,14 @@ export default function OrderPanel({ id }: { id: string }) {
         meta={
           <>
             <OrderStatusBadge status={o.status} />
-            {delayed && <span className="text-[11.5px] font-medium text-critical">متأخر {fmtDuration(now - o.expectedAt)}</span>}
-            <span className="text-[11.5px] text-ink-3">{o.items} صنف</span>
+            {delayed && <span className="text-[13px] font-medium text-critical">متأخر {fmtDuration(now - o.expectedAt)}</span>}
+            <span className="text-[13px] text-ink-3">{o.items} صنف</span>
           </>
         }
       />
       <PanelSection title="دورة حياة الطلب" icon="layers">
         <Stepper steps={FLOW} currentIndex={idx} labels={labels} tone={o.status === "cancelled" ? "muted" : "accent"} />
-        {o.status === "cancelled" && <p className="mt-3 text-[11.5px] text-ink-3">أُلغي الطلب.</p>}
+        {o.status === "cancelled" && <p className="mt-3 text-[13px] text-ink-3">أُلغي الطلب.</p>}
         {o.status === "awaiting_approval" && (
           <div className="mt-4">
             <Callout tone="warning" icon="checkCircle">
@@ -65,7 +65,7 @@ export default function OrderPanel({ id }: { id: string }) {
           ]}
         />
         {related && (
-          <button onClick={() => openPanel({ kind: "request", id: related.id })} className="mt-4 flex w-full items-center justify-between rounded-lg border border-line px-3 py-2.5 text-[12.5px] hover:border-accent/40">
+          <button onClick={() => openPanel({ kind: "request", id: related.id })} className="mt-4 flex w-full items-center justify-between rounded-lg border border-line px-3 py-2.5 text-[14px] hover:border-accent/40">
             <span className="text-ink-3">طلب الخدمة المرتبط</span>
             <span className="num text-ink">{related.code}</span>
           </button>

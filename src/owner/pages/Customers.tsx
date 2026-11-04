@@ -35,7 +35,7 @@ function Lookup({ initial }: { initial: string }) {
   };
   return (
     <form onSubmit={submit} className="card mb-5 p-4" role="search">
-      <label htmlFor="phone" className="mb-2 block text-[12.5px] text-ink-2">
+      <label htmlFor="phone" className="mb-2 block text-[14px] text-ink-2">
         رقم جوال العميل
       </label>
       <div className="flex flex-wrap gap-2">
@@ -49,16 +49,16 @@ function Lookup({ initial }: { initial: string }) {
             value={value}
             onChange={(e) => setValue(e.target.value)}
             placeholder="05xxxxxxxx"
-            className="w-full rounded-lg border border-line bg-white/[0.03] py-2.5 pr-9 pl-3 text-left text-[14px] text-ink placeholder:text-ink-3 focus:border-accent/50 focus:outline-none"
+            className="w-full rounded-lg border border-line bg-white/[0.03] py-2.5 pr-9 pl-3 text-left text-[15.5px] text-ink placeholder:text-ink-3 focus:border-accent/50 focus:outline-none"
             aria-invalid={!!error}
             aria-describedby="phone-hint"
           />
         </div>
-        <button type="submit" className="rounded-lg bg-accent px-5 py-2.5 text-[13px] font-semibold text-[#0b1020] hover:bg-accent-strong">
+        <button type="submit" className="rounded-lg bg-accent px-5 py-2.5 text-[14.5px] font-semibold text-[#0b1020] hover:bg-accent-strong">
           بحث
         </button>
       </div>
-      <p id="phone-hint" className={error ? "mt-2 text-[12px] text-critical" : "mt-2 text-[11.5px] text-ink-3"}>
+      <p id="phone-hint" className={error ? "mt-2 text-[13.5px] text-critical" : "mt-2 text-[13px] text-ink-3"}>
         {error ?? "يقبل كل الصيغ المستخدمة في الموقع: 05… أو ‎+9665… أو 9665… أو 5…"}
       </p>
     </form>
@@ -96,22 +96,22 @@ function History({ phone }: { phone: string }) {
       <Card className="mb-4 p-5">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
-            <p className="text-[18px] font-semibold text-ink">{name ?? <NotTracked>بدون اسم مسجّل</NotTracked>}</p>
-            <p dir="ltr" className="num mt-1 text-right text-[13px] text-ink-2">
+            <p className="text-[19.5px] font-semibold text-ink">{name ?? <NotTracked>بدون اسم مسجّل</NotTracked>}</p>
+            <p dir="ltr" className="num mt-1 text-right text-[14.5px] text-ink-2">
               {q.data.phone}
             </p>
           </div>
           <div className="flex gap-8">
             <PaidTotal phone={phone} />
             <div className="text-left">
-              <p className="num text-[26px] leading-none font-semibold text-ink">{fmtInt(q.data.total_tickets)}</p>
-              <p className="mt-1 text-[11.5px] text-ink-3">طلب عبر كل الخدمات</p>
+              <p className="num text-[27px] leading-none font-semibold text-ink">{fmtInt(q.data.total_tickets)}</p>
+              <p className="mt-1 text-[13px] text-ink-3">طلب عبر كل الخدمات</p>
             </div>
           </div>
         </div>
         <div className="mt-4 flex flex-wrap gap-1.5">
           {[...byService.entries()].map(([k, v]) => (
-            <span key={k} className="inline-flex items-center gap-1.5 rounded-md border border-line bg-white/[0.02] px-2 py-1 text-[11.5px] text-ink-2">
+            <span key={k} className="inline-flex items-center gap-1.5 rounded-md border border-line bg-white/[0.02] px-2 py-1 text-[13px] text-ink-2">
               {v.label} <span className="num text-ink">{v.n}</span>
             </span>
           ))}
@@ -131,20 +131,20 @@ function History({ phone }: { phone: string }) {
                 <span className="flex flex-wrap items-center justify-between gap-2">
                   <span className="flex items-center gap-2">
                     <ServiceTag service={t.service} label={t.service_label} />
-                    <span className="num text-[11.5px] text-ink-3">#{t.request_number ?? t.id}</span>
+                    <span className="num text-[13px] text-ink-3">#{t.request_number ?? t.id}</span>
                   </span>
-                  <span className="text-[11.5px] text-ink-3" title={fmtDateTime(Date.parse(t.created_at))}>
+                  <span className="text-[13px] text-ink-3" title={fmtDateTime(Date.parse(t.created_at))}>
                     <When iso={t.created_at} />
                   </span>
                 </span>
-                <span className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-[12px]">
+                <span className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-[13.5px]">
                   <StatusPill status={t.status} label={t.status_label} />
                   <span className="text-ink-3">
                     {t.assigned_to ? `مسند إلى ${t.assigned_to.name}` : t.created_by ? `أنشأه ${t.created_by.name}` : null}
                   </span>
                 </span>
                 {t.last_activity && (
-                  <span dir="auto" className="mt-1.5 block truncate text-start text-[11.5px] text-ink-3">
+                  <span dir="auto" className="mt-1.5 block truncate text-start text-[13px] text-ink-3">
                     {t.last_activity.description}
                   </span>
                 )}
@@ -170,8 +170,8 @@ function PaidTotal({ phone }: { phone: string }) {
   const paid = q.data.data.find((c) => last9(c.phone) === last9(phone))?.paid_total_sar ?? null;
   return (
     <div className="text-left" title="مدفوعات المتجر المكتملة المنسوبة لهذا الرقم، بعد خصم المسترد">
-      <p className="num text-[26px] leading-none font-semibold text-ink">{paid === null ? "—" : fmtMoney(paid)}</p>
-      <p className="mt-1 text-[11.5px] text-ink-3">{paid === null ? "لا مدفوعات متجر منسوبة له" : "مدفوعات المتجر"}</p>
+      <p className="num text-[27px] leading-none font-semibold text-ink">{paid === null ? "—" : fmtMoney(paid)}</p>
+      <p className="mt-1 text-[13px] text-ink-3">{paid === null ? "لا مدفوعات متجر منسوبة له" : "مدفوعات المتجر"}</p>
     </div>
   );
 }
@@ -204,10 +204,10 @@ function Directory({ search, page }: { search: string; page: number }) {
       ) : (
         <div className={cx("transition-opacity", q.loading && "opacity-50")} aria-busy={q.loading}>
           <div className="hidden overflow-x-auto md:block">
-            <table className="w-full text-right text-[12.5px]">
+            <table className="w-full text-right text-[14px]">
               <caption className="sr-only">قائمة العملاء</caption>
               <thead>
-                <tr className="border-b border-line text-[11.5px] text-ink-3">
+                <tr className="border-b border-line text-[13px] text-ink-3">
                   <th className="px-4 py-2.5 font-medium">العميل</th>
                   <th className="px-3 py-2.5 font-medium">الطلبات</th>
                   <th className="px-3 py-2.5 font-medium" title="من الخدمات التي لها حالة إغلاق فقط">
@@ -223,7 +223,7 @@ function Directory({ search, page }: { search: string; page: number }) {
                   <tr key={c.phone} onClick={() => open(c)} className="cursor-pointer border-b border-line/60 transition-colors last:border-0 hover:bg-white/[0.025]">
                     <td className="px-4 py-3">
                       <span className="block max-w-[200px] truncate text-ink">{c.name ?? <NotTracked>بدون اسم</NotTracked>}</span>
-                      <span dir="ltr" className="num block text-right text-[12px] text-ink-3">
+                      <span dir="ltr" className="num block text-right text-[13.5px] text-ink-3">
                         {c.phone}
                       </span>
                     </td>
@@ -232,7 +232,7 @@ function Directory({ search, page }: { search: string; page: number }) {
                     <td className="hidden px-3 py-3 lg:table-cell">
                       <span className="flex max-w-[280px] flex-wrap gap-1">
                         {c.services_used.map((s) => (
-                          <span key={s} className="rounded bg-white/[0.04] px-1.5 py-0.5 text-[10.5px] text-ink-2">
+                          <span key={s} className="rounded bg-white/[0.04] px-1.5 py-0.5 text-[12px] text-ink-2">
                             {serviceLabel(s)}
                           </span>
                         ))}
@@ -241,7 +241,7 @@ function Directory({ search, page }: { search: string; page: number }) {
                     <td className="px-3 py-3">
                       {c.paid_total_sar === null ? <NotTracked title="لا توجد دفعة متجر منسوبة لهذا الرقم">—</NotTracked> : <span className="num text-ink">{fmtMoney(c.paid_total_sar)}</span>}
                     </td>
-                    <td className="px-4 py-3 text-[12px] text-ink-3">
+                    <td className="px-4 py-3 text-[13.5px] text-ink-3">
                       <When iso={c.last_seen_at} />
                     </td>
                   </tr>
@@ -254,10 +254,10 @@ function Directory({ search, page }: { search: string; page: number }) {
               <li key={c.phone}>
                 <button onClick={() => open(c)} className="block w-full px-4 py-3 text-right">
                   <span className="flex items-center justify-between gap-2">
-                    <span className="truncate text-[13px] text-ink">{c.name ?? "بدون اسم"}</span>
-                    <span className="num text-[12px] text-ink-2">{fmtInt(c.total_tickets)} طلب</span>
+                    <span className="truncate text-[14.5px] text-ink">{c.name ?? "بدون اسم"}</span>
+                    <span className="num text-[13.5px] text-ink-2">{fmtInt(c.total_tickets)} طلب</span>
                   </span>
-                  <span className="mt-0.5 flex items-center justify-between text-[11.5px] text-ink-3">
+                  <span className="mt-0.5 flex items-center justify-between text-[13px] text-ink-3">
                     <span dir="ltr" className="num">
                       {c.phone}
                     </span>
@@ -295,7 +295,7 @@ export default function Customers() {
       <PageHeader title="العملاء" subtitle="كل عملاء وافي عبر الخدمات، أو ابحث برقم جوال لعرض سجل عميل كامل." />
       {phone ? (
         <>
-          <a href={hrefTo("customers", { q: search })} className="mb-3 inline-flex items-center gap-1 text-[12px] text-ink-3 hover:text-accent">
+          <a href={hrefTo("customers", { q: search })} className="mb-3 inline-flex items-center gap-1 text-[13.5px] text-ink-3 hover:text-accent">
             <Icon name="chevron" size={13} className="rotate-180" /> كل العملاء
           </a>
           <Lookup key={phone} initial={phone} />
@@ -307,7 +307,7 @@ export default function Customers() {
           <Directory search={search} page={page} />
         </>
       )}
-      <p className="mt-4 text-[11.5px] text-ink-3">مدفوعات المتجر لا تُنسب لعميل إلا إذا مرّر المتجر رقم جواله مع الدفعة.</p>
+      <p className="mt-4 text-[13px] text-ink-3">مدفوعات المتجر لا تُنسب لعميل إلا إذا مرّر المتجر رقم جواله مع الدفعة.</p>
     </div>
   );
 }

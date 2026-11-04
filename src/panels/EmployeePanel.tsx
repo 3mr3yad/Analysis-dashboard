@@ -44,7 +44,7 @@ export default function EmployeePanel({ id }: { id: string }) {
             <Avatar name={e.name} id={e.id} size={42} status={p ? PRESENCE[p.status].tone : undefined} />
             <span>
               {e.name}
-              <span className="block text-[12.5px] font-normal text-ink-3">{e.title}</span>
+              <span className="block text-[14px] font-normal text-ink-3">{e.title}</span>
             </span>
           </span>
         }
@@ -52,7 +52,7 @@ export default function EmployeePanel({ id }: { id: string }) {
           p && (
             <>
               <PresenceBadge status={p.status} simulated={origin === "mock"} />
-              <span className="text-[11.5px] text-ink-3">آخر نشاط {fmtRelative(p.lastActivityAt, now)}</span>
+              <span className="text-[13px] text-ink-3">آخر نشاط {fmtRelative(p.lastActivityAt, now)}</span>
             </>
           )
         }
@@ -62,17 +62,17 @@ export default function EmployeePanel({ id }: { id: string }) {
         <PanelSection title="يعمل الآن على" icon="bolt">
           <button onClick={() => openPanel({ kind: "request", id: currentReq.id })} className="w-full rounded-xl border border-accent/20 bg-accent-soft p-4 text-right hover:border-accent/40">
             <div className="flex items-center justify-between gap-3">
-              <span className="text-[13px] font-medium text-ink">{currentCustomer?.name}</span>
-              <span className="num text-[11.5px] text-ink-3">{currentReq.code}</span>
+              <span className="text-[14.5px] font-medium text-ink">{currentCustomer?.name}</span>
+              <span className="num text-[13px] text-ink-3">{currentReq.code}</span>
             </div>
-            <p className="mt-1.5 text-[12.5px] text-ink-2">{current.action}</p>
-            <div className="mt-3 flex items-center gap-4 text-[11.5px] text-ink-3">
+            <p className="mt-1.5 text-[14px] text-ink-2">{current.action}</p>
+            <div className="mt-3 flex items-center gap-4 text-[13px] text-ink-3">
               <span>منذ {fmtDuration(now - current.startedAt)}</span>
               <PriorityTag priority={currentReq.priority} />
               <span>{SERVICE[currentReq.type].label}</span>
             </div>
           </button>
-          {origin === "mock" && <p className="mt-2 text-[11px] text-warning/80">هذا نشاط محاكاة لأغراض العرض وليس تتبعًا فعليًا.</p>}
+          {origin === "mock" && <p className="mt-2 text-[12.5px] text-warning/80">هذا نشاط محاكاة لأغراض العرض وليس تتبعًا فعليًا.</p>}
         </PanelSection>
       )}
 
@@ -101,7 +101,7 @@ export default function EmployeePanel({ id }: { id: string }) {
             color="var(--color-accent)"
           />
         ) : (
-          <p className="text-[12.5px] text-ink-3">لا توجد طلبات مفتوحة.</p>
+          <p className="text-[14px] text-ink-3">لا توجد طلبات مفتوحة.</p>
         )}
       </PanelSection>
 
@@ -110,9 +110,9 @@ export default function EmployeePanel({ id }: { id: string }) {
           {open.slice(0, 10).map((r) => (
             <li key={r.id}>
               <button onClick={() => openPanel({ kind: "request", id: r.id })} className="flex w-full items-center gap-3 rounded-lg px-2 py-2 text-right hover:bg-white/[0.03]">
-                <span className="num w-[78px] shrink-0 text-[11.5px] text-ink-3">{r.code}</span>
-                <span className="min-w-0 flex-1 truncate text-[12.5px] text-ink">{ix.customer.get(r.customerId)?.name}</span>
-                <span className="hidden text-[11.5px] text-ink-3 sm:block">{REQUEST_STATUS[r.status].label}</span>
+                <span className="num w-[78px] shrink-0 text-[13px] text-ink-3">{r.code}</span>
+                <span className="min-w-0 flex-1 truncate text-[14px] text-ink">{ix.customer.get(r.customerId)?.name}</span>
+                <span className="hidden text-[13px] text-ink-3 sm:block">{REQUEST_STATUS[r.status].label}</span>
                 {isOverdue(r, now) ? <OverdueTag /> : <PriorityTag priority={r.priority} />}
               </button>
             </li>

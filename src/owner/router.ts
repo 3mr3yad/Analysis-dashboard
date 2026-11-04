@@ -3,8 +3,8 @@ import { useSyncExternalStore } from "react";
 // Hash router for the owner dashboard: #/<page>?<filters>. Filters live in the URL so every view
 // (a filtered ticket list, a customer lookup) can be bookmarked or shared.
 
-export type OwnerPage = "overview" | "tickets" | "analytics" | "orders" | "customers" | "alerts" | "activity" | "staff" | "settings";
-const PAGES: OwnerPage[] = ["overview", "tickets", "analytics", "orders", "customers", "alerts", "activity", "staff", "settings"];
+export type OwnerPage = "overview" | "tickets" | "analytics" | "orders" | "customers" | "iphone18" | "alerts" | "activity" | "staff" | "settings";
+const PAGES: OwnerPage[] = ["overview", "tickets", "analytics", "orders", "customers", "iphone18", "alerts", "activity", "staff", "settings"];
 
 export interface OwnerRoute {
   page: OwnerPage;

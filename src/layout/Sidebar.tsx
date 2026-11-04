@@ -55,7 +55,7 @@ export default function Sidebar() {
         ) : (
           <div className="flex flex-col items-start gap-1">
             <Logo height={24} className="text-ink" />
-            <p className="text-[10.5px] tracking-wide text-ink-3">مركز القيادة التنفيذي</p>
+            <p className="text-[12px] tracking-wide text-ink-3">مركز القيادة التنفيذي</p>
           </div>
         )}
       </div>
@@ -63,7 +63,7 @@ export default function Sidebar() {
       <nav className="flex-1 overflow-y-auto px-3 pt-2">
         {(Object.keys(GROUPS) as (keyof typeof GROUPS)[]).map((g) => (
           <div key={g} className="mb-4">
-            {!collapsed && <p className="mb-1.5 px-3 text-[10.5px] font-medium tracking-wider text-ink-3/80">{GROUPS[g]}</p>}
+            {!collapsed && <p className="mb-1.5 px-3 text-[12px] font-medium tracking-wider text-ink-3/80">{GROUPS[g]}</p>}
             <ul className="space-y-0.5">
               {NAV.filter((n) => n.group === g).map((n) => {
                 const active = n.page === page;
@@ -76,7 +76,7 @@ export default function Sidebar() {
                         aria-current={active ? "page" : undefined}
                         title={collapsed ? n.label : undefined}
                         className={cx(
-                          "group relative flex items-center gap-3 rounded-lg px-3 py-2 text-[13px] transition-colors duration-150",
+                          "group relative flex items-center gap-3 rounded-lg px-3 py-2 text-[14.5px] transition-colors duration-150",
                           collapsed && "justify-center px-0",
                           active ? "bg-white/[0.06] text-ink" : "text-ink-3 hover:bg-white/[0.03] hover:text-ink-2",
                         )}
@@ -89,7 +89,7 @@ export default function Sidebar() {
                             {(changeCls) => (
                           <span
                             className={cx(
-                              "num rounded-full px-1.5 text-[10px] leading-[18px] font-semibold",
+                              "num rounded-full px-1.5 text-[11.5px] leading-[18px] font-semibold",
                               changeCls,
                               n.page === "requests" ? "bg-critical/15 text-critical" : "bg-accent/15 text-accent",
                               collapsed && "absolute top-0.5 left-2 min-w-[18px] text-center",
@@ -113,7 +113,7 @@ export default function Sidebar() {
       <div className="border-t border-line p-3">
         <button
           onClick={toggle}
-          className={cx("flex w-full items-center gap-3 rounded-lg px-3 py-2 text-[12.5px] text-ink-3 transition-colors hover:bg-white/[0.03] hover:text-ink-2", collapsed && "justify-center px-0")}
+          className={cx("flex w-full items-center gap-3 rounded-lg px-3 py-2 text-[14px] text-ink-3 transition-colors hover:bg-white/[0.03] hover:text-ink-2", collapsed && "justify-center px-0")}
           aria-label={collapsed ? "توسيع القائمة" : "طي القائمة"}
         >
           <Icon name="collapse" size={17} className={cx("transition-transform duration-300", collapsed && "rotate-180")} />

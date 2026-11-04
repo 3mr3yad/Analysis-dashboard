@@ -34,7 +34,7 @@ export default function Activity() {
         <Note tone={sparse ? "warning" : "info"}>
           كل الخدمات تسجّل الإجراءات الآن <b className="text-ink">عدا الضمان</b> (لا يُعدَّل من لوحة الإدارة أصلًا). السجل يبدأ من تاريخ تفعيل التسجيل لكل خدمة، وتغييرات مدفوعات المتجر مصدرها Moyasar تلقائيًا لا موظف.
           {sparse && <span className="mt-1 block">قلّة الإجراءات هنا تعكس التغطية الحالية للبيانات، وليست خطأ في اللوحة.</span>}
-          {res?.meta.note && <span className="mt-1 block text-[11.5px] text-ink-3">ملاحظة الخادم: <span dir="auto">{res.meta.note}</span></span>}
+          {res?.meta.note && <span className="mt-1 block text-[13px] text-ink-3">ملاحظة الخادم: <span dir="auto">{res.meta.note}</span></span>}
         </Note>
       </div>
 
@@ -58,18 +58,18 @@ export default function Activity() {
                 const newDay = i === 0 || fmtLongDate(Date.parse(items[i - 1].at)) !== day;
                 return (
                   <li key={`${a.service}-${a.subject_id}-${a.at}-${i}`}>
-                    {newDay && <p className={cx("mb-2 text-[11.5px] font-medium text-ink-3", i > 0 && "mt-5")}>{day}</p>}
+                    {newDay && <p className={cx("mb-2 text-[13px] font-medium text-ink-3", i > 0 && "mt-5")}>{day}</p>}
                     <button onClick={() => setOpen({ service: a.service, id: a.subject_id })} className="flex w-full gap-3 rounded-lg px-2 py-2.5 text-right hover:bg-white/[0.03]" title="عرض الطلب وسجله">
-                      <span className="num w-12 shrink-0 pt-0.5 text-[11.5px] text-ink-3">{fmtTime(t)}</span>
+                      <span className="num w-12 shrink-0 pt-0.5 text-[13px] text-ink-3">{fmtTime(t)}</span>
                       <span className="block min-w-0 flex-1">
-                        <span dir="auto" className="block text-start text-[13px] leading-relaxed text-ink">{a.description}</span>
-                        <span className="mt-1.5 flex flex-wrap items-center gap-2 text-[11.5px] text-ink-3">
+                        <span dir="auto" className="block text-start text-[14.5px] leading-relaxed text-ink">{a.description}</span>
+                        <span className="mt-1.5 flex flex-wrap items-center gap-2 text-[13px] text-ink-3">
                           <ServiceTag service={a.service} />
                           <span>
                             طلب <span className="num">#{a.subject_id}</span>
                           </span>
                           {a.by && <span>· بواسطة {a.by}</span>}
-                          <span dir="ltr" className="num rounded bg-white/[0.03] px-1.5 text-[10.5px]">
+                          <span dir="ltr" className="num rounded bg-white/[0.03] px-1.5 text-[12px]">
                             {a.action}
                           </span>
                         </span>
@@ -84,7 +84,7 @@ export default function Activity() {
         )}
       </Card>
       <TicketDrawer ticket={open} onClose={close} />
-      {res && <p className="mt-3 text-[11.5px] text-ink-3">إجمالي الإجراءات المسجّلة: {fmtInt(res.meta.total)}</p>}
+      {res && <p className="mt-3 text-[13px] text-ink-3">إجمالي الإجراءات المسجّلة: {fmtInt(res.meta.total)}</p>}
     </div>
   );
 }

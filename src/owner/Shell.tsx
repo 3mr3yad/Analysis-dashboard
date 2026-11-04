@@ -22,7 +22,7 @@ function Sidebar() {
     <aside className="sticky top-0 hidden h-dvh w-[240px] shrink-0 flex-col glass border-l border-white/[0.07] lg:flex" aria-label="التنقل الرئيسي">
       <a href={hrefTo("overview")} className="flex h-16 flex-col items-start justify-center gap-1 px-5">
         <Logo height={24} className="text-ink" />
-        <span className="text-[10.5px] tracking-wide text-ink-3">لوحة المالك</span>
+        <span className="text-[12px] tracking-wide text-ink-3">لوحة المالك</span>
       </a>
       <nav className="flex-1 px-3 pt-3">
         <ul className="space-y-0.5">
@@ -35,7 +35,7 @@ function Sidebar() {
                     href={hrefTo(n.page)}
                     aria-current={active ? "page" : undefined}
                     className={cx(
-                      "group relative flex items-center gap-3 rounded-lg px-3 py-2 text-[13px] transition-colors duration-150",
+                      "group relative flex items-center gap-3 rounded-lg px-3 py-2 text-[14.5px] transition-colors duration-150",
                       active ? "bg-white/[0.06] text-ink" : "text-ink-3 hover:bg-white/[0.03] hover:text-ink-2",
                     )}
                   >
@@ -49,7 +49,7 @@ function Sidebar() {
           })}
         </ul>
       </nav>
-      <p className="px-5 pb-5 text-[10.5px] leading-relaxed text-ink-3">بيانات حيّة من واجهة وافي البرمجية</p>
+      <p className="px-5 pb-5 text-[12px] leading-relaxed text-ink-3">بيانات حيّة من واجهة وافي البرمجية</p>
     </aside>
   );
 }
@@ -93,7 +93,7 @@ function Bell() {
           >
             <Icon name="bell" size={18} />
             {count > 0 && (
-              <span className="num absolute -top-0.5 -left-0.5 flex h-[17px] min-w-[17px] items-center justify-center rounded-full bg-critical px-1 text-[10px] font-bold text-white">
+              <span className="num absolute -top-0.5 -left-0.5 flex h-[17px] min-w-[17px] items-center justify-center rounded-full bg-critical px-1 text-[11.5px] font-bold text-white">
                 {count > 99 ? "99+" : count}
               </span>
             )}
@@ -103,20 +103,20 @@ function Bell() {
       {open && (
         <div className="fade-in absolute top-full left-0 z-50 mt-2 w-[min(360px,calc(100vw-32px))] glass-pop rounded-xl border border-white/10">
           <div className="flex items-center justify-between border-b border-line px-4 py-3">
-            <p className="text-[13px] font-semibold text-ink">التنبيهات</p>
+            <p className="text-[14.5px] font-semibold text-ink">التنبيهات</p>
             {count > 0 && (
-              <button onClick={() => void markRead(unread.map((n) => n.id))} className="text-[11.5px] text-ink-3 hover:text-accent">
+              <button onClick={() => void markRead(unread.map((n) => n.id))} className="text-[13px] text-ink-3 hover:text-accent">
                 تعليم الكل كمقروء
               </button>
             )}
           </div>
           <ul className="max-h-[360px] overflow-y-auto p-1.5">
             {q.error && !q.data ? (
-              <li className="px-3 py-6 text-center text-[12px] text-ink-3">تعذّر تحميل التنبيهات.</li>
+              <li className="px-3 py-6 text-center text-[13.5px] text-ink-3">تعذّر تحميل التنبيهات.</li>
             ) : !q.data ? (
-              <li className="px-3 py-6 text-center text-[12px] text-ink-3">جارٍ التحميل…</li>
+              <li className="px-3 py-6 text-center text-[13.5px] text-ink-3">جارٍ التحميل…</li>
             ) : count === 0 ? (
-              <li className="px-3 py-6 text-center text-[12px] text-ink-3">لا توجد تنبيهات غير مقروءة.</li>
+              <li className="px-3 py-6 text-center text-[13.5px] text-ink-3">لا توجد تنبيهات غير مقروءة.</li>
             ) : (
               unread.slice(0, 8).map((n) => (
                 <li key={n.id}>
@@ -132,9 +132,9 @@ function Bell() {
                   >
                     <Dot tone={PRIORITY[n.priority].tone} className="mt-1.5" />
                     <span className="min-w-0 flex-1">
-                      <span className="block text-[12.5px] font-medium text-ink">{n.title}</span>
-                      <span className="mt-0.5 block text-[11.5px] leading-relaxed text-ink-3">{n.detail}</span>
-                      <span className="mt-1 block text-[11px] text-ink-3">
+                      <span className="block text-[14px] font-medium text-ink">{n.title}</span>
+                      <span className="mt-0.5 block text-[13px] leading-relaxed text-ink-3">{n.detail}</span>
+                      <span className="mt-1 block text-[12.5px] text-ink-3">
                         {PRIORITY[n.priority].label} · <When iso={n.at} />
                       </span>
                     </span>
@@ -143,7 +143,7 @@ function Bell() {
               ))
             )}
           </ul>
-          <a href={hrefTo("alerts")} onClick={() => setOpen(false)} className="block border-t border-line px-4 py-2.5 text-center text-[12px] text-ink-2 hover:text-accent">
+          <a href={hrefTo("alerts")} onClick={() => setOpen(false)} className="block border-t border-line px-4 py-2.5 text-center text-[13.5px] text-ink-2 hover:text-accent">
             كل التنبيهات
           </a>
         </div>
@@ -161,20 +161,20 @@ function AccountMenu() {
   return (
     <div ref={ref} className="relative">
       <button onClick={() => setOpen((o) => !o)} aria-expanded={open} aria-label="قائمة الحساب" className="flex items-center gap-2 rounded-lg p-1 pl-2 transition-colors hover:bg-hover">
-        <span className="flex size-7 items-center justify-center rounded-full bg-gradient-to-br from-[#c8a77a] to-[#7d6141] text-[11px] font-bold text-[#1a1208]">{initials(user?.name ?? "؟")}</span>
-        <span className="hidden max-w-[140px] truncate text-[12.5px] text-ink-2 sm:block">{user?.name}</span>
+        <span className="flex size-7 items-center justify-center rounded-full bg-gradient-to-br from-[#c8a77a] to-[#7d6141] text-[12.5px] font-bold text-[#1a1208]">{initials(user?.name ?? "؟")}</span>
+        <span className="hidden max-w-[140px] truncate text-[14px] text-ink-2 sm:block">{user?.name}</span>
         <Icon name="chevronDown" size={14} className="hidden text-ink-3 sm:block" />
       </button>
       {open && (
         <div className="glass-pop fade-in absolute top-full left-0 z-50 mt-2 w-64 rounded-xl border border-white/10 p-1.5">
           <div className="px-3 py-2.5">
-            <p className="truncate text-[13px] font-semibold">{user?.name}</p>
-            <p className="truncate text-[11.5px] text-ink-3" dir="ltr" style={{ textAlign: "right" }}>
+            <p className="truncate text-[14.5px] font-semibold">{user?.name}</p>
+            <p className="truncate text-[13px] text-ink-3" dir="ltr" style={{ textAlign: "right" }}>
               {user?.email}
             </p>
           </div>
           <div className="my-1 border-t border-line" />
-          <a href={hrefTo("settings")} onClick={() => setOpen(false)} className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-[12.5px] text-ink-2 hover:bg-white/[0.04] hover:text-ink">
+          <a href={hrefTo("settings")} onClick={() => setOpen(false)} className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-[14px] text-ink-2 hover:bg-white/[0.04] hover:text-ink">
             <Icon name="settings" size={15} /> الإعدادات
           </a>
           <button
@@ -183,7 +183,7 @@ function AccountMenu() {
               void logout();
             }}
             disabled={leaving}
-            className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-[12.5px] text-critical hover:bg-critical/10 disabled:opacity-60"
+            className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-[14px] text-critical hover:bg-critical/10 disabled:opacity-60"
           >
             <Icon name="logout" size={15} /> {leaving ? "جارٍ تسجيل الخروج…" : "تسجيل الخروج"}
           </button>
@@ -203,7 +203,7 @@ function Topbar() {
           <LogoMark size={30} />
         </a>
         <nav aria-label="مسار التنقل" className="min-w-0 flex-1">
-          <ol className="flex items-center gap-1.5 text-[12.5px] text-ink-3">
+          <ol className="flex items-center gap-1.5 text-[14px] text-ink-3">
             <li className="hidden sm:block">لوحة المالك</li>
             <li className="hidden sm:block" aria-hidden>
               <Icon name="chevron" size={13} />
@@ -229,7 +229,7 @@ function MobileNav() {
           return (
             <li key={n.page}>
               <AnimateIcon animateOnTap asChild>
-                <a href={hrefTo(n.page)} aria-current={active ? "page" : undefined} className={cx("flex flex-col items-center gap-1 py-2.5 text-[10.5px]", active ? "text-ink" : "text-ink-3")}>
+                <a href={hrefTo(n.page)} aria-current={active ? "page" : undefined} className={cx("flex flex-col items-center gap-1 py-2.5 text-[12px]", active ? "text-ink" : "text-ink-3")}>
                   <Icon name={n.icon} size={19} className={active ? "text-accent" : undefined} />
                   {n.short}
                 </a>

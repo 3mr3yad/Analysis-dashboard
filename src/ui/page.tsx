@@ -13,8 +13,8 @@ export function PageHeader({ title, subtitle, actions, eyebrow }: { title: React
     <div className="mb-6 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
       <div className="min-w-0">
         {eyebrow && <div className="mb-2">{eyebrow}</div>}
-        <h1 className="text-[22px] leading-tight font-semibold tracking-tight text-ink sm:text-[26px]">{title}</h1>
-        {subtitle && <p className="mt-1.5 max-w-2xl text-[13px] leading-relaxed text-ink-3">{subtitle}</p>}
+        <h1 className="text-[23px] leading-tight font-semibold tracking-tight text-ink sm:text-[27px]">{title}</h1>
+        {subtitle && <p className="mt-1.5 max-w-2xl text-[14.5px] leading-relaxed text-ink-3">{subtitle}</p>}
       </div>
       {actions && <div className="flex flex-wrap items-center gap-2">{actions}</div>}
     </div>
@@ -62,7 +62,7 @@ export function KpiCard({ kpi, href, compareLabel }: { kpi: Kpi; href: string; c
       >
         {alarm && <span className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-l from-transparent via-critical/70 to-transparent" />}
         <div className="flex items-center justify-between gap-2">
-          <span className="flex items-center gap-2 text-[12px] text-ink-3">
+          <span className="flex items-center gap-2 text-[13.5px] text-ink-3">
             <span className={cx("flex size-6 items-center justify-center rounded-md border border-line bg-white/[0.02]", alarm ? "text-critical" : "text-ink-3 group-hover:text-accent")}>
               <Icon name={KPI_ICON[kpi.key] ?? "layers"} size={13} />
             </span>
@@ -72,11 +72,11 @@ export function KpiCard({ kpi, href, compareLabel }: { kpi: Kpi; href: string; c
         </div>
         <div className="mt-3 flex items-end justify-between gap-2">
           <div className="min-w-0">
-            <p className={cx("num text-[22px] leading-none font-semibold tracking-tight sm:text-[26px]", alarm ? "text-critical" : "text-ink")} style={{ textAlign: "right" }}>
+            <p className={cx("num text-[23px] leading-none font-semibold tracking-tight sm:text-[27px]", alarm ? "text-critical" : "text-ink")} style={{ textAlign: "right" }}>
               {formatKpi(kpi, kpi.format === "pct" ? animated : Math.round(animated))}
-              {kpi.format === "money" && <span className="ml-1 text-[12px] font-normal text-ink-3">ر.س</span>}
+              {kpi.format === "money" && <span className="ml-1 text-[13.5px] font-normal text-ink-3">ر.س</span>}
             </p>
-            <p className="mt-2 flex items-center gap-1.5 text-[11px]" title={compareLabel}>
+            <p className="mt-2 flex items-center gap-1.5 text-[12.5px]" title={compareLabel}>
               {d === null ? (
                 <span className="text-ink-3">لا توجد فترة مقارنة</span>
               ) : (
@@ -90,7 +90,7 @@ export function KpiCard({ kpi, href, compareLabel }: { kpi: Kpi; href: string; c
               )}
             </p>
             {kpi.extra && (
-              <p className="mt-1 flex items-center gap-1.5 text-[11px] text-ink-2">
+              <p className="mt-1 flex items-center gap-1.5 text-[12.5px] text-ink-2">
                 <span className="size-1.5 rounded-full bg-good" />
                 {kpi.extra}
               </p>

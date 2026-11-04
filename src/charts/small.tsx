@@ -42,7 +42,7 @@ export function HBarList({ items, color = "var(--color-series-1)", max }: { item
         return (
           <li key={it.key}>
             <Row onClick={it.onClick} className={cx("group block w-full text-right", it.onClick && "cursor-pointer")}>
-              <div className="mb-1 flex items-baseline justify-between gap-3 text-[12.5px]">
+              <div className="mb-1 flex items-baseline justify-between gap-3 text-[14px]">
                 <span className={cx("truncate text-ink-2", it.onClick && "group-hover:text-ink")}>{it.label}</span>
                 <span className="num shrink-0 font-medium text-ink">{it.display ?? it.value}</span>
               </div>
@@ -52,7 +52,7 @@ export function HBarList({ items, color = "var(--color-series-1)", max }: { item
                   style={{ width: `${(it.value / top) * 100}%`, background: it.tone ?? color, "--bar": it.tone ?? color, animationDelay: `${Math.min(i, 10) * 70}ms` } as CSSProperties}
                 />
               </div>
-              {it.sub && <div className="mt-1 text-[11px] text-ink-3">{it.sub}</div>}
+              {it.sub && <div className="mt-1 text-[12.5px] text-ink-3">{it.sub}</div>}
             </Row>
           </li>
         );

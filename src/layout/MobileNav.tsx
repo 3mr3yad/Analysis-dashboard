@@ -22,7 +22,7 @@ export default function MobileNav() {
           <div className="fade-in absolute inset-0 bg-black/50" />
           <div className="glass drawer-in absolute inset-x-3 bottom-20 rounded-2xl border border-line-strong p-2" onClick={(e) => e.stopPropagation()}>
             {rest.map((n) => (
-              <a key={n.page} href={hrefFor(n.page)} onClick={() => setMore(false)} className={cx("flex items-center gap-3 rounded-xl px-4 py-3 text-[14px]", n.page === page ? "bg-white/[0.06] text-ink" : "text-ink-2")}>
+              <a key={n.page} href={hrefFor(n.page)} onClick={() => setMore(false)} className={cx("flex items-center gap-3 rounded-xl px-4 py-3 text-[15.5px]", n.page === page ? "bg-white/[0.06] text-ink" : "text-ink-2")}>
                 <Icon name={n.icon} size={18} className={n.page === page ? "text-accent" : "text-ink-3"} />
                 {n.label}
               </a>
@@ -37,7 +37,7 @@ export default function MobileNav() {
             return (
               <li key={n.page}>
                 <AnimateIcon animateOnTap asChild>
-                  <a href={hrefFor(n.page)} aria-current={active ? "page" : undefined} className={cx("flex flex-col items-center gap-1 py-2.5 text-[10.5px]", active ? "text-ink" : "text-ink-3")}>
+                  <a href={hrefFor(n.page)} aria-current={active ? "page" : undefined} className={cx("flex flex-col items-center gap-1 py-2.5 text-[12px]", active ? "text-ink" : "text-ink-3")}>
                     <Icon name={n.icon} size={19} className={active ? "text-accent" : undefined} />
                     {n.short}
                   </a>
@@ -46,7 +46,7 @@ export default function MobileNav() {
             );
           })}
           <li>
-            <button onClick={() => setMore((m) => !m)} aria-expanded={more} className={cx("flex w-full flex-col items-center gap-1 py-2.5 text-[10.5px]", inRest || more ? "text-ink" : "text-ink-3")}>
+            <button onClick={() => setMore((m) => !m)} aria-expanded={more} className={cx("flex w-full flex-col items-center gap-1 py-2.5 text-[12px]", inRest || more ? "text-ink" : "text-ink-3")}>
               <Icon name="menu" size={19} className={inRest ? "text-accent" : undefined} />
               المزيد
             </button>

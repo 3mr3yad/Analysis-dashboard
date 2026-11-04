@@ -60,13 +60,13 @@ export default function DataTable<T>({ columns, rows, rowKey, onRowClick, render
     <div>
       {/* Desktop / tablet table */}
       <div className="hidden overflow-x-auto md:block">
-        <table className="w-full border-collapse text-[13px]" aria-label={label}>
+        <table className="w-full border-collapse text-[14.5px]" aria-label={label}>
           <thead>
             <tr className="border-b border-line">
               {columns.map((c) => {
                 const active = sort?.key === c.key;
                 return (
-                  <th key={c.key} scope="col" className={cx("px-4 py-2.5 text-right text-[11.5px] font-medium whitespace-nowrap text-ink-3", c.hideBelow && HIDE[c.hideBelow], c.className)} aria-sort={active ? (sort!.dir === "asc" ? "ascending" : "descending") : undefined}>
+                  <th key={c.key} scope="col" className={cx("px-4 py-2.5 text-right text-[13px] font-medium whitespace-nowrap text-ink-3", c.hideBelow && HIDE[c.hideBelow], c.className)} aria-sort={active ? (sort!.dir === "asc" ? "ascending" : "descending") : undefined}>
                     {c.sortValue ? (
                       <button onClick={() => toggle(c.key)} className={cx("inline-flex items-center gap-1 transition-colors hover:text-ink-2", active && "text-ink-2")}>
                         {c.header}
@@ -118,7 +118,7 @@ export default function DataTable<T>({ columns, rows, rowKey, onRowClick, render
       </ul>
 
       {pages > 1 && (
-        <nav className="flex items-center justify-between gap-3 border-t border-line px-4 py-2.5 text-[12px] text-ink-3" aria-label="ترقيم الصفحات">
+        <nav className="flex items-center justify-between gap-3 border-t border-line px-4 py-2.5 text-[13.5px] text-ink-3" aria-label="ترقيم الصفحات">
           <span className="num">
             {safePage * pageSize + 1}–{Math.min(sorted.length, (safePage + 1) * pageSize)} من {sorted.length}
           </span>

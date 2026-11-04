@@ -49,7 +49,7 @@ export default function Notifications() {
               ...(Object.keys(ALERT_PRIORITY) as AlertPriority[]).map((p) => ({ value: p, label: ALERT_PRIORITY[p].label, count: count(p) })),
             ]}
           />
-          <label className="flex cursor-pointer items-center gap-2 text-[12.5px] text-ink-2">
+          <label className="flex cursor-pointer items-center gap-2 text-[14px] text-ink-2">
             <input type="checkbox" checked={unreadOnly} onChange={(e) => setParams({ unread: e.target.checked ? "1" : null })} className="size-4 accent-[var(--color-accent)]" />
             غير المقروءة فقط
           </label>
@@ -64,7 +64,7 @@ export default function Notifications() {
               const m = ALERT_PRIORITY[n.priority];
               return (
                 <li key={n.id}>
-                  {header && <p className="px-4 pt-4 pb-1.5 text-[11px] font-medium text-ink-3">{header}</p>}
+                  {header && <p className="px-4 pt-4 pb-1.5 text-[12.5px] font-medium text-ink-3">{header}</p>}
                   <button
                     onClick={() => {
                       markNotificationsRead([n.id]);
@@ -75,16 +75,16 @@ export default function Notifications() {
                     <span className={cx("h-9 w-1 shrink-0 rounded-full", TONE_BG[m.tone], n.read && "opacity-30")} />
                     <span className="min-w-0 flex-1">
                       <span className="flex items-center gap-2">
-                        <span className={cx("text-[13px]", n.read ? "text-ink-2" : "font-medium text-ink")}>{n.title}</span>
-                        <span className={cx("text-[10.5px] font-medium", TONE_TEXT[m.tone])}>{m.label}</span>
+                        <span className={cx("text-[14.5px]", n.read ? "text-ink-2" : "font-medium text-ink")}>{n.title}</span>
+                        <span className={cx("text-[12px] font-medium", TONE_TEXT[m.tone])}>{m.label}</span>
                         {!n.read && <span className="size-1.5 rounded-full bg-accent" aria-label="غير مقروء" />}
                       </span>
-                      <span className="mt-0.5 block truncate text-[12px] text-ink-3">{n.body}</span>
+                      <span className="mt-0.5 block truncate text-[13.5px] text-ink-3">{n.body}</span>
                     </span>
-                    <span className="hidden shrink-0 items-center gap-1 text-[11.5px] text-ink-3 opacity-0 transition-opacity group-hover:opacity-100 sm:flex">
+                    <span className="hidden shrink-0 items-center gap-1 text-[13px] text-ink-3 opacity-0 transition-opacity group-hover:opacity-100 sm:flex">
                       {TARGET_LABEL[n.target.kind]} <Icon name="chevron" size={12} />
                     </span>
-                    <span className="num w-20 shrink-0 text-left text-[11px] text-ink-3" title={fmtTime(n.at)}>
+                    <span className="num w-20 shrink-0 text-left text-[12.5px] text-ink-3" title={fmtTime(n.at)}>
                       {fmtRelative(n.at, now)}
                     </span>
                   </button>

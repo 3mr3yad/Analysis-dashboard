@@ -76,7 +76,7 @@ export default function LiveOps() {
       />
 
       {simulated && (
-        <div className="mb-4 flex items-start gap-3 rounded-xl border border-warning/20 bg-warning/[0.05] px-4 py-3 text-[12.5px] leading-relaxed text-ink-2">
+        <div className="mb-4 flex items-start gap-3 rounded-xl border border-warning/20 bg-warning/[0.05] px-4 py-3 text-[14px] leading-relaxed text-ink-2">
           <Icon name="alert" size={16} className="mt-0.5 shrink-0 text-warning" />
           <p>
             <b className="font-semibold text-warning">حالات الحضور هنا محاكاة.</b> لا يوجد حاليًا تتبع فعلي لحضور الموظفين في الخادم؛ ما تراه أحداث مولّدة محليًا لعرض طريقة عمل الشاشة. عند ربط قناة Reverb ستُستبدل تلقائيًا بالحالة الفعلية.
@@ -95,15 +95,15 @@ export default function LiveOps() {
             )}
             {hover && hovered && hoveredP && (
               <div className="glass pointer-events-none absolute z-10 w-56 rounded-lg border border-line-strong px-3 py-2 shadow-xl" style={{ left: Math.min(hover.x + 14, 9999), top: hover.y + 14 }}>
-                <p className="text-[12.5px] font-medium text-ink">{hovered.name}</p>
-                <p className="text-[11px] text-ink-3">{hovered.title}</p>
+                <p className="text-[14px] font-medium text-ink">{hovered.name}</p>
+                <p className="text-[12.5px] text-ink-3">{hovered.title}</p>
                 <div className="mt-1.5">
                   <PresenceBadge status={hoveredP.status} simulated={simulated} />
                 </div>
-                {hoveredP.current && <p className="mt-1 truncate text-[11px] text-ink-2">مع {ix.customer.get(hoveredP.current.customerId)?.name}</p>}
+                {hoveredP.current && <p className="mt-1 truncate text-[12.5px] text-ink-2">مع {ix.customer.get(hoveredP.current.customerId)?.name}</p>}
               </div>
             )}
-            <ul className="absolute right-5 bottom-4 flex flex-wrap gap-x-4 gap-y-1 text-[11px] text-ink-3">
+            <ul className="absolute right-5 bottom-4 flex flex-wrap gap-x-4 gap-y-1 text-[12.5px] text-ink-3">
               {(Object.keys(PRESENCE) as PresenceStatus[]).map((s) => (
                 <li key={s} className="flex items-center gap-1.5">
                   <Dot tone={PRESENCE[s].tone} /> {PRESENCE[s].label} <span className="num text-ink-2">{counts[s]}</span>
@@ -123,10 +123,10 @@ export default function LiveOps() {
                   <button onClick={() => openPanel(e.subject)} className="flex w-full items-start gap-3 rounded-lg px-3 py-2 text-right hover:bg-white/[0.03]">
                     <span className={cx("mt-1.5 size-1.5 shrink-0 rounded-full", e.actor.type === "customer" ? "bg-warning" : "bg-accent")} />
                     <span className="min-w-0 flex-1">
-                      <span className="block truncate text-[12.5px] text-ink-2">{e.description}</span>
-                      <span className="block truncate text-[11px] text-ink-3">{who}</span>
+                      <span className="block truncate text-[14px] text-ink-2">{e.description}</span>
+                      <span className="block truncate text-[12.5px] text-ink-3">{who}</span>
                     </span>
-                    <span className="num shrink-0 text-[10.5px] text-ink-3">{fmtRelative(e.at, now)}</span>
+                    <span className="num shrink-0 text-[12px] text-ink-3">{fmtRelative(e.at, now)}</span>
                   </button>
                 </li>
               );
@@ -135,9 +135,9 @@ export default function LiveOps() {
         </Card>
       </div>
 
-      <h2 className="mt-8 mb-3 flex items-center gap-2 text-[14px] font-semibold text-ink">
+      <h2 className="mt-8 mb-3 flex items-center gap-2 text-[15.5px] font-semibold text-ink">
         حالة الموظفين
-        <span className="num text-[12px] font-normal text-ink-3">{people.length}</span>
+        <span className="num text-[13.5px] font-normal text-ink-3">{people.length}</span>
       </h2>
       {people.length === 0 ? (
         <Card>
@@ -163,8 +163,8 @@ export default function LiveOps() {
                 <div className="flex items-center gap-3">
                   <Avatar name={e.name} id={e.id} size={38} status={PRESENCE[p.status].tone} />
                   <div className="min-w-0 flex-1">
-                    <p className="truncate text-[13px] font-medium text-ink group-hover:text-accent">{e.name}</p>
-                    <p className="truncate text-[11.5px] text-ink-3">
+                    <p className="truncate text-[14.5px] font-medium text-ink group-hover:text-accent">{e.name}</p>
+                    <p className="truncate text-[13px] text-ink-3">
                       {e.title} · {DEPARTMENT[e.department].label}
                     </p>
                   </div>
@@ -174,12 +174,12 @@ export default function LiveOps() {
                 <div className="mt-3.5 min-h-[62px] rounded-lg border border-line bg-white/[0.015] px-3 py-2.5">
                   {p.current && req ? (
                     <>
-                      <div className="flex items-center justify-between gap-2 text-[12px]">
+                      <div className="flex items-center justify-between gap-2 text-[13.5px]">
                         <span className="truncate text-ink">مع {cust?.name}</span>
-                        <span className="num shrink-0 text-[10.5px] text-ink-3">{req.code}</span>
+                        <span className="num shrink-0 text-[12px] text-ink-3">{req.code}</span>
                       </div>
-                      <p className="mt-1 truncate text-[11.5px] text-ink-2">{p.current.action}</p>
-                      <div className="mt-1.5 flex items-center justify-between text-[11px] text-ink-3">
+                      <p className="mt-1 truncate text-[13px] text-ink-2">{p.current.action}</p>
+                      <div className="mt-1.5 flex items-center justify-between text-[12.5px] text-ink-3">
                         <span className="flex items-center gap-1">
                           <Icon name="clock" size={11} /> {fmtDuration(now - p.current.startedAt)}
                         </span>
@@ -187,11 +187,11 @@ export default function LiveOps() {
                       </div>
                     </>
                   ) : (
-                    <p className="text-[11.5px] text-ink-3">{p.status === "available" ? "متاح لاستلام طلبات جديدة" : p.status === "away" ? `بعيد منذ ${fmtDuration(now - p.since)}` : "غير متصل"}</p>
+                    <p className="text-[13px] text-ink-3">{p.status === "available" ? "متاح لاستلام طلبات جديدة" : p.status === "away" ? `بعيد منذ ${fmtDuration(now - p.since)}` : "غير متصل"}</p>
                   )}
                 </div>
 
-                <div className="mt-3 flex items-center justify-between gap-3 text-[11px] text-ink-3">
+                <div className="mt-3 flex items-center justify-between gap-3 text-[12.5px] text-ink-3">
                   <span>آخر نشاط {fmtRelative(p.lastActivityAt, now)}</span>
                   <span className="flex items-center gap-2">
                     <span className="num text-ink-2">{load}</span> مفتوح

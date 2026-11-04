@@ -5,6 +5,8 @@ import type {
   CustomerHistory,
   CustomerRow,
   Order,
+  Iphone18Order,
+  Iphone18Summary,
   OnlineStaff,
   OwnerNotification,
   Paginated,
@@ -68,6 +70,9 @@ export const api = {
   timeseries: (q: Range & { service?: ServiceKey }, force?: boolean) => cached<{ data: TimeseriesBucket[]; meta: RangeMeta }>(`/dashboard/timeseries${qs(q)}`, force),
   revenue: (q: Range, force?: boolean) => cached<{ data: RevenueBucket[]; meta: RangeMeta }>(`/dashboard/revenue${qs(q)}`, force),
   orders: (q: { status?: string; page?: number; per_page?: number }, force?: boolean) => cached<Paginated<Order>>(`/orders${qs(q)}`, force),
+  iphone18Summary: (force?: boolean) => cached<Iphone18Summary>("/iphone18/summary", force),
+  iphone18Orders: (q: { status?: string; fulfillment_method?: string; search?: string; page?: number; per_page?: number }, force?: boolean) =>
+    cached<Paginated<Iphone18Order>>(`/iphone18/orders${qs(q)}`, force),
   notifications: (force?: boolean) => cached<{ data: OwnerNotification[] }>("/notifications", force),
   staffOnline: (force?: boolean) => cached<{ data: OnlineStaff[]; meta: { online_threshold_seconds: number } }>("/staff/online", force),
   slaPolicies: (force?: boolean) => cached<{ data: SlaPolicy[] }>("/sla-policies", force),

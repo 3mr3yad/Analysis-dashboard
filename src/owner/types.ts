@@ -203,6 +203,41 @@ export interface SlaPolicy {
   label: string | null;
 }
 
+/** A row from the iPhone 18 Purchases module — customer order data plus its linked Moyasar payment, if any. */
+export interface Iphone18Order {
+  id: number;
+  order_number: string;
+  status: "pending_payment" | "paid" | "cancelled" | string;
+  status_label: string;
+  amount_sar: number;
+  customer: { name: string; phone: string; email: string };
+  variant: { color_label_ar: string; storage_label: string } | null;
+  fulfillment_method: "pickup" | "shipping";
+  branch: { name_ar: string; city: string | null } | null;
+  pickup_date: string | null;
+  pickup_time: string | null;
+  shipping_address: { city: string; district: string; national_address: string } | null;
+  payment: {
+    status: string;
+    moyasar_id: string;
+    amount_sar: number;
+    fee_sar: number | null;
+    source_type: string | null;
+    paid_at: string | null;
+  } | null;
+  created_at: string;
+}
+
+export interface Iphone18Summary {
+  total_orders: number;
+  pending_payment: number;
+  paid: number;
+  cancelled: number;
+  paid_amount_sar: number;
+  today_orders: number;
+  generated_at: string;
+}
+
 export interface OnlineStaff {
   user: Person;
   route_name: string | null;
