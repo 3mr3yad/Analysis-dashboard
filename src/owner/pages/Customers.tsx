@@ -54,7 +54,7 @@ function Lookup({ initial }: { initial: string }) {
             aria-describedby="phone-hint"
           />
         </div>
-        <button type="submit" className="rounded-lg bg-accent px-5 py-2.5 text-[14.5px] font-semibold text-[#0b1020] hover:bg-accent-strong">
+        <button type="submit" className="rounded-lg bg-accent px-5 py-2.5 text-[14.5px] font-semibold text-on-accent hover:bg-accent-strong">
           بحث
         </button>
       </div>

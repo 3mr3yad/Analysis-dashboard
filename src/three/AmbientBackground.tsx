@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
+import { useTheme } from "../state/theme";
 import { ambient } from "./ambientBus";
 import { createRuntime, damp, disposeTree, makeDotTexture, supportsWebGL } from "./runtime";
 
@@ -8,15 +9,24 @@ import { createRuntime, damp, disposeTree, makeDotTexture, supportsWebGL } from 
  * one LineSegments draw call (horizon grid). Drifts with the pointer, eases to a new
  * angle on section change, and brightens briefly when live events arrive.
  */
+// Per-theme look. Light mode needs darker, normally-blended dust and grid (additive light on a light
+// background disappears) and a pale painted backdrop.
+const LOOK = {
+  dark: { base: "#07090d", glows: [[0.9, -0.08, 0.62, "2, 80, 153", 0.6], [0.8, 0.08, 0.38, "1, 185, 245", 0.14], [0.04, 0.62, 0.48, "98, 76, 210", 0.24], [0.6, 1.08, 0.55, "2, 80, 153", 0.32]], dust: ["#6f86b8", "#9db8ff", "#c8a77a"], dustOpacity: 0.55, additive: true, grid: "#2a3550", gridOpacity: 0.32 },
+  light: { base: "#eef2f8", glows: [[0.9, -0.08, 0.62, "47, 95, 208", 0.2], [0.8, 0.08, 0.38, "1, 185, 245", 0.14], [0.04, 0.62, 0.48, "98, 76, 210", 0.1], [0.6, 1.08, 0.55, "47, 95, 208", 0.12]], dust: ["#7d8fb3", "#4f6fc0", "#b08a5a"], dustOpacity: 0.45, additive: false, grid: "#b9c4da", gridOpacity: 0.55 },
+} as const;
+
 export default function AmbientBackground() {
   const host = useRef<HTMLDivElement>(null);
+  const theme = useTheme();
 
   useEffect(() => {
     const el = host.current;
     if (!el || !supportsWebGL()) return;
 
     const scene = new THREE.Scene();
-    const BG = new THREE.Color("#07090d");
+    const look = LOOK[theme];
+    const BG = new THREE.Color(look.base);
     scene.fog = new THREE.Fog(BG, 18, 70);
     const camera = new THREE.PerspectiveCamera(55, 1, 0.1, 120);
     camera.position.set(0, 2.2, 14);
@@ -36,7 +46,7 @@ export default function AmbientBackground() {
       const W = light.width;
       const H = light.height;
       const R = Math.max(W, H);
-      ctx.fillStyle = "#07090d";
+      ctx.fillStyle = look.base;
       ctx.fillRect(0, 0, W, H);
       const glow = (x: number, y: number, r: number, rgb: string, a: number) => {
         const g = ctx.createRadialGradient(x * W, y * H, 0, x * W, y * H, r * R);
@@ -45,10 +55,7 @@ export default function AmbientBackground() {
         ctx.fillStyle = g;
         ctx.fillRect(0, 0, W, H);
       };
-      glow(0.9, -0.08, 0.62, "2, 80, 153", 0.6);
-      glow(0.8, 0.08, 0.38, "1, 185, 245", 0.14);
-      glow(0.04, 0.62, 0.48, "98, 76, 210", 0.24);
-      glow(0.6, 1.08, 0.55, "2, 80, 153", 0.32);
+      for (const [x, y, r, rgb, a] of look.glows) glow(x, y, r, rgb, a);
       lightTex.needsUpdate = true;
     };
 
@@ -59,9 +66,9 @@ export default function AmbientBackground() {
     const COUNT = 1100;
     const pos = new Float32Array(COUNT * 3);
     const col = new Float32Array(COUNT * 3);
-    const cool = new THREE.Color("#6f86b8");
-    const accent = new THREE.Color("#9db8ff");
-    const warm = new THREE.Color("#c8a77a");
+    const cool = new THREE.Color(look.dust[0]);
+    const accent = new THREE.Color(look.dust[1]);
+    const warm = new THREE.Color(look.dust[2]);
     const tmp = new THREE.Color();
     for (let i = 0; i < COUNT; i++) {
       const r = 6 + Math.pow(Math.random(), 0.7) * 48;
@@ -81,9 +88,9 @@ export default function AmbientBackground() {
       map: makeDotTexture(),
       vertexColors: true,
       transparent: true,
-      opacity: 0.55,
+      opacity: look.dustOpacity,
       depthWrite: false,
-      blending: THREE.AdditiveBlending,
+      blending: look.additive ? THREE.AdditiveBlending : THREE.NormalBlending,
       sizeAttenuation: true,
     });
     world.add(new THREE.Points(dustGeo, dustMat));
@@ -95,7 +102,7 @@ export default function AmbientBackground() {
     for (let i = -SPAN; i <= SPAN; i += STEP) gridPts.push(i, 0, -SPAN, i, 0, SPAN, -SPAN, 0, i, SPAN, 0, i);
     const gridGeo = new THREE.BufferGeometry();
     gridGeo.setAttribute("position", new THREE.Float32BufferAttribute(gridPts, 3));
-    const gridMat = new THREE.LineBasicMaterial({ color: "#2a3550", transparent: true, opacity: 0.32, depthWrite: false });
+    const gridMat = new THREE.LineBasicMaterial({ color: look.grid, transparent: true, opacity: look.gridOpacity, depthWrite: false });
     const grid = new THREE.LineSegments(gridGeo, gridMat);
     grid.position.y = -5;
     world.add(grid);
@@ -129,7 +136,7 @@ export default function AmbientBackground() {
           grid.position.z = (t * 0.25) % STEP;
         }
         pulse = damp(pulse, 0, 2.2, dt);
-        dustMat.opacity = 0.55 + pulse * 0.35;
+        dustMat.opacity = look.dustOpacity + pulse * 0.35;
         dustMat.size = 0.16 + pulse * 0.05;
         camera.lookAt(0, 0, -10);
         runtime.renderer.render(scene, camera);
@@ -163,7 +170,7 @@ export default function AmbientBackground() {
       lightTex.dispose();
       runtime.dispose();
     };
-  }, []);
+  }, [theme]);
 
   return <div ref={host} aria-hidden className="ambient-canvas pointer-events-none fixed inset-0 -z-10" />;
 }

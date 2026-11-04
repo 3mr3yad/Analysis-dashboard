@@ -123,11 +123,11 @@ export default function Tickets() {
           )}
           <label className="flex items-center gap-1.5 text-[13.5px] text-ink-3">
             من
-            <input type="date" dir="ltr" value={from} max={to || undefined} onChange={(e) => set({ from: e.target.value || null })} className="rounded-lg border border-line bg-white/[0.02] px-2.5 py-1.5 text-[14px] text-ink [color-scheme:dark] focus:border-accent/40 focus:outline-none" />
+            <input type="date" dir="ltr" value={from} max={to || undefined} onChange={(e) => set({ from: e.target.value || null })} className="rounded-lg border border-line bg-white/[0.02] px-2.5 py-1.5 text-[14px] text-ink focus:border-accent/40 focus:outline-none" />
           </label>
           <label className="flex items-center gap-1.5 text-[13.5px] text-ink-3">
             إلى
-            <input type="date" dir="ltr" value={to} min={from || undefined} onChange={(e) => set({ to: e.target.value || null })} className="rounded-lg border border-line bg-white/[0.02] px-2.5 py-1.5 text-[14px] text-ink [color-scheme:dark] focus:border-accent/40 focus:outline-none" />
+            <input type="date" dir="ltr" value={to} min={from || undefined} onChange={(e) => set({ to: e.target.value || null })} className="rounded-lg border border-line bg-white/[0.02] px-2.5 py-1.5 text-[14px] text-ink focus:border-accent/40 focus:outline-none" />
           </label>
           <Select label="عدد الصفوف" value={String(per)} onChange={(v) => set({ per: v === "25" ? null : v })} options={PER_PAGE.map((v) => ({ value: v, label: `${v} صفًا` }))} />
           {filtered && (

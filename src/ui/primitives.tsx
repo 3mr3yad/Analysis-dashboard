@@ -104,7 +104,7 @@ export function Button({
         aria-label={!children ? title : undefined}
         className={cx(
           "inline-flex items-center justify-center gap-1.5 rounded-lg px-3 py-1.5 text-[14px] font-medium transition-colors duration-150 disabled:opacity-40",
-          variant === "solid" && "bg-accent text-[#0b1020] hover:bg-accent-strong",
+          variant === "solid" && "bg-accent text-on-accent hover:bg-accent-strong",
           variant === "outline" && "border border-line-strong text-ink-2 hover:bg-hover hover:text-ink",
           variant === "ghost" && "text-ink-2 hover:bg-hover hover:text-ink",
           className,

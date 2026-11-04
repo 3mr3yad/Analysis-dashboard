@@ -12,6 +12,7 @@ import TicketDrawer, { type TicketRef } from "./TicketDrawer";
 import { useSelection } from "./useSelection";
 import { Changed } from "../ui/Changed";
 import InstallButton from "../ui/InstallButton";
+import ThemeToggle from "../ui/ThemeToggle";
 import { Dot } from "../ui/primitives";
 import { hrefTo, useOwnerRoute } from "./router";
 
@@ -93,7 +94,7 @@ function Bell() {
           >
             <Icon name="bell" size={18} />
             {count > 0 && (
-              <span className="num absolute -top-0.5 -left-0.5 flex h-[17px] min-w-[17px] items-center justify-center rounded-full bg-critical px-1 text-[11.5px] font-bold text-white">
+              <span className="num absolute -top-0.5 -left-0.5 flex h-[17px] min-w-[17px] items-center justify-center rounded-full bg-critical px-1 text-[11.5px] font-bold text-[#fff]">
                 {count > 99 ? "99+" : count}
               </span>
             )}
@@ -212,6 +213,7 @@ function Topbar() {
           </ol>
         </nav>
         <InstallButton />
+        <ThemeToggle />
         <Bell />
         <AccountMenu />
       </div>

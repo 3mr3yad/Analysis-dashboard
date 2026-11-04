@@ -73,7 +73,7 @@ function NotificationsMenu() {
         <Icon name="bell" size={18} />
         {unread.length > 0 && (
           <Changed value={unread.length}>
-            {(changeCls) => <span className={cx("num absolute top-1 right-1 min-w-4 rounded-full bg-critical px-1 text-[11px] leading-4 font-bold text-white", changeCls)}>{unread.length > 9 ? "9+" : unread.length}</span>}
+            {(changeCls) => <span className={cx("num absolute top-1 right-1 min-w-4 rounded-full bg-critical px-1 text-[11px] leading-4 font-bold text-[#fff]", changeCls)}>{unread.length > 9 ? "9+" : unread.length}</span>}
           </Changed>
         )}
       </button>

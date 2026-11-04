@@ -87,7 +87,7 @@ export function Stepper({ steps, currentIndex, labels, tone = "accent" }: { step
                 className={cx(
                   "flex size-5 shrink-0 items-center justify-center rounded-full border text-[11.5px]",
                   done && "border-accent/50 bg-accent/20 text-accent",
-                  current && (tone === "accent" ? "border-accent bg-accent text-[#0b1020] shadow-[0_0_0_4px_rgb(143_179_255/0.15)]" : "border-ink-3 bg-ink-3 text-surface"),
+                  current && (tone === "accent" ? "border-accent bg-accent text-on-accent shadow-[0_0_0_4px_rgb(143_179_255/0.15)]" : "border-ink-3 bg-ink-3 text-surface"),
                   !done && !current && "border-line-strong text-ink-3",
                 )}
               >

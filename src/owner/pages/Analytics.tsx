@@ -184,11 +184,11 @@ export default function Analytics() {
           />
           <label className="flex items-center gap-1.5 text-[13.5px] text-ink-3">
             من
-            <input type="date" dir="ltr" value={from} max={to} onChange={(e) => e.target.value && updateParams({ from: e.target.value })} className="rounded-lg border border-line bg-white/[0.02] px-2.5 py-1.5 text-[14px] text-ink [color-scheme:dark] focus:border-accent/40 focus:outline-none" />
+            <input type="date" dir="ltr" value={from} max={to} onChange={(e) => e.target.value && updateParams({ from: e.target.value })} className="rounded-lg border border-line bg-white/[0.02] px-2.5 py-1.5 text-[14px] text-ink focus:border-accent/40 focus:outline-none" />
           </label>
           <label className="flex items-center gap-1.5 text-[13.5px] text-ink-3">
             إلى
-            <input type="date" dir="ltr" value={to} min={from} max={today} onChange={(e) => updateParams({ to: e.target.value === today ? null : e.target.value || null })} className="rounded-lg border border-line bg-white/[0.02] px-2.5 py-1.5 text-[14px] text-ink [color-scheme:dark] focus:border-accent/40 focus:outline-none" />
+            <input type="date" dir="ltr" value={to} min={from} max={today} onChange={(e) => updateParams({ to: e.target.value === today ? null : e.target.value || null })} className="rounded-lg border border-line bg-white/[0.02] px-2.5 py-1.5 text-[14px] text-ink focus:border-accent/40 focus:outline-none" />
           </label>
           <Segmented size="sm" label="التجميع" value={bucket} onChange={(v) => updateParams({ bucket: v === "day" ? null : v })} options={BUCKETS} />
           <Select label="الخدمة" value={service ?? "all"} onChange={(v) => updateParams({ service: v === "all" ? null : v })} options={[{ value: "all", label: "كل الخدمات" }, ...SERVICES.map((s) => ({ value: s.key, label: s.label }))]} />

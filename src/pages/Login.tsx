@@ -3,6 +3,7 @@ import { HoleBackground } from "@/components/animate-ui/components/backgrounds/h
 import { ApiError } from "../services/api/httpClient";
 import { login } from "../state/auth";
 import { useMotionPref } from "../state/prefs";
+import { useForcedDark } from "../state/theme";
 import Icon from "../ui/Icon";
 import { Logo } from "../ui/Logo";
 import { cx } from "../ui/tone";
@@ -16,6 +17,7 @@ function prefersReducedMotion() {
 }
 
 export default function Login() {
+  useForcedDark(); // the black-hole backdrop is designed for dark only
   const effects = useMotionPref();
   const still = effects === "off" || (effects === "auto" && prefersReducedMotion());
 
@@ -125,7 +127,7 @@ export default function Login() {
             <button
               type="submit"
               disabled={busy || cooldown > 0}
-              className="mt-6 flex w-full items-center justify-center gap-2 rounded-lg bg-accent py-2.5 text-[15px] font-semibold text-[#0b1020] transition-colors hover:bg-accent-strong disabled:opacity-60"
+              className="mt-6 flex w-full items-center justify-center gap-2 rounded-lg bg-accent py-2.5 text-[15px] font-semibold text-on-accent transition-colors hover:bg-accent-strong disabled:opacity-60"
             >
               {busy && <span className="size-4 animate-spin rounded-full border-2 border-[#0b1020]/30 border-t-[#0b1020]" aria-hidden />}
               {busy ? "جارٍ التحقق…" : cooldown > 0 ? `حاول بعد ${cooldown} ث` : "دخول"}

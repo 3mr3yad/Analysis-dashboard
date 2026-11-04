@@ -78,11 +78,11 @@ export default function DateRangeControl({ label }: { label?: string }) {
           <div className="grid grid-cols-2 gap-3">
             <label className="text-[12.5px] text-ink-3">
               من
-              <input type="date" value={from} max={to} onChange={(e) => setFrom(e.target.value)} className="num mt-1 w-full rounded-md border border-line bg-surface-2 px-2 py-1.5 text-[13.5px] text-ink [color-scheme:dark]" />
+              <input type="date" value={from} max={to} onChange={(e) => setFrom(e.target.value)} className="num mt-1 w-full rounded-md border border-line bg-surface-2 px-2 py-1.5 text-[13.5px] text-ink" />
             </label>
             <label className="text-[12.5px] text-ink-3">
               إلى
-              <input type="date" value={to} min={from} max={toInputDate(today)} onChange={(e) => setTo(e.target.value)} className="num mt-1 w-full rounded-md border border-line bg-surface-2 px-2 py-1.5 text-[13.5px] text-ink [color-scheme:dark]" />
+              <input type="date" value={to} min={from} max={toInputDate(today)} onChange={(e) => setTo(e.target.value)} className="num mt-1 w-full rounded-md border border-line bg-surface-2 px-2 py-1.5 text-[13.5px] text-ink" />
             </label>
           </div>
           {!valid && <p className="mt-2 text-[12.5px] text-serious">تحقق من التواريخ: البداية قبل النهاية ولا تتجاوز اليوم.</p>}
@@ -96,7 +96,7 @@ export default function DateRangeControl({ label }: { label?: string }) {
                 setDateRange({ preset: "custom", from: f!, to: t! });
                 setOpen(false);
               }}
-              className="rounded-md bg-accent px-3 py-1.5 text-[13.5px] font-semibold text-[#0b1020] disabled:opacity-40"
+              className="rounded-md bg-accent px-3 py-1.5 text-[13.5px] font-semibold text-on-accent disabled:opacity-40"
             >
               تطبيق
             </button>
