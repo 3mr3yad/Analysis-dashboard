@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { HBarList } from "../../charts/small";
 import { fmtDuration, fmtInt } from "../../lib/format";
 import DataTable, { type Column } from "../../ui/DataTable";
@@ -9,8 +9,9 @@ import { PageHeader } from "../../ui/page";
 import { Avatar, Card, CardHeader, SearchInput, Skeleton } from "../../ui/primitives";
 import { api, isMissingRoute } from "../api";
 import { Freshness, Note, NotDeployed, NotTracked, QueryError, ServiceTag, SlaBadge, When } from "../parts";
+import { subscribePresenceUpdated } from "../realtime";
 import TicketDrawer, { type TicketRef } from "../TicketDrawer";
-import type { StaffMember } from "../types";
+import type { OnlineStaff, StaffMember } from "../types";
 import { useQuery } from "../useQuery";
 
 const num = (v: number | null | undefined) => (v === null || v === undefined ? <NotTracked>—</NotTracked> : <span className="num text-ink">{fmtInt(v)}</span>);

@@ -18,6 +18,8 @@ export class ApiError extends Error {
 
 // Dev goes through the Vite proxy (/api); production builds call the API directly (it allows any origin).
 const BASE = import.meta.env.VITE_API_BASE ?? (import.meta.env.DEV ? "/api" : "https://wafii.sa/wafiservices/api/v1");
+/** Same base the REST calls above use — exported so the Pusher channel authorizer (realtime.ts) hits the same /broadcasting/auth path, proxy included. */
+export const API_BASE = BASE;
 
 let token: string | null = null;
 let onUnauthorized: (() => void) | null = null;
@@ -25,6 +27,11 @@ let onUnauthorized: (() => void) | null = null;
 /** Called by the auth store whenever the session changes. */
 export function setAuthToken(t: string | null) {
   token = t;
+}
+
+/** Current bearer token, read lazily by the Pusher channel authorizer so it always sends the latest one. */
+export function getAuthToken(): string | null {
+  return token;
 }
 
 /** A 401 on an authenticated request means the token was revoked: the auth store signs out. */
