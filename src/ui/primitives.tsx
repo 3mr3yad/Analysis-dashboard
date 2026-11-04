@@ -5,6 +5,7 @@ import { TONE_BG, TONE_TEXT, cx } from "./tone";
 import { changeClass, useChanged } from "./useChanged";
 import { initials } from "../lib/format";
 import Icon, { type IconName } from "./Icon";
+import { CountUp } from "./CountUp";
 
 export function Card({ children, className, as: Tag = "section" }: { children: ReactNode; className?: string; as?: "section" | "div" | "article" }) {
   return <Tag className={cx("card", className)}>{children}</Tag>;
@@ -188,13 +189,14 @@ export function ErrorState({ title, detail, onRetry }: { title: string; detail?:
   );
 }
 
-export function Stat({ label, value, sub, tone, resetKey }: { label: string; value: ReactNode; sub?: ReactNode; tone?: Tone; resetKey?: unknown }) {
+/** A number `value` counts up (formatted with `format`); any other node renders as given. */
+export function Stat({ label, value, format, sub, tone, resetKey }: { label: string; value: ReactNode | number; format?: (n: number) => string; sub?: ReactNode; tone?: Tone; resetKey?: unknown }) {
   const changed = useChanged(value, resetKey);
   return (
     <div className={cx("-m-2 min-w-0 rounded-lg border border-transparent p-2", changeClass(changed))}>
       <p className="text-[11.5px] text-ink-3">{label}</p>
       <p className={cx("num mt-1 text-lg font-semibold", tone ? TONE_TEXT[tone] : "text-ink")} style={{ textAlign: "right" }}>
-        {value}
+        {typeof value === "number" ? <CountUp value={value} format={format} /> : value}
       </p>
       {sub && <p className="mt-0.5 text-[11px] text-ink-3">{sub}</p>}
     </div>

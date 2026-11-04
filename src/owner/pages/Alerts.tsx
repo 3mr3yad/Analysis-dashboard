@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { fmtInt } from "../../lib/format";
 import Icon from "../../ui/Icon";
 import { PageHeader } from "../../ui/page";
 import { Badge, Button, Card, EmptyState, Segmented, Skeleton, Stat } from "../../ui/primitives";
@@ -50,7 +49,7 @@ export default function Alerts() {
           <Card className="mb-4 p-5">
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
               {ORDER.map((p) => (
-                <Stat key={p} label={PRIORITY[p].label} value={fmtInt(unread.filter((n) => n.priority === p).length)} tone={PRIORITY[p].tone} sub="غير مقروء" />
+                <Stat key={p} label={PRIORITY[p].label} value={unread.filter((n) => n.priority === p).length} tone={PRIORITY[p].tone} sub="غير مقروء" />
               ))}
             </div>
           </Card>

@@ -10,6 +10,7 @@ import { Calendar } from "@/components/animate-ui/icons/calendar";
 import { ChartLine } from "@/components/animate-ui/icons/chart-line";
 import { Check } from "@/components/animate-ui/icons/check";
 import { ChevronDown } from "@/components/animate-ui/icons/chevron-down";
+import { Download } from "@/components/animate-ui/icons/download";
 import { ChevronLeft } from "@/components/animate-ui/icons/chevron-left";
 import { ChevronUpDown } from "@/components/animate-ui/icons/chevron-up-down";
 import { CircleCheckBig } from "@/components/animate-ui/icons/circle-check-big";
@@ -92,6 +93,7 @@ const ICONS = {
   incoming: PhoneIncoming,
   outgoing: PhoneOutgoing,
   sparkle: Sparkle,
+  download: Download,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- each icon has its own animation-name union
 } satisfies Record<string, ComponentType<AnimateIconProps<any>>>;
 

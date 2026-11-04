@@ -11,6 +11,7 @@ import { When } from "./parts";
 import TicketDrawer, { type TicketRef } from "./TicketDrawer";
 import { useSelection } from "./useSelection";
 import { Changed } from "../ui/Changed";
+import InstallButton from "../ui/InstallButton";
 import { Dot } from "../ui/primitives";
 import { hrefTo, useOwnerRoute } from "./router";
 
@@ -210,6 +211,7 @@ function Topbar() {
             <li className="truncate font-medium text-ink">{label}</li>
           </ol>
         </nav>
+        <InstallButton />
         <Bell />
         <AccountMenu />
       </div>

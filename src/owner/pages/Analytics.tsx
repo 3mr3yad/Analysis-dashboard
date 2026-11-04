@@ -79,9 +79,9 @@ function Requests({ from, to, bucket, service }: { from: string; to: string; buc
     <div className={cx("space-y-4 transition-opacity", q.loading && "opacity-60")} aria-busy={q.loading}>
       <Card className="p-5">
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
-          <Stat label="طلبات أُنشئت في الفترة" value={fmtInt(totalCreated)} resetKey={rk} />
-          <Stat label="منها مغلقة الآن" value={hasClosed ? fmtInt(totalClosed) : "—"} sub={hasClosed ? "من الخدمات التي لها حالة إغلاق" : "لا توجد حالة إغلاق لهذه الخدمة"} resetKey={rk} />
-          <Stat label="متوسط لكل فترة" value={fmtInt(totalCreated / Math.max(1, created.length))} sub={BUCKETS.find((b) => b.value === bucket)?.label} resetKey={rk} />
+          <Stat label="طلبات أُنشئت في الفترة" value={totalCreated} resetKey={rk} />
+          <Stat label="منها مغلقة الآن" value={hasClosed ? totalClosed : "—"} sub={hasClosed ? "من الخدمات التي لها حالة إغلاق" : "لا توجد حالة إغلاق لهذه الخدمة"} resetKey={rk} />
+          <Stat label="متوسط لكل فترة" value={totalCreated / Math.max(1, created.length)} sub={BUCKETS.find((b) => b.value === bucket)?.label} resetKey={rk} />
         </div>
       </Card>
 
@@ -142,10 +142,10 @@ function Revenue({ from, to, bucket }: { from: string; to: string; bucket: Bucke
     <Card className={cx("transition-opacity", q.loading && "opacity-60")}>
       <CardHeader icon="money" title="إيرادات المتجر الإلكتروني" subtitle="مدفوعات Moyasar المكتملة فقط · بتاريخ اكتمال الدفع" action={<Freshness at={q.updatedAt} onRefresh={q.reload} loading={q.loading} />} />
       <div className="grid grid-cols-2 gap-4 px-5 pb-4 sm:grid-cols-4">
-        <Stat label="المدفوع" value={fmtMoney(sum((b) => b.amount_sar))} resetKey={rk} />
-        <Stat label="المسترد" value={fmtMoney(sum((b) => b.refunded_sar))} sub="كما أبلغ عنه Moyasar" resetKey={rk} />
-        <Stat label="الصافي" value={fmtMoney(net)} tone="good" resetKey={rk} />
-        <Stat label="عمليات الدفع" value={fmtInt(count)} sub={count ? `متوسط ${fmtMoney(net / count)}` : undefined} resetKey={rk} />
+        <Stat label="المدفوع" value={sum((b) => b.amount_sar)} format={fmtMoney} resetKey={rk} />
+        <Stat label="المسترد" value={sum((b) => b.refunded_sar)} format={fmtMoney} sub="كما أبلغ عنه Moyasar" resetKey={rk} />
+        <Stat label="الصافي" value={net} format={fmtMoney} tone="good" resetKey={rk} />
+        <Stat label="عمليات الدفع" value={count} sub={count ? `متوسط ${fmtMoney(net / count)}` : undefined} resetKey={rk} />
       </div>
       <div className="px-5 pb-5">
         <ColumnChart label="صافي الإيرادات (ر.س)" seriesLabel="الصافي (ر.س)" labels={res.data.map((b) => bucketLabel(b.bucket))} values={res.data.map((b) => b.net_sar)} format={fmtCompact} color="var(--color-series-3)" />

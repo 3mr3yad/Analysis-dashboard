@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { ReactNode, CSSProperties } from "react";
 import { cx } from "../ui/tone";
 
 /** Tiny trend line for KPI tiles. Gaps (NaN) are skipped. */
@@ -37,7 +37,7 @@ export function HBarList({ items, color = "var(--color-series-1)", max }: { item
   const top = max ?? Math.max(1, ...items.map((i) => i.value));
   return (
     <ul className="space-y-2.5">
-      {items.map((it) => {
+      {items.map((it, i) => {
         const Row = it.onClick ? "button" : "div";
         return (
           <li key={it.key}>
@@ -47,7 +47,10 @@ export function HBarList({ items, color = "var(--color-series-1)", max }: { item
                 <span className="num shrink-0 font-medium text-ink">{it.display ?? it.value}</span>
               </div>
               <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/[0.04]">
-                <div className="h-full rounded-full transition-[width] duration-700 ease-out" style={{ width: `${(it.value / top) * 100}%`, background: it.tone ?? color }} />
+                <div
+                  className="bar-fill h-full rounded-full transition-[width] duration-700 ease-out"
+                  style={{ width: `${(it.value / top) * 100}%`, background: it.tone ?? color, "--bar": it.tone ?? color, animationDelay: `${Math.min(i, 10) * 70}ms` } as CSSProperties}
+                />
               </div>
               {it.sub && <div className="mt-1 text-[11px] text-ink-3">{it.sub}</div>}
             </Row>

@@ -66,6 +66,8 @@ body {
 
 body {
   min-height: 100dvh;
+  /* Transparent so the aurora and grid layers (body::before/::after, negative z-index) show; html keeps the paint. */
+  background: transparent;
 }
 
 ::selection {
@@ -249,4 +251,168 @@ body {
 select option {
   background: var(--color-surface-2);
   color: var(--color-ink);
+}
+
+/* ── Sci-fi layer ────────────────────────────────────────────────────────────
+   Aurora light drifting behind the glass, a faint HUD grid, light-edged cards with a hover sheen,
+   and holographic headline numbers. Movement is slow and stops with reduced motion or effects off. */
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: -20%;
+  z-index: -20;
+  pointer-events: none;
+  background:
+    radial-gradient(38% 32% at 78% 18%, rgb(1 185 245 / 0.22), transparent 70%),
+    radial-gradient(34% 30% at 18% 62%, rgb(98 76 210 / 0.24), transparent 70%),
+    radial-gradient(30% 26% at 60% 88%, rgb(2 80 153 / 0.35), transparent 70%),
+    radial-gradient(26% 22% at 30% 12%, rgb(143 179 255 / 0.12), transparent 70%);
+  filter: blur(40px) saturate(130%);
+  animation: aurora 36s ease-in-out infinite alternate;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -19;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgb(143 179 255 / 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(143 179 255 / 0.045) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 75% 60% at 50% 30%, #000 20%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse 75% 60% at 50% 30%, #000 20%, transparent 80%);
+}
+
+@keyframes aurora {
+  0% { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
+  50% { transform: translate3d(-4%, 3%, 0) rotate(8deg) scale(1.08); }
+  100% { transform: translate3d(3%, -2%, 0) rotate(-6deg) scale(1.02); }
+}
+
+/* Light-catching edge: a 1px gradient ring that glows at two corners. */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  pointer-events: none;
+  background: linear-gradient(135deg, rgb(143 179 255 / 0.45), rgb(255 255 255 / 0.05) 30%, rgb(255 255 255 / 0.02) 70%, rgb(1 185 245 / 0.35));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+}
+
+/* Hover sheen: a soft band of light sweeps across the glass. */
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(115deg, transparent 35%, rgb(255 255 255 / 0.07) 50%, transparent 65%) no-repeat;
+  background-size: 250% 100%;
+  background-position: 130% 0;
+  transition: background-position 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.card:hover::after {
+  background-position: -30% 0;
+}
+.card {
+  transition: transform 0.25s ease-out, box-shadow 0.25s ease-out;
+}
+a.card:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 1px 0 0 rgb(255 255 255 / 0.12),
+    0 0 0 1px rgb(143 179 255 / 0.12),
+    0 28px 56px -24px rgb(0 0 0 / 0.8),
+    0 0 40px -12px rgb(1 185 245 / 0.25);
+}
+
+/* Holographic headline numbers: white into ice-blue, with a slow shimmer and a faint glow. */
+.holo-num {
+  background: linear-gradient(100deg, #ffffff 0%, #dfe8ff 35%, #9fd8ff 55%, #ffffff 80%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 14px rgb(1 185 245 / 0.18));
+  animation: holo 9s linear infinite;
+}
+@keyframes holo {
+  from { background-position: 0% 0; }
+  to { background-position: -220% 0; }
+}
+
+:root[data-effects="off"] body::before,
+:root[data-effects="off"] .holo-num {
+  animation: none;
+}
+
+/* Progress bars: grow in from the start edge on first show (staggered per row via inline delay),
+   then a faint light keeps travelling along them. Width changes still glide via transition. */
+.bar-fill {
+  position: relative;
+  overflow: hidden;
+  transform-origin: right; /* RTL: bars start at the right edge */
+  box-shadow: 0 0 12px -3px var(--bar, var(--color-accent));
+  animation: bar-grow 1s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+[dir="ltr"] .bar-fill {
+  transform-origin: left;
+}
+.bar-fill::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(270deg, transparent 0%, rgb(255 255 255 / 0.45) 50%, transparent 100%);
+  transform: translateX(110%);
+  animation: bar-shine 3.2s ease-in-out 1.1s infinite;
+}
+@keyframes bar-grow {
+  from { transform: scaleX(0); }
+}
+@keyframes bar-shine {
+  0% { transform: translateX(110%); }
+  55%, 100% { transform: translateX(-110%); }
+}
+:root[data-effects="off"] .bar-fill,
+:root[data-effects="off"] .bar-fill::after {
+  animation: none;
+}
+
+/* Install button: accent glass pill with a lit edge and a slow halo, so it reads as the primary action. */
+.install-btn {
+  background: linear-gradient(135deg, rgb(143 179 255 / 0.18), rgb(1 185 245 / 0.1));
+  box-shadow:
+    inset 0 0 0 1px rgb(143 179 255 / 0.35),
+    inset 0 1px 0 0 rgb(255 255 255 / 0.15),
+    0 0 18px -6px rgb(1 185 245 / 0.6);
+  transition: box-shadow 0.2s ease-out, transform 0.2s ease-out;
+}
+.install-btn:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 0 0 1px rgb(143 179 255 / 0.55),
+    inset 0 1px 0 0 rgb(255 255 255 / 0.2),
+    0 0 26px -4px rgb(1 185 245 / 0.75);
+}
+.install-btn::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  pointer-events: none;
+  animation: install-halo 3.6s ease-out infinite;
+}
+@keyframes install-halo {
+  0% { box-shadow: 0 0 0 0 rgb(1 185 245 / 0.45); }
+  45%, 100% { box-shadow: 0 0 0 8px rgb(1 185 245 / 0); }
+}
+:root[data-effects="off"] .install-btn::before {
+  animation: none;
 }

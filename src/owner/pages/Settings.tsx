@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { logout, useSession } from "../../state/auth";
 import EffectsCard from "../../ui/EffectsCard";
+import InstallCard from "../../ui/InstallCard";
 import { PageHeader } from "../../ui/page";
 import { Button, Card, CardHeader } from "../../ui/primitives";
 import { SERVICES } from "../services";
@@ -62,6 +63,7 @@ export default function Settings() {
         <SlaPolicies />
 
         <EffectsCard />
+        <InstallCard />
       </div>
     </div>
   );

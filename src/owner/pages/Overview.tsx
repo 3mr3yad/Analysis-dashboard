@@ -2,6 +2,7 @@ import { HBarList } from "../../charts/small";
 import { fmtDateTime, fmtInt, fmtMoney } from "../../lib/format";
 import { useNow } from "../../state/clock";
 import { Changed } from "../../ui/Changed";
+import { CountUp } from "../../ui/CountUp";
 import Icon from "../../ui/Icon";
 import { PageHeader } from "../../ui/page";
 import { Card, CardHeader, Skeleton } from "../../ui/primitives";
@@ -27,8 +28,8 @@ function Big({ label, value, hint, icon }: { label: string; value: number; hint?
             </span>
             {label}
           </p>
-          <p className="num mt-3 text-[30px] leading-none font-semibold tracking-tight text-ink" style={{ textAlign: "right" }}>
-            {fmtInt(value)}
+          <p className="num holo-num mt-3 text-[32px] leading-none font-semibold tracking-tight" style={{ textAlign: "right" }}>
+            <CountUp value={value} />
           </p>
           {hint && <p className="mt-2 text-[11.5px] leading-relaxed text-ink-3">{hint}</p>}
         </div>
@@ -60,8 +61,8 @@ function ServiceCard({ k, s }: { k: keyof typeof SERVICE; s: Summary["services"]
           {s ? (
             <div className="mt-4 flex items-end justify-between gap-2">
               <div>
-                <p className="num text-[24px] leading-none font-semibold text-ink" style={{ textAlign: "right" }}>
-                  {fmtInt(s.total)}
+                <p className="num holo-num text-[24px] leading-none font-semibold" style={{ textAlign: "right" }}>
+                  <CountUp value={s.total} />
                 </p>
                 <p className="mt-1.5 text-[11px] text-ink-3">إجمالي</p>
               </div>
@@ -91,7 +92,7 @@ function Revenue30() {
       {(cls) => (
         <a href={hrefTo("analytics")} className={cx("mt-2 flex items-center justify-between rounded-xl border border-line px-4 py-3 hover:border-line-strong", cls)}>
           <span className="text-[11.5px] text-ink-3">صافي الإيرادات · آخر 30 يومًا</span>
-          <span className="num text-[15px] font-semibold text-good">{fmtMoney(net)}</span>
+          <CountUp value={net} format={fmtMoney} className="num text-[15px] font-semibold text-good" />
         </a>
       )}
     </Changed>
@@ -199,7 +200,9 @@ export default function Overview() {
                       <a href={hrefTo("tickets", { service: "payments" })} className={cx("block rounded-xl border border-line bg-white/[0.015] p-4 hover:border-line-strong", cls)}>
                         <div className="flex items-end justify-between">
                           <div>
-                            <p className="num text-[28px] leading-none font-semibold text-ink">{fmtInt(payments.total)}</p>
+                            <p className="num holo-num text-[28px] leading-none font-semibold">
+                            <CountUp value={payments.total} />
+                          </p>
                             <p className="mt-1.5 text-[11px] text-ink-3">عملية دفع مسجّلة</p>
                           </div>
                           <div className="text-left">

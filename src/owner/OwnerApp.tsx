@@ -25,6 +25,11 @@ export default function OwnerApp() {
   const { page } = useOwnerRoute();
   const effects = useMotionPref();
 
+  // CSS-only effects (aurora drift, number shimmer) read this to stand still when effects are off.
+  useEffect(() => {
+    document.documentElement.dataset.effects = effects;
+  }, [effects]);
+
   useEffect(() => {
     ambient.section(OWNER_NAV.findIndex((n) => n.page === page));
     window.scrollTo({ top: 0 });
