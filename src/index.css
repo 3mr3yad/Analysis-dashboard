@@ -48,16 +48,18 @@
   color-scheme: dark;
 }
 
+:root[data-effects="off"] {
+  background:
+    radial-gradient(1000px 700px at 92% -120px, rgb(2 80 153 / 0.5), transparent 70%),
+    radial-gradient(800px 700px at 4% 520px, rgb(98 76 210 / 0.18), transparent 70%),
+    var(--color-canvas);
+}
+
 html,
 body {
-  /* Brand-tinted light for the glass surfaces to refract — without colour behind them, blur reads as flat grey. */
-  background:
-    radial-gradient(900px 620px at 92% -8%, rgb(2 80 153 / 0.55) 0%, transparent 62%),
-    radial-gradient(720px 520px at 8% 28%, rgb(1 185 245 / 0.13) 0%, transparent 60%),
-    radial-gradient(820px 620px at 55% 112%, rgb(98 76 210 / 0.2) 0%, transparent 60%),
-    radial-gradient(600px 420px at 30% 70%, rgb(2 80 153 / 0.14) 0%, transparent 65%),
-    var(--color-canvas);
-  background-attachment: fixed;
+  /* Plain colour: the brand light is painted by the ambient 3D background (one GPU layer, free to scroll).
+     With effects off there is no 3D layer, so a static, lighter version of the light is used instead. */
+  background: var(--color-canvas);
   color: var(--color-ink);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
@@ -66,8 +68,7 @@ body {
 
 body {
   min-height: 100dvh;
-  /* Transparent so the aurora and grid layers (body::before/::after, negative z-index) show; html keeps the paint. */
-  background: transparent;
+  background: transparent; /* the html background carries the light and grid */
 }
 
 ::selection {
@@ -82,14 +83,13 @@ body {
   unicode-bidi: isolate;
 }
 
-/* Frosted glass: translucent fill + blur, a lit top edge, and a soft sheen fading down. */
+/* Glass: translucent tinted fill, a lit top edge and a soft sheen fading down. No backdrop-filter here —
+   blurring 15+ cards over an animated background cost a full re-blur per card on every frame. */
 .card {
   position: relative;
   background:
-    linear-gradient(180deg, rgb(255 255 255 / 0.065) 0%, rgb(255 255 255 / 0.015) 45%, rgb(255 255 255 / 0) 100%),
-    rgb(12 15 22 / 0.42);
-  backdrop-filter: blur(22px) saturate(165%);
-  -webkit-backdrop-filter: blur(22px) saturate(165%);
+    linear-gradient(180deg, rgb(255 255 255 / 0.07) 0%, rgb(255 255 255 / 0.018) 45%, rgb(255 255 255 / 0) 100%),
+    rgb(11 14 21 / 0.66);
   border: 1px solid rgb(255 255 255 / 0.085);
   border-radius: var(--radius-card);
   box-shadow:
@@ -98,24 +98,22 @@ body {
     0 24px 48px -24px rgb(0 0 0 / 0.75);
 }
 
+/* Real blur only on the two chrome surfaces (top bar, sidebar), at a cheaper radius. */
 .glass {
-  background: linear-gradient(180deg, rgb(255 255 255 / 0.05), rgb(255 255 255 / 0.01)), rgb(10 13 19 / 0.55);
-  backdrop-filter: blur(24px) saturate(170%);
-  -webkit-backdrop-filter: blur(24px) saturate(170%);
+  background: linear-gradient(180deg, rgb(255 255 255 / 0.05), rgb(255 255 255 / 0.01)), rgb(10 13 19 / 0.62);
+  backdrop-filter: blur(14px) saturate(150%);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
 }
 
 /* Popovers sit over busy content and inside the blurred header (nested backdrop-filters can't blur), so they stay opaque. */
 .glass-pop {
   background: linear-gradient(180deg, rgb(255 255 255 / 0.06), rgb(255 255 255 / 0.015)), rgb(14 17 24);
-  backdrop-filter: blur(28px) saturate(170%);
-  -webkit-backdrop-filter: blur(28px) saturate(170%);
   box-shadow: inset 0 1px 0 0 rgb(255 255 255 / 0.1), 0 24px 60px -16px rgb(0 0 0 / 0.85);
 }
 
 /* No backdrop-filter support: fall back to solid surfaces so text never sits on raw background. */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .card { background: var(--color-surface); }
-  .glass, .glass-pop { background: var(--color-surface-2); }
+  .glass { background: var(--color-surface-2); }
 }
 
 .hairline {
@@ -254,43 +252,8 @@ select option {
 }
 
 /* ── Sci-fi layer ────────────────────────────────────────────────────────────
-   Aurora light drifting behind the glass, a faint HUD grid, light-edged cards with a hover sheen,
-   and holographic headline numbers. Movement is slow and stops with reduced motion or effects off. */
-
-body::before {
-  content: "";
-  position: fixed;
-  inset: -20%;
-  z-index: -20;
-  pointer-events: none;
-  background:
-    radial-gradient(38% 32% at 78% 18%, rgb(1 185 245 / 0.22), transparent 70%),
-    radial-gradient(34% 30% at 18% 62%, rgb(98 76 210 / 0.24), transparent 70%),
-    radial-gradient(30% 26% at 60% 88%, rgb(2 80 153 / 0.35), transparent 70%),
-    radial-gradient(26% 22% at 30% 12%, rgb(143 179 255 / 0.12), transparent 70%);
-  filter: blur(40px) saturate(130%);
-  animation: aurora 36s ease-in-out infinite alternate;
-}
-
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -19;
-  pointer-events: none;
-  background-image:
-    linear-gradient(rgb(143 179 255 / 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(143 179 255 / 0.045) 1px, transparent 1px);
-  background-size: 56px 56px;
-  mask-image: radial-gradient(ellipse 75% 60% at 50% 30%, #000 20%, transparent 80%);
-  -webkit-mask-image: radial-gradient(ellipse 75% 60% at 50% 30%, #000 20%, transparent 80%);
-}
-
-@keyframes aurora {
-  0% { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
-  50% { transform: translate3d(-4%, 3%, 0) rotate(8deg) scale(1.08); }
-  100% { transform: translate3d(3%, -2%, 0) rotate(-6deg) scale(1.02); }
-}
+   Light-edged cards with a hover sheen and holographic headline numbers (the light and grid are in the
+   html background above). Every effect here is static or finite, so an idle page costs nothing to keep drawing. */
 
 /* Light-catching edge: a 1px gradient ring that glows at two corners. */
 .card::before {
@@ -340,15 +303,14 @@ a.card:hover {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  filter: drop-shadow(0 0 14px rgb(1 185 245 / 0.18));
-  animation: holo 9s linear infinite;
+  /* Two passes on arrival, then still: background-position animation repaints text every frame. */
+  animation: holo 3.5s ease-in-out 2;
 }
 @keyframes holo {
   from { background-position: 0% 0; }
   to { background-position: -220% 0; }
 }
 
-:root[data-effects="off"] body::before,
 :root[data-effects="off"] .holo-num {
   animation: none;
 }
@@ -371,7 +333,7 @@ a.card:hover {
   inset: 0;
   background: linear-gradient(270deg, transparent 0%, rgb(255 255 255 / 0.45) 50%, transparent 100%);
   transform: translateX(110%);
-  animation: bar-shine 3.2s ease-in-out 1.1s infinite;
+  animation: bar-shine 3.2s ease-in-out 1.1s 3;
 }
 @keyframes bar-grow {
   from { transform: scaleX(0); }
@@ -406,12 +368,14 @@ a.card:hover {
   position: absolute;
   inset: -1px;
   border-radius: inherit;
+  border: 1.5px solid rgb(1 185 245 / 0.55);
   pointer-events: none;
-  animation: install-halo 3.6s ease-out infinite;
+  opacity: 0;
+  animation: install-halo 3.6s ease-out 1s 4;
 }
 @keyframes install-halo {
-  0% { box-shadow: 0 0 0 0 rgb(1 185 245 / 0.45); }
-  45%, 100% { box-shadow: 0 0 0 8px rgb(1 185 245 / 0); }
+  0% { opacity: 0.9; transform: scale(1); }
+  45%, 100% { opacity: 0; transform: scale(1.18, 1.45); }
 }
 :root[data-effects="off"] .install-btn::before {
   animation: none;

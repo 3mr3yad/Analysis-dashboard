@@ -29,13 +29,17 @@ interface Options {
   /** Advance and draw. Return true to keep animating, false when settled. */
   frame(dt: number, elapsed: number, reducedMotion: boolean): boolean;
   maxPixelRatio?: number;
+  /** Cap on redraws per second (default: every display frame). */
+  maxFps?: number;
+  /** Skip redraws while the page is scrolling, so scrolling gets the whole frame budget. */
+  pauseOnScroll?: boolean;
 }
 
 /**
  * Owns a renderer + rAF loop that only runs while the host is on screen, the tab is
  * visible and there is something to animate. Cleans up GPU resources on dispose.
  */
-export function createRuntime({ host, resize, frame, maxPixelRatio = 1.5 }: Options): SceneRuntime {
+export function createRuntime({ host, resize, frame, maxPixelRatio = 1.5, maxFps, pauseOnScroll = false }: Options): SceneRuntime {
   const renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true, powerPreference: "low-power" });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, maxPixelRatio));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -52,9 +56,21 @@ export function createRuntime({ host, resize, frame, maxPixelRatio = 1.5 }: Opti
   let elapsed = 0;
 
   const running = () => onScreen && document.visibilityState === "visible";
+  const minFrameMs = maxFps ? 1000 / maxFps - 1 : 0;
+  let scrollingUntil = 0;
+  const onScroll = () => {
+    scrollingUntil = performance.now() + 160;
+  };
+  if (pauseOnScroll) window.addEventListener("scroll", onScroll, { passive: true });
 
   const loop = (t: number) => {
     raf = 0;
+    // Hold this frame (without advancing the clock) when over the fps cap or mid-scroll.
+    if (t - last < minFrameMs || t < scrollingUntil) {
+      if (t < scrollingUntil) last = t;
+      if (running()) raf = requestAnimationFrame(loop);
+      return;
+    }
     const dt = Math.min(0.05, (t - last) / 1000);
     last = t;
     elapsed += dt;
@@ -101,6 +117,7 @@ export function createRuntime({ host, resize, frame, maxPixelRatio = 1.5 }: Opti
       ro.disconnect();
       io.disconnect();
       document.removeEventListener("visibilitychange", onVisibility);
+      window.removeEventListener("scroll", onScroll);
       motion.removeEventListener("change", onMotion);
       renderer.dispose();
       renderer.forceContextLoss();

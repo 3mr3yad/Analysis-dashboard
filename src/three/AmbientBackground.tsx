@@ -21,6 +21,37 @@ export default function AmbientBackground() {
     const camera = new THREE.PerspectiveCamera(55, 1, 0.1, 120);
     camera.position.set(0, 2.2, 14);
 
+    // Brand light as the scene background: a small 2D gradient image painted on resize only.
+    // The canvas is already a full-screen GPU layer, so this light costs nothing while scrolling
+    // (CSS gradient/fixed layers for the same look cost ~20fps on scroll — measured).
+    const light = document.createElement("canvas");
+    const lightTex = new THREE.CanvasTexture(light);
+    lightTex.colorSpace = THREE.SRGBColorSpace;
+    scene.background = lightTex;
+    const paintLight = (w: number, h: number) => {
+      light.width = 640;
+      light.height = Math.max(1, Math.round((640 * h) / w));
+      const ctx = light.getContext("2d");
+      if (!ctx) return;
+      const W = light.width;
+      const H = light.height;
+      const R = Math.max(W, H);
+      ctx.fillStyle = "#07090d";
+      ctx.fillRect(0, 0, W, H);
+      const glow = (x: number, y: number, r: number, rgb: string, a: number) => {
+        const g = ctx.createRadialGradient(x * W, y * H, 0, x * W, y * H, r * R);
+        g.addColorStop(0, `rgba(${rgb}, ${a})`);
+        g.addColorStop(1, `rgba(${rgb}, 0)`);
+        ctx.fillStyle = g;
+        ctx.fillRect(0, 0, W, H);
+      };
+      glow(0.9, -0.08, 0.62, "2, 80, 153", 0.6);
+      glow(0.8, 0.08, 0.38, "1, 185, 245", 0.14);
+      glow(0.04, 0.62, 0.48, "98, 76, 210", 0.24);
+      glow(0.6, 1.08, 0.55, "2, 80, 153", 0.32);
+      lightTex.needsUpdate = true;
+    };
+
     const world = new THREE.Group();
     scene.add(world);
 
@@ -78,7 +109,11 @@ export default function AmbientBackground() {
     const runtime = createRuntime({
       host: el,
       maxPixelRatio: 1.25,
+      // A slow drifting backdrop reads the same at 30fps; halving redraws frees the GPU for the page.
+      maxFps: 30,
+      pauseOnScroll: true,
       resize(w, h) {
+        paintLight(w, h);
         camera.aspect = w / h;
         camera.updateProjectionMatrix();
       },
@@ -125,6 +160,7 @@ export default function AmbientBackground() {
       off();
       window.removeEventListener("pointermove", onPointer);
       disposeTree(scene);
+      lightTex.dispose();
       runtime.dispose();
     };
   }, []);
