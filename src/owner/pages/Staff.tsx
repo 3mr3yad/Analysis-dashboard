@@ -151,7 +151,13 @@ function StaffDrawer({ member, onClose }: { member: StaffMember | null; onClose:
   );
 }
 
-/** Inferred from the admin panel's ~30s heartbeat — not a live socket, so it lags by up to the threshold. */
+/**
+ * Inferred from the admin panel's heartbeat. The 20s poll below stays the
+ * source of truth for *who's* online (and ages people out) — a Pusher push
+ * (presence.updated) layers on top so a page change shows up the instant it
+ * happens instead of waiting for the next poll tick. Falls back to the
+ * plain 20s poll alone if Pusher isn't configured or never connects.
+ */
 function OnlineNow() {
   // Stop polling once the server says the route doesn't exist.
   const [missing, setMissing] = useState(false);
@@ -165,8 +171,17 @@ function OnlineNow() {
     missing ? undefined : 20_000,
   );
   const [ticket, setTicket, closeTicket] = useSelection<TicketRef>();
+  const [live, setLive] = useState<Record<number, OnlineStaff>>({});
+
+  useEffect(() => {
+    if (missing) return;
+    return subscribePresenceUpdated((row) => {
+      setLive((prev) => ({ ...prev, [row.user.id]: row }));
+    });
+  }, [missing]);
+
   if (missing) return <NotDeployed what="عرض المتصلين الآن" endpoint="GET /staff/online" />;
-  const rows = q.data?.data ?? [];
+  const rows = (q.data?.data ?? []).map((r) => live[r.user.id] ?? r);
   const threshold = q.data?.meta.online_threshold_seconds;
   return (
     <Card>
